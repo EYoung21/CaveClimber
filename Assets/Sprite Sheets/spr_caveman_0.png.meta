@@ -1,0 +1,4155 @@
+fileFormatVersion: 2
+guid: 2949788f590fa44aba8c81499cdab7c1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2373512121416387292
+    second: spr_caveman_0_0
+  - first:
+      213: -6960662271231305983
+    second: spr_caveman_0_1
+  - first:
+      213: -4138967266946298601
+    second: spr_caveman_0_2
+  - first:
+      213: 7340804012370225610
+    second: spr_caveman_0_3
+  - first:
+      213: -5290678337200711309
+    second: spr_caveman_0_4
+  - first:
+      213: -3387123150320040322
+    second: spr_caveman_0_5
+  - first:
+      213: -2180942316643508510
+    second: spr_caveman_0_6
+  - first:
+      213: -8167859916712652320
+    second: spr_caveman_0_7
+  - first:
+      213: 5457847214661473768
+    second: spr_caveman_0_8
+  - first:
+      213: 1003037341304633171
+    second: spr_caveman_0_9
+  - first:
+      213: -678776775372415354
+    second: spr_caveman_0_10
+  - first:
+      213: -7020314200614732219
+    second: spr_caveman_0_11
+  - first:
+      213: 402722942381239908
+    second: spr_caveman_0_12
+  - first:
+      213: 6703496561520842948
+    second: spr_caveman_0_13
+  - first:
+      213: 7082373481237349030
+    second: spr_caveman_0_14
+  - first:
+      213: -5336061795668297417
+    second: spr_caveman_0_15
+  - first:
+      213: -6217315259595634760
+    second: spr_caveman_0_16
+  - first:
+      213: -2086582180203425651
+    second: spr_caveman_0_17
+  - first:
+      213: -8809459382521593996
+    second: spr_caveman_0_18
+  - first:
+      213: -6935394796658593875
+    second: spr_caveman_0_19
+  - first:
+      213: -805387375788355399
+    second: spr_caveman_0_20
+  - first:
+      213: 4360936785389601425
+    second: spr_caveman_0_21
+  - first:
+      213: -1835573172044634801
+    second: spr_caveman_0_22
+  - first:
+      213: -6517168889051352904
+    second: spr_caveman_0_23
+  - first:
+      213: -1240607413619693780
+    second: spr_caveman_0_24
+  - first:
+      213: -8446258810570863512
+    second: spr_caveman_0_25
+  - first:
+      213: -8020968952139541739
+    second: spr_caveman_0_26
+  - first:
+      213: -7781959453842693548
+    second: spr_caveman_0_27
+  - first:
+      213: -5679333831784871209
+    second: spr_caveman_0_28
+  - first:
+      213: 3735907724180351679
+    second: spr_caveman_0_29
+  - first:
+      213: 1371111140180029142
+    second: spr_caveman_0_30
+  - first:
+      213: -5153316122513516154
+    second: spr_caveman_0_31
+  - first:
+      213: 5666181889834414866
+    second: spr_caveman_0_32
+  - first:
+      213: -4807823064868867790
+    second: spr_caveman_0_33
+  - first:
+      213: -8915493241197941782
+    second: spr_caveman_0_34
+  - first:
+      213: -972720479846199880
+    second: spr_caveman_0_35
+  - first:
+      213: 6562328072038138604
+    second: spr_caveman_0_36
+  - first:
+      213: 2707675477505348997
+    second: spr_caveman_0_37
+  - first:
+      213: 8881019623768730546
+    second: spr_caveman_0_38
+  - first:
+      213: 8742356220520170917
+    second: spr_caveman_0_39
+  - first:
+      213: -8246177809177805198
+    second: spr_caveman_0_40
+  - first:
+      213: -8444737658875454739
+    second: spr_caveman_0_41
+  - first:
+      213: 9077375616603009652
+    second: spr_caveman_0_42
+  - first:
+      213: -484657558806534853
+    second: spr_caveman_0_43
+  - first:
+      213: 3865151104324558495
+    second: spr_caveman_0_44
+  - first:
+      213: -6302109383063749898
+    second: spr_caveman_0_45
+  - first:
+      213: 5052703107092898177
+    second: spr_caveman_0_46
+  - first:
+      213: -2444565724088025986
+    second: spr_caveman_0_47
+  - first:
+      213: -6428697574726774161
+    second: spr_caveman_0_48
+  - first:
+      213: 5625721905505207592
+    second: spr_caveman_0_49
+  - first:
+      213: 7618619774416685104
+    second: spr_caveman_0_50
+  - first:
+      213: -378236679570367897
+    second: spr_caveman_0_51
+  - first:
+      213: -6859828289234103479
+    second: spr_caveman_0_52
+  - first:
+      213: -7807416504139637588
+    second: spr_caveman_0_53
+  - first:
+      213: -180587735680541394
+    second: spr_caveman_0_54
+  - first:
+      213: 6675123701879602094
+    second: spr_caveman_0_55
+  - first:
+      213: 6286594287481134996
+    second: spr_caveman_0_56
+  - first:
+      213: 2959620869507778777
+    second: spr_caveman_0_57
+  - first:
+      213: -4826209940346549268
+    second: spr_caveman_0_58
+  - first:
+      213: -2092034967368956517
+    second: spr_caveman_0_59
+  - first:
+      213: -2612773720462087098
+    second: spr_caveman_0_60
+  - first:
+      213: -9212884133209804277
+    second: spr_caveman_0_61
+  - first:
+      213: -3413767548936812691
+    second: spr_caveman_0_62
+  - first:
+      213: -8556812802166737821
+    second: spr_caveman_0_63
+  - first:
+      213: -6565881963230633721
+    second: spr_caveman_0_64
+  - first:
+      213: -7884658857661511383
+    second: spr_caveman_0_65
+  - first:
+      213: -4562202449624446254
+    second: spr_caveman_0_66
+  - first:
+      213: -6929820915060976659
+    second: spr_caveman_0_67
+  - first:
+      213: -1467858210108245489
+    second: spr_caveman_0_68
+  - first:
+      213: 5486301059534119403
+    second: spr_caveman_0_69
+  - first:
+      213: -4567573948563548212
+    second: spr_caveman_0_70
+  - first:
+      213: -1188575811569523085
+    second: spr_caveman_0_71
+  - first:
+      213: -5820752828932987333
+    second: spr_caveman_0_72
+  - first:
+      213: -1719651177725242725
+    second: spr_caveman_0_73
+  - first:
+      213: 2884983414323859451
+    second: spr_caveman_0_74
+  - first:
+      213: 6832049855821971276
+    second: spr_caveman_0_75
+  - first:
+      213: 5434647014356468491
+    second: spr_caveman_0_76
+  - first:
+      213: -1295507031323419072
+    second: spr_caveman_0_77
+  - first:
+      213: -1718412869275125241
+    second: spr_caveman_0_78
+  - first:
+      213: -7904126316083561354
+    second: spr_caveman_0_79
+  - first:
+      213: 8960968104955020288
+    second: spr_caveman_0_80
+  - first:
+      213: -5120285273937236973
+    second: spr_caveman_0_81
+  - first:
+      213: 7113768706494894310
+    second: spr_caveman_0_82
+  - first:
+      213: -1120493346223574288
+    second: spr_caveman_0_83
+  - first:
+      213: 171476268641927911
+    second: spr_caveman_0_84
+  - first:
+      213: 6453749501852816527
+    second: spr_caveman_0_85
+  - first:
+      213: -357369467017291485
+    second: spr_caveman_0_86
+  - first:
+      213: -3398387723872300468
+    second: spr_caveman_0_87
+  - first:
+      213: -8224583699256821658
+    second: spr_caveman_0_88
+  - first:
+      213: -6502124853330908819
+    second: spr_caveman_0_89
+  - first:
+      213: -5663810986924798038
+    second: spr_caveman_0_90
+  - first:
+      213: -6811322980806473346
+    second: spr_caveman_0_91
+  - first:
+      213: -2613388013604619527
+    second: spr_caveman_0_92
+  - first:
+      213: 9116865592393714945
+    second: spr_caveman_0_93
+  - first:
+      213: -4262841958749487308
+    second: spr_caveman_0_94
+  - first:
+      213: 154871077817343072
+    second: spr_caveman_0_95
+  - first:
+      213: 3096773927223003758
+    second: spr_caveman_0_96
+  - first:
+      213: 3210065995357130877
+    second: spr_caveman_0_97
+  - first:
+      213: -7370008115835638442
+    second: spr_caveman_0_98
+  - first:
+      213: 5212371132364619323
+    second: spr_caveman_0_99
+  - first:
+      213: 2203565461256909109
+    second: spr_caveman_0_100
+  - first:
+      213: -6651607080648319925
+    second: spr_caveman_0_101
+  - first:
+      213: 8207238965973242337
+    second: spr_caveman_0_102
+  - first:
+      213: 1195773491935533825
+    second: spr_caveman_0_103
+  - first:
+      213: 7054588035685008001
+    second: spr_caveman_0_104
+  - first:
+      213: -9103736003184306781
+    second: spr_caveman_0_105
+  - first:
+      213: 3828607082293613293
+    second: spr_caveman_0_106
+  - first:
+      213: 7639554217623733851
+    second: spr_caveman_0_107
+  - first:
+      213: 1412579324878016601
+    second: spr_caveman_0_108
+  - first:
+      213: -5874683398789729907
+    second: spr_caveman_0_109
+  - first:
+      213: -8617428387344270157
+    second: spr_caveman_0_110
+  - first:
+      213: -2555292919521266176
+    second: spr_caveman_0_111
+  - first:
+      213: 8252948364506470925
+    second: spr_caveman_0_112
+  - first:
+      213: -9085100877111482775
+    second: spr_caveman_0_113
+  - first:
+      213: -2627063743526710694
+    second: spr_caveman_0_114
+  - first:
+      213: 3986366055687090856
+    second: spr_caveman_0_115
+  - first:
+      213: -4780999621036162948
+    second: spr_caveman_0_116
+  - first:
+      213: 3507913476289495006
+    second: spr_caveman_0_117
+  - first:
+      213: -6584535660929733395
+    second: spr_caveman_0_118
+  - first:
+      213: 1554768719409999462
+    second: spr_caveman_0_119
+  - first:
+      213: -2389968366444118144
+    second: spr_caveman_0_120
+  - first:
+      213: 4762602575593973194
+    second: spr_caveman_0_121
+  - first:
+      213: 1415412239571341472
+    second: spr_caveman_0_122
+  - first:
+      213: 8141759429402820684
+    second: spr_caveman_0_123
+  - first:
+      213: -1346528357229845472
+    second: spr_caveman_0_124
+  - first:
+      213: -5710207391491694380
+    second: spr_caveman_0_125
+  - first:
+      213: -1368089257567823111
+    second: spr_caveman_0_126
+  - first:
+      213: -7713594895817391033
+    second: spr_caveman_0_127
+  - first:
+      213: 7386987266307733330
+    second: spr_caveman_0_128
+  - first:
+      213: -9110444888946544921
+    second: spr_caveman_0_129
+  - first:
+      213: -2500994483880447026
+    second: spr_caveman_0_130
+  - first:
+      213: 5431967804397934025
+    second: spr_caveman_0_131
+  - first:
+      213: 3249414241715557401
+    second: spr_caveman_0_132
+  - first:
+      213: 839763431237764529
+    second: spr_caveman_0_133
+  - first:
+      213: -7721742541120000662
+    second: spr_caveman_0_134
+  - first:
+      213: 1464207184031238934
+    second: spr_caveman_0_135
+  - first:
+      213: -5458025713374832323
+    second: spr_caveman_0_136
+  - first:
+      213: 6381302551106386648
+    second: spr_caveman_0_137
+  - first:
+      213: -1357217590567289958
+    second: spr_caveman_0_138
+  - first:
+      213: 2065310872642467109
+    second: spr_caveman_0_139
+  - first:
+      213: 1098279516177666085
+    second: spr_caveman_0_140
+  - first:
+      213: 1101168242230928965
+    second: spr_caveman_0_141
+  - first:
+      213: -4082083513183899875
+    second: spr_caveman_0_142
+  - first:
+      213: 8893950281208132526
+    second: spr_caveman_0_143
+  - first:
+      213: 4711333241936490885
+    second: spr_caveman_0_144
+  - first:
+      213: 8435282849234108016
+    second: spr_caveman_0_145
+  - first:
+      213: 5866128967599143746
+    second: spr_caveman_0_146
+  - first:
+      213: -5442411334029519152
+    second: spr_caveman_0_147
+  - first:
+      213: -7836560433381294949
+    second: spr_caveman_0_148
+  - first:
+      213: -7206870004281474602
+    second: spr_caveman_0_149
+  - first:
+      213: -6607110651355551332
+    second: spr_caveman_0_150
+  - first:
+      213: 3250476089671519026
+    second: spr_caveman_0_151
+  - first:
+      213: -3527488909827596790
+    second: spr_caveman_0_152
+  - first:
+      213: 8148712304350910486
+    second: spr_caveman_0_153
+  - first:
+      213: 5004650584097113706
+    second: spr_caveman_0_154
+  - first:
+      213: 1474871424137880656
+    second: spr_caveman_0_155
+  - first:
+      213: 2382156944433057002
+    second: spr_caveman_0_156
+  - first:
+      213: -7020186009648860003
+    second: spr_caveman_0_157
+  - first:
+      213: -3583363853547083971
+    second: spr_caveman_0_158
+  - first:
+      213: 3572587862406747164
+    second: spr_caveman_0_159
+  - first:
+      213: -129895995518976578
+    second: spr_caveman_0_160
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spr_caveman_0_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 511
+        width: 13
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cda8b13f2b860f020800000000000000
+      internalID: 2373512121416387292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 511
+        width: 10
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1075bc12b82c66f90800000000000000
+      internalID: -6960662271231305983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_2
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 511
+        width: 10
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71d42bc233f6f86c0800000000000000
+      internalID: -4138967266946298601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_3
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 511
+        width: 10
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac9e6132b56cfd560800000000000000
+      internalID: 7340804012370225610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_4
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 511
+        width: 10
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3791c42651cb396b0800000000000000
+      internalID: -5290678337200711309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_5
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 511
+        width: 12
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e760ca6c0758ef0d0800000000000000
+      internalID: -3387123150320040322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_6
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 526
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ee98d4a48cbbb1e0800000000000000
+      internalID: -2180942316643508510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_7
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 526
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e1d0315eaee5ae80800000000000000
+      internalID: -8167859916712652320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_8
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 526
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e59044ff1b2ebb40800000000000000
+      internalID: 5457847214661473768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_9
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 526
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3573ae8c5218bed00800000000000000
+      internalID: 1003037341304633171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_10
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 478
+        width: 12
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68e542e7e108496f0800000000000000
+      internalID: -678776775372415354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_11
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 478
+        width: 14
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54e7ab40e65d29e90800000000000000
+      internalID: -7020314200614732219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_12
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 483
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46ea883e162c69500800000000000000
+      internalID: 402722942381239908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_13
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 478
+        width: 14
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c890862b9a970d50800000000000000
+      internalID: 6703496561520842948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_14
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 478
+        width: 12
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a28ccb3825a94260800000000000000
+      internalID: 7082373481237349030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_15
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 482
+        width: 18
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73978a9811082f5b0800000000000000
+      internalID: -5336061795668297417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_16
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 478
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b7cf2f46b8a7b9a0800000000000000
+      internalID: -6217315259595634760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_17
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 492
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d809052ff88fa03e0800000000000000
+      internalID: -2086582180203425651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_18
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 492
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47f7199bd538eb580800000000000000
+      internalID: -8809459382521593996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_19
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 492
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daf62108d2780cf90800000000000000
+      internalID: -6935394796658593875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_20
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 414
+        width: 21
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b01d87e270b2d4f0800000000000000
+      internalID: -805387375788355399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_21
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 459
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 192c41da6e8258c30800000000000000
+      internalID: 4360936785389601425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_22
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 459
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f45ea01ecebb686e0800000000000000
+      internalID: -1835573172044634801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_23
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 459
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b0fdd2cc6d5e85a0800000000000000
+      internalID: -6517168889051352904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_24
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 446
+        width: 14
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c276b7d512a78cee0800000000000000
+      internalID: -1240607413619693780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_25
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 461
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86c09eaac5cd8ca80800000000000000
+      internalID: -8446258810570863512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_26
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 461
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51319452c3bcfa090800000000000000
+      internalID: -8020968952139541739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_27
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 461
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 452a6397b1de00490800000000000000
+      internalID: -7781959453842693548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_28
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 461
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7daca9b68f3fe21b0800000000000000
+      internalID: -5679333831784871209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_29
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 461
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fba686d084c98d330800000000000000
+      internalID: 3735907724180351679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_30
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 461
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dee20a415a270310800000000000000
+      internalID: 1371111140180029142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_31
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 461
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 689d94e3a4ebb78b0800000000000000
+      internalID: -5153316122513516154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_32
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 382
+        width: 18
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 213f458786252ae40800000000000000
+      internalID: 5666181889834414866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_33
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 414
+        width: 23
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 231bf8b356e274db0800000000000000
+      internalID: -4807823064868867790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_34
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 414
+        width: 26
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeb2009222ec54480800000000000000
+      internalID: -8915493241197941782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_35
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 427
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bd050590e33082f0800000000000000
+      internalID: -972720479846199880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_36
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 427
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce24861ec92121b50800000000000000
+      internalID: 6562328072038138604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_37
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 427
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5851ebb3088939520800000000000000
+      internalID: 2707675477505348997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_38
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 427
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bb220e4b48bf3b70800000000000000
+      internalID: 8881019623768730546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_39
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 427
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a50800e9a6135970800000000000000
+      internalID: 8742356220520170917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_40
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 427
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27e7f3109f0bf8d80800000000000000
+      internalID: -8246177809177805198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_41
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 383
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dea5d5567d34eca80800000000000000
+      internalID: -8444737658875454739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_42
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 383
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4723a60870159fd70800000000000000
+      internalID: 9077375616603009652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_43
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 383
+        width: 17
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b35e0a1a4862649f0800000000000000
+      internalID: -484657558806534853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_44
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 382
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9e59707376c3a530800000000000000
+      internalID: 3865151104324558495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_45
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 385
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fa34d6f7e86a88a0800000000000000
+      internalID: -6302109383063749898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_46
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 398
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 181e8cd94bece1640800000000000000
+      internalID: 5052703107092898177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_47
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 398
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7c33a10d68231ed0800000000000000
+      internalID: -2444565724088025986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_48
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 398
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f62def1dd9da8c6a0800000000000000
+      internalID: -6428697574726774161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_49
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 398
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82585c64444921e40800000000000000
+      internalID: 5625721905505207592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_50
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 319
+        width: 18
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0388fd4d156cab960800000000000000
+      internalID: 7618619774416685104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_51
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 350
+        width: 11
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76a5f217ebb30caf0800000000000000
+      internalID: -378236679570367897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_52
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 350
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9439600148efcc0a0800000000000000
+      internalID: -6859828289234103479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_53
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 350
+        width: 32
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cac1c311e0c76a390800000000000000
+      internalID: -7807416504139637588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_54
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 361
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2d18f3496c6e7df0800000000000000
+      internalID: -180587735680541394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_55
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 361
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eabf25af3adc2ac50800000000000000
+      internalID: 6675123701879602094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_56
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 361
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49f105852387e3750800000000000000
+      internalID: 6286594287481134996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_57
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 361
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d808d4008fa21920800000000000000
+      internalID: 2959620869507778777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_58
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 361
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb4f2e21abd50db0800000000000000
+      internalID: -4826209940346549268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_59
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 350
+        width: 34
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b950740084997f2e0800000000000000
+      internalID: -2092034967368956517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_60
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 329
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64ca161f4209dbbd0800000000000000
+      internalID: -2612773720462087098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_61
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 329
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b02723b51b2452080800000000000000
+      internalID: -9212884133209804277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_62
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 329
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d678ddb408cdf90d0800000000000000
+      internalID: -3413767548936812691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_63
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 329
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3643655a718104980800000000000000
+      internalID: -8556812802166737821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_64
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 329
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7016e78542d41e4a0800000000000000
+      internalID: -6565881963230633721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_65
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 329
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 929c2fd2b80149290800000000000000
+      internalID: -7884658857661511383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_66
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 287
+        width: 10
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dac7bc2b0dcfa0c0800000000000000
+      internalID: -4562202449624446254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_67
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 295
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de3d7b0f79454df90800000000000000
+      internalID: -6929820915060976659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_68
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 295
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0a7bd52cbe11abe0800000000000000
+      internalID: -1467858210108245489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_69
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 295
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be16168feb1432c40800000000000000
+      internalID: 5486301059534119403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_70
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 295
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc79a8e91b7bc90c0800000000000000
+      internalID: -4567573948563548212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_71
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 296
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 376e6c2c894518fe0800000000000000
+      internalID: -1188575811569523085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_72
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 295
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b36691a4428883fa0800000000000000
+      internalID: -5820752828932987333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_73
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 295
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b92da1e6d529228e0800000000000000
+      internalID: -1719651177725242725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_74
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 295
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bffcaa94125890820800000000000000
+      internalID: 2884983414323859451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_75
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 295
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4ff608652150de50800000000000000
+      internalID: 6832049855821971276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_76
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 295
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b03ca526aaebb6b40800000000000000
+      internalID: 5434647014356468491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_77
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 295
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04e52f9083f650ee0800000000000000
+      internalID: -1295507031323419072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_78
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 259
+        width: 15
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70a75659998f628e0800000000000000
+      internalID: -1718412869275125241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_79
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 263
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67cb50e4ef6ee4290800000000000000
+      internalID: -7904126316083561354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_80
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 272
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0040373a301cb5c70800000000000000
+      internalID: 8960968104955020288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_81
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 272
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31cae4afba711f8b0800000000000000
+      internalID: -5120285273937236973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_82
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 272
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e01becb2fe29b260800000000000000
+      internalID: 7113768706494894310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_83
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 272
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f2b72dfc353370f0800000000000000
+      internalID: -1120493346223574288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_84
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 222
+        width: 13
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e2cfcff1c4316200800000000000000
+      internalID: 171476268641927911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_85
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 222
+        width: 14
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f849a4f7af2509950800000000000000
+      internalID: 6453749501852816527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_86
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 223
+        width: 13
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3291dd8fc5e5a0bf0800000000000000
+      internalID: -357369467017291485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_87
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 223
+        width: 13
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c421b8dde5086d0d0800000000000000
+      internalID: -3398387723872300468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_88
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 234
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 668345483b86cdd80800000000000000
+      internalID: -8224583699256821658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_89
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 234
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d69e8f745efc3c5a0800000000000000
+      internalID: -6502124853330908819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_90
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 234
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaf84616ae91661b0800000000000000
+      internalID: -5663810986924798038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_91
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 234
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e79439e36d15971a0800000000000000
+      internalID: -6811322980806473346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_92
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 234
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fa35dca2716bbbd0800000000000000
+      internalID: -2613388013604619527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_93
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 234
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10dcb9bf3fc958e70800000000000000
+      internalID: 9116865592393714945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_94
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 191
+        width: 28
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43f3b13f2d757d4c0800000000000000
+      internalID: -4262841958749487308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_95
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 191
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06cd84bbc66362200800000000000000
+      internalID: 154871077817343072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_96
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 191
+        width: 28
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6a81d9ba73f9fa20800000000000000
+      internalID: 3096773927223003758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_97
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 191
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7092ded3027c8c20800000000000000
+      internalID: 3210065995357130877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_98
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 197
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65deed7aaa878b990800000000000000
+      internalID: -7370008115835638442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_99
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 197
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3ef716bdef065840800000000000000
+      internalID: 5212371132364619323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_100
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 197
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 531b98dac13a49e10800000000000000
+      internalID: 2203565461256909109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_101
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 197
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4cdb741a9eb0b3a0800000000000000
+      internalID: -6651607080648319925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_102
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 197
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e154911b58f5e170800000000000000
+      internalID: 8207238965973242337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_103
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 197
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10b55aac7ad389010800000000000000
+      internalID: 1195773491935533825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_104
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 197
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 182c9bf017ee6e160800000000000000
+      internalID: 7054588035685008001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_105
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 126
+        width: 16
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a5d349b65809a180800000000000000
+      internalID: -9103736003184306781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_106
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 126
+        width: 17
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de2d7a44bd1f12530800000000000000
+      internalID: 3828607082293613293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_107
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 126
+        width: 16
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b56ccc7b516250a60800000000000000
+      internalID: 7639554217623733851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_108
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 158
+        width: 15
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9505a6c696d7a9310800000000000000
+      internalID: 1412579324878016601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_109
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 172
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d81f04ff29ee87ea0800000000000000
+      internalID: -5874683398789729907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_110
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 172
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bc3afee98eb86880800000000000000
+      internalID: -8617428387344270157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_111
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 172
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0063dd2d0a6c98cd0800000000000000
+      internalID: -2555292919521266176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_112
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 172
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0a9c00cfcc588270800000000000000
+      internalID: 8252948364506470925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_113
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 172
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9662e2f13ec3be180800000000000000
+      internalID: -9085100877111482775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_114
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 172
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5258cca17bca8bd0800000000000000
+      internalID: -2627063743526710694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_115
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 138
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a277e59eca625730800000000000000
+      internalID: 3986366055687090856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_116
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 138
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c70ccdcec2a76adb0800000000000000
+      internalID: -4780999621036162948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_117
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 138
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edf7a0198bc9ea030800000000000000
+      internalID: 3507913476289495006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_118
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 138
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dec2467e3b70f94a0800000000000000
+      internalID: -6584535660929733395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_119
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 138
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66e625ca9e5a39510800000000000000
+      internalID: 1554768719409999462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_120
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 126
+        width: 10
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08f7dadee6025ded0800000000000000
+      internalID: -2389968366444118144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_121
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 138
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac5a3a42fc9281240800000000000000
+      internalID: 4762602575593973194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_122
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 138
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a0d366ceed84a310800000000000000
+      internalID: 1415412239571341472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_123
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 138
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c400e3c60175df070800000000000000
+      internalID: 8141759429402820684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_124
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 138
+        width: 7
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0242353e79b205de0800000000000000
+      internalID: -1346528357229845472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_125
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 93
+        width: 12
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d0e354a1a441c0b0800000000000000
+      internalID: -5710207391491694380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_126
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 93
+        width: 15
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fa54a59112930de0800000000000000
+      internalID: -1368089257567823111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_127
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 93
+        width: 14
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 744c9858f4ec3f490800000000000000
+      internalID: -7713594895817391033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_128
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 104
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2573b90e7c9d38660800000000000000
+      internalID: 7386987266307733330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_129
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 104
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ee619884a2319180800000000000000
+      internalID: -9110444888946544921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_130
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 104
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec3381b84ceaa4dd0800000000000000
+      internalID: -2500994483880447026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_131
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 104
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c55f7430f9326b40800000000000000
+      internalID: 5431967804397934025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_132
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 104
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9141d85690d381d20800000000000000
+      internalID: 3249414241715557401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_133
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 104
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b54a46346077ab00800000000000000
+      internalID: 839763431237764529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_134
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 104
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6d2585021cd6d490800000000000000
+      internalID: -7721742541120000662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_135
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 104
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61bc1c91da8e15410800000000000000
+      internalID: 1464207184031238934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_136
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 104
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d39585318823144b0800000000000000
+      internalID: -5458025713374832323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_137
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 103
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8da7df25cd0fe8850800000000000000
+      internalID: 6381302551106386648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_138
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 70
+        width: 30
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9b335fcac13a2de0800000000000000
+      internalID: -1357217590567289958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_139
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 67
+        width: 33
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5253b92db4579ac10800000000000000
+      internalID: 2065310872642467109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_140
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 67
+        width: 30
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5209bd9a66fdd3f00800000000000000
+      internalID: 1098279516177666085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_141
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 69
+        width: 39
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 546ad1c9ea2284f00800000000000000
+      internalID: 1101168242230928965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_142
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 71
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1fe13d2ca68957c0800000000000000
+      internalID: -4082083513183899875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_143
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 71
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea3756998a8ad6b70800000000000000
+      internalID: 8893950281208132526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_144
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 71
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5813d103f94026140800000000000000
+      internalID: 4711333241936490885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_145
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 71
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07e3b803f05201570800000000000000
+      internalID: 8435282849234108016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_146
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 71
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24b3068473da86150800000000000000
+      internalID: 5866128967599143746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_147
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 71
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d65c911abba874b0800000000000000
+      internalID: -5442411334029519152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_148
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 30
+        width: 19
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9c3d634ec1fe3390800000000000000
+      internalID: -7836560433381294949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_149
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 30
+        width: 15
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d1826c2aed0cfb90800000000000000
+      internalID: -7206870004281474602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_150
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 30
+        width: 12
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c99a04a5ed3de44a0800000000000000
+      internalID: -6607110651355551332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_151
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 42
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23b85c328c20c1d20800000000000000
+      internalID: 3250476089671519026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_152
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 42
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0e9894a687db0fc0800000000000000
+      internalID: -3527488909827596790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_153
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 42
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 618d0b5caaa061170800000000000000
+      internalID: 8148712304350910486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_154
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 42
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a664f02c037147540800000000000000
+      internalID: 5004650584097113706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_155
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 42
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 054ec1dfebbc77410800000000000000
+      internalID: 1474871424137880656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_156
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 42
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aec8928ae1f1f0120800000000000000
+      internalID: 2382156944433057002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_157
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 42
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9476bdc40a439e90800000000000000
+      internalID: -7020186009648860003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_158
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 42
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d37e9588f85554ec0800000000000000
+      internalID: -3583363853547083971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_159
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 42
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1450a38bb1649130800000000000000
+      internalID: 3572587862406747164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_caveman_0_160
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 42
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebd7851c744823ef0800000000000000
+      internalID: -129895995518976578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

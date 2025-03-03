@@ -1,0 +1,1355 @@
+fileFormatVersion: 2
+guid: 552cc81ed6e3a4fe19bdb290710617d2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8502001433160406624
+    second: lr_penguin2_0
+  - first:
+      213: -6154971821743390787
+    second: lr_penguin2_1
+  - first:
+      213: 6659348724833796956
+    second: lr_penguin2_2
+  - first:
+      213: 3981466437105735732
+    second: lr_penguin2_3
+  - first:
+      213: 5677434993147051001
+    second: lr_penguin2_4
+  - first:
+      213: 1812779387559667755
+    second: lr_penguin2_5
+  - first:
+      213: 3319477496325162091
+    second: lr_penguin2_6
+  - first:
+      213: 6471999856080312993
+    second: lr_penguin2_7
+  - first:
+      213: 703205189902106635
+    second: lr_penguin2_8
+  - first:
+      213: -8375713226326130055
+    second: lr_penguin2_9
+  - first:
+      213: -5775226876681261795
+    second: lr_penguin2_10
+  - first:
+      213: -8013891949810830094
+    second: lr_penguin2_11
+  - first:
+      213: 2925058609405981034
+    second: lr_penguin2_12
+  - first:
+      213: -3637586605419418026
+    second: lr_penguin2_13
+  - first:
+      213: -2992556315610962160
+    second: lr_penguin2_14
+  - first:
+      213: -6841965924589110577
+    second: lr_penguin2_15
+  - first:
+      213: 5212595369005183658
+    second: lr_penguin2_16
+  - first:
+      213: -9207326934944434891
+    second: lr_penguin2_17
+  - first:
+      213: 5874480765736206414
+    second: lr_penguin2_18
+  - first:
+      213: 8305776444169012015
+    second: lr_penguin2_19
+  - first:
+      213: 3302804024533704070
+    second: lr_penguin2_20
+  - first:
+      213: 1557345084110807799
+    second: lr_penguin2_21
+  - first:
+      213: 2031578967899232881
+    second: lr_penguin2_22
+  - first:
+      213: 8424240398428855022
+    second: lr_penguin2_23
+  - first:
+      213: 8805754671041282637
+    second: lr_penguin2_24
+  - first:
+      213: -1542037196011888554
+    second: lr_penguin2_25
+  - first:
+      213: -8491289508014637800
+    second: lr_penguin2_26
+  - first:
+      213: -2967429875748981866
+    second: lr_penguin2_27
+  - first:
+      213: 5586779682391019820
+    second: lr_penguin2_28
+  - first:
+      213: 3073203413145051197
+    second: lr_penguin2_29
+  - first:
+      213: -6702829792428416420
+    second: lr_penguin2_30
+  - first:
+      213: -8213029461060112939
+    second: lr_penguin2_31
+  - first:
+      213: 2714967461662568081
+    second: lr_penguin2_32
+  - first:
+      213: -7110848022424215732
+    second: lr_penguin2_33
+  - first:
+      213: -1608298603635000383
+    second: lr_penguin2_34
+  - first:
+      213: 3172236537660070597
+    second: lr_penguin2_35
+  - first:
+      213: -6303265027876720338
+    second: lr_penguin2_36
+  - first:
+      213: 2867357754030476706
+    second: lr_penguin2_37
+  - first:
+      213: 9084138362630246056
+    second: lr_penguin2_38
+  - first:
+      213: -5569062955241930564
+    second: lr_penguin2_39
+  - first:
+      213: 6921344912967914199
+    second: lr_penguin2_40
+  - first:
+      213: 8865107474658742033
+    second: lr_penguin2_41
+  - first:
+      213: -6408175146255466906
+    second: lr_penguin2_42
+  - first:
+      213: 3354494167214812801
+    second: lr_penguin2_43
+  - first:
+      213: 264684377806005970
+    second: lr_penguin2_44
+  - first:
+      213: -7366540041179217481
+    second: lr_penguin2_45
+  - first:
+      213: -5176842577669836924
+    second: lr_penguin2_46
+  - first:
+      213: -1492881708347722656
+    second: lr_penguin2_47
+  - first:
+      213: 8072852967242237835
+    second: lr_penguin2_48
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lr_penguin2_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 223
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0665367024d2df570800000000000000
+      internalID: 8502001433160406624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 223
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbf32721db5259aa0800000000000000
+      internalID: -6154971821743390787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_2
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 223
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c534b2be162ca6c50800000000000000
+      internalID: 6659348724833796956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_3
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 223
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 438d3dc31a2014730800000000000000
+      internalID: 3981466437105735732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_4
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 223
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fbf6e1cb0d4ace40800000000000000
+      internalID: 5677434993147051001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_5
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 223
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b28e4ab9f39482910800000000000000
+      internalID: 1812779387559667755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_6
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 223
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b644d501237211e20800000000000000
+      internalID: 3319477496325162091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_7
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 223
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aadb08349921d950800000000000000
+      internalID: 6471999856080312993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_8
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 192
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b00835cf46942c900800000000000000
+      internalID: 703205189902106635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_9
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 191
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9724a44723d73cb80800000000000000
+      internalID: -8375713226326130055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_10
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 191
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1def1e01c54adfa0800000000000000
+      internalID: -5775226876681261795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_11
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 191
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f4b9272bbfe8c090800000000000000
+      internalID: -8013891949810830094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_12
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 192
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6177d0ce45e79820800000000000000
+      internalID: 2925058609405981034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_13
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 191
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65ea1405142b48dc0800000000000000
+      internalID: -3637586605419418026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_14
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 191
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01728add2ed4876d0800000000000000
+      internalID: -2992556315610962160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_15
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 191
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcaf98bed347c01a0800000000000000
+      internalID: -6841965924589110577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_16
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 159
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa2766fdedbd65840800000000000000
+      internalID: 5212595369005183658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_17
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 159
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53530c76fe0093080800000000000000
+      internalID: -9207326934944434891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_18
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 159
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e404291d129568150800000000000000
+      internalID: 5874480765736206414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_19
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 159
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f23408a8bab044370800000000000000
+      internalID: 8305776444169012015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_20
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 159
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68ddf05e2cae5dd20800000000000000
+      internalID: 3302804024533704070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_21
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 159
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f220235a1dcc9510800000000000000
+      internalID: 1557345084110807799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_22
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 159
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17ad9cabe4e913c10800000000000000
+      internalID: 2031578967899232881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_23
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 160
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eead8d2420ae8e470800000000000000
+      internalID: 8424240398428855022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_24
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 128
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4207aae733543a70800000000000000
+      internalID: 8805754671041282637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_25
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 128
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 650a54d1755999ae0800000000000000
+      internalID: -1542037196011888554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_26
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 128
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81d39c56e21e82a80800000000000000
+      internalID: -8491289508014637800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_27
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 127
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 693b918004291d6d0800000000000000
+      internalID: -2967429875748981866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_28
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 127
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c215947658a388d40800000000000000
+      internalID: 5586779682391019820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_29
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 127
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d306703c83636aa20800000000000000
+      internalID: 3073203413145051197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_30
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 127
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c52266021d3caf2a0800000000000000
+      internalID: -6702829792428416420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_31
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 127
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dda1bb3835750e80800000000000000
+      internalID: -8213029461060112939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_32
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 95
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19e242995808da520800000000000000
+      internalID: 2714967461662568081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_33
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 73
+        width: 13
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4f9d930661315d90800000000000000
+      internalID: -7110848022424215732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_34
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 73
+        width: 14
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cb349de0fc2ea9e0800000000000000
+      internalID: -1608298603635000383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_35
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 95
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ca5eb2e25c060c20800000000000000
+      internalID: 3172236537660070597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_36
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 95
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e21f3407add4688a0800000000000000
+      internalID: -6303265027876720338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_37
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 95
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2adc2f47fa6eac720800000000000000
+      internalID: 2867357754030476706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_38
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 95
+        width: 7
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ae031306b7511e70800000000000000
+      internalID: 9084138362630246056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_39
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 95
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb084059fb6b6b2b0800000000000000
+      internalID: -5569062955241930564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_40
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 64
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d2d869078e8d0060800000000000000
+      internalID: 6921344912967914199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_41
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 63
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11fc1b26740370b70800000000000000
+      internalID: 8865107474658742033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_42
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 63
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66eb4fc08a69117a0800000000000000
+      internalID: -6408175146255466906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_43
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 63
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18e65f51cae8d8e20800000000000000
+      internalID: 3354494167214812801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_44
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 63
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d6e8bc0a095ca300800000000000000
+      internalID: 264684377806005970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_45
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 63
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b142d5bcdac4c990800000000000000
+      internalID: -7366540041179217481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_46
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 31
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48f2fdb8a192828b0800000000000000
+      internalID: -5176842577669836924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_47
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 31
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0647142fef7384be0800000000000000
+      internalID: -1492881708347722656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lr_penguin2_48
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 31
+        width: 18
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b878e6c7009880070800000000000000
+      internalID: 8072852967242237835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

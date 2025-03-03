@@ -1,0 +1,2080 @@
+fileFormatVersion: 2
+guid: 672840877a5a746088654044f1c0d2c3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5661222587379661605
+    second: snow_heavy_0
+  - first:
+      213: -4968078088553973021
+    second: snow_heavy_1
+  - first:
+      213: 3242339439861605134
+    second: snow_heavy_2
+  - first:
+      213: -5498284743619078880
+    second: snow_heavy_3
+  - first:
+      213: -4485863550700372339
+    second: snow_heavy_4
+  - first:
+      213: -5592591816707452072
+    second: snow_heavy_5
+  - first:
+      213: 659238248180892108
+    second: snow_heavy_6
+  - first:
+      213: -4376195827697143522
+    second: snow_heavy_7
+  - first:
+      213: 7811339983201205356
+    second: snow_heavy_8
+  - first:
+      213: -5833222082115979516
+    second: snow_heavy_9
+  - first:
+      213: -8993234676206716152
+    second: snow_heavy_10
+  - first:
+      213: -1470987641241624897
+    second: snow_heavy_11
+  - first:
+      213: 4049773785312151167
+    second: snow_heavy_12
+  - first:
+      213: 3773498554347279029
+    second: snow_heavy_13
+  - first:
+      213: -3511786797545565381
+    second: snow_heavy_14
+  - first:
+      213: -2909228189494626814
+    second: snow_heavy_15
+  - first:
+      213: -9008850601373676582
+    second: snow_heavy_16
+  - first:
+      213: 2357484571086836843
+    second: snow_heavy_17
+  - first:
+      213: -5306908657020484451
+    second: snow_heavy_18
+  - first:
+      213: -8838616735377433241
+    second: snow_heavy_19
+  - first:
+      213: -1334360808753558204
+    second: snow_heavy_20
+  - first:
+      213: -1714467647995006354
+    second: snow_heavy_21
+  - first:
+      213: -8805243882418603804
+    second: snow_heavy_22
+  - first:
+      213: 9011545135075406311
+    second: snow_heavy_23
+  - first:
+      213: -914275810163956282
+    second: snow_heavy_24
+  - first:
+      213: 1704385845725256430
+    second: snow_heavy_25
+  - first:
+      213: 7843471723593126057
+    second: snow_heavy_26
+  - first:
+      213: -2245682961504184961
+    second: snow_heavy_27
+  - first:
+      213: -5556090446945711324
+    second: snow_heavy_28
+  - first:
+      213: 8660208839611719150
+    second: snow_heavy_29
+  - first:
+      213: 3086126252864645281
+    second: snow_heavy_30
+  - first:
+      213: -464452501960069174
+    second: snow_heavy_31
+  - first:
+      213: -8874188909256061902
+    second: snow_heavy_32
+  - first:
+      213: -7776821964769586245
+    second: snow_heavy_33
+  - first:
+      213: -248708932219951050
+    second: snow_heavy_34
+  - first:
+      213: -8519838962705663507
+    second: snow_heavy_35
+  - first:
+      213: 2509482247806101691
+    second: snow_heavy_36
+  - first:
+      213: -5716816155648950833
+    second: snow_heavy_37
+  - first:
+      213: 7081680131372546605
+    second: snow_heavy_38
+  - first:
+      213: 50041779671540618
+    second: snow_heavy_39
+  - first:
+      213: -8066397800410530164
+    second: snow_heavy_40
+  - first:
+      213: -7049208352215713885
+    second: snow_heavy_41
+  - first:
+      213: 1220751224089250052
+    second: snow_heavy_42
+  - first:
+      213: -1506845053455370143
+    second: snow_heavy_43
+  - first:
+      213: 3795915950848356666
+    second: snow_heavy_44
+  - first:
+      213: -6139588829481325405
+    second: snow_heavy_45
+  - first:
+      213: -4294920297097799940
+    second: snow_heavy_46
+  - first:
+      213: 7560989840919645334
+    second: snow_heavy_47
+  - first:
+      213: 8865856756025912896
+    second: snow_heavy_48
+  - first:
+      213: -3612406239097191139
+    second: snow_heavy_49
+  - first:
+      213: -5762022277101022805
+    second: snow_heavy_50
+  - first:
+      213: 732771686660326340
+    second: snow_heavy_51
+  - first:
+      213: -1268248289302733309
+    second: snow_heavy_52
+  - first:
+      213: 1890074665824226280
+    second: snow_heavy_53
+  - first:
+      213: -8489271278010475170
+    second: snow_heavy_54
+  - first:
+      213: 7496105483445558294
+    second: snow_heavy_55
+  - first:
+      213: -74612781092735254
+    second: snow_heavy_56
+  - first:
+      213: -5482031769268529853
+    second: snow_heavy_57
+  - first:
+      213: -6297911006660044008
+    second: snow_heavy_58
+  - first:
+      213: -4522074774668143545
+    second: snow_heavy_59
+  - first:
+      213: -4645969263270298619
+    second: snow_heavy_60
+  - first:
+      213: 8756970046845775602
+    second: snow_heavy_61
+  - first:
+      213: -2351620458450110074
+    second: snow_heavy_62
+  - first:
+      213: -6876543635423202723
+    second: snow_heavy_63
+  - first:
+      213: -2924776959536942837
+    second: snow_heavy_64
+  - first:
+      213: -4280467387439542160
+    second: snow_heavy_65
+  - first:
+      213: -788864249502604583
+    second: snow_heavy_66
+  - first:
+      213: 8965056730261774021
+    second: snow_heavy_67
+  - first:
+      213: 5003508839062259921
+    second: snow_heavy_68
+  - first:
+      213: -552918583895754404
+    second: snow_heavy_69
+  - first:
+      213: 723519796854737116
+    second: snow_heavy_70
+  - first:
+      213: 7719433084401329761
+    second: snow_heavy_71
+  - first:
+      213: -4405850247738675988
+    second: snow_heavy_72
+  - first:
+      213: -5027894417536485738
+    second: snow_heavy_73
+  - first:
+      213: -1478856899443261178
+    second: snow_heavy_74
+  - first:
+      213: -8476915457911956450
+    second: snow_heavy_75
+  - first:
+      213: 2007511343249065220
+    second: snow_heavy_76
+  - first:
+      213: 3255000012921937497
+    second: snow_heavy_77
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: snow_heavy_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 22
+        width: 34
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd441dc1d0c4f61b0800000000000000
+      internalID: -5661222587379661605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_1
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 54
+        width: 24
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eab65bec47dd0bb0800000000000000
+      internalID: -4968078088553973021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_2
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 46
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e03a03aba8a1ffc20800000000000000
+      internalID: 3242339439861605134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_3
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 42
+        width: 23
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02592a6282b22b3b0800000000000000
+      internalID: -5498284743619078880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_4
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 22
+        width: 36
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8eb1a52ed20fb1c0800000000000000
+      internalID: -4485863550700372339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_5
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 38
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 853556f9f5f1362b0800000000000000
+      internalID: -5592591816707452072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_6
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 39
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc14c25a1b5162900800000000000000
+      internalID: 659238248180892108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_7
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 42
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e11b09ea411a443c0800000000000000
+      internalID: -4376195827697143522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_8
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 46
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6c73861454776c60800000000000000
+      internalID: 7811339983201205356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_9
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 35
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 407338b0c6b3c0fa0800000000000000
+      internalID: -5833222082115979516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_10
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 43
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80b39fec5bc913380800000000000000
+      internalID: -8993234676206716152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_11
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 32
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbe9dcea880069be0800000000000000
+      internalID: -1470987641241624897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_12
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 32
+        width: 30
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7648361dcfa33830800000000000000
+      internalID: 4049773785312151167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_13
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 30
+        width: 10
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b2d15c31f82e5430800000000000000
+      internalID: 3773498554347279029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_14
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 0
+        width: 76
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b33d36d8380a34fc0800000000000000
+      internalID: -3511786797545565381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_15
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 42
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 206be9a106850a7d0800000000000000
+      internalID: -2909228189494626814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_16
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 56
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adbce86eb122af280800000000000000
+      internalID: -9008850601373676582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_17
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 39
+        width: 33
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6458171ab777b020800000000000000
+      internalID: 2357484571086836843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_18
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 38
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9449d291b21a56b0800000000000000
+      internalID: -5306908657020484451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_19
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 10
+        width: 56
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76d510e78ece65580800000000000000
+      internalID: -8838616735377433241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_20
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 46
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44d8a080ae56b7de0800000000000000
+      internalID: -1334360808753558204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_21
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 31
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e62bb5ef1ccf438e0800000000000000
+      internalID: -1714467647995006354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_22
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 10
+        width: 36
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e8f1c3575d7dc580800000000000000
+      internalID: -8805243882418603804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_23
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 41
+        width: 46
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e1b19d1e807f0d70800000000000000
+      internalID: 9011545135075406311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_24
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 6
+        width: 37
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c5e174aef6df43f0800000000000000
+      internalID: -914275810163956282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_25
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 37
+        width: 33
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eea58ae75e137a710800000000000000
+      internalID: 1704385845725256430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_26
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 2
+        width: 35
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a0d692e9fb99dc60800000000000000
+      internalID: 7843471723593126057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_27
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 43
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f755561ae3bb5d0e0800000000000000
+      internalID: -2245682961504184961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_28
+      rect:
+        serializedVersion: 2
+        x: 853
+        y: 33
+        width: 63
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42b0cd90d2dc4e2b0800000000000000
+      internalID: -5556090446945711324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_29
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 28
+        width: 35
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eed11cd4e0e3f2870800000000000000
+      internalID: 8660208839611719150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_30
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 58
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a8210ad97f14da20800000000000000
+      internalID: 3086126252864645281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_31
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 35
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acfe0a509eeed89f0800000000000000
+      internalID: -464452501960069174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_32
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 0
+        width: 37
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23cc41a543c88d480800000000000000
+      internalID: -8874188909256061902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_33
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 20
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb3147c50ad231490800000000000000
+      internalID: -7776821964769586245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_34
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 38
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 638209a3b886c8cf0800000000000000
+      internalID: -248708932219951050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_35
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 34
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de9756c7a9373c980800000000000000
+      internalID: -8519838962705663507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_36
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 18
+        width: 30
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb8a1aefec873d220800000000000000
+      internalID: 2509482247806101691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_37
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 3
+        width: 44
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcd7454def9c9a0b0800000000000000
+      internalID: -5716816155648950833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_38
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 18
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2af6632f8e274260800000000000000
+      internalID: 7081680131372546605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_39
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 13
+        width: 29
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a832045cbb8c1b000800000000000000
+      internalID: 50041779671540618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_40
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 0
+        width: 22
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8eb98920f56e0090800000000000000
+      internalID: -8066397800410530164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_41
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 10
+        width: 30
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a7377a1a5e2c2e90800000000000000
+      internalID: -7049208352215713885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_42
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 30
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40986fe35caf0f010800000000000000
+      internalID: 1220751224089250052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_43
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 168fc31586c961be0800000000000000
+      internalID: -1506845053455370143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_44
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 14
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a313e87127dcda430800000000000000
+      internalID: 3795915950848356666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_45
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 28
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ac2fcf0d7ccbcaa0800000000000000
+      internalID: -6139588829481325405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_46
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf6ded8ceb06564c0800000000000000
+      internalID: -4294920297097799940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_47
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 0
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69c4a5253380ee860800000000000000
+      internalID: 7560989840919645334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_48
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 3
+        width: 37
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04eeb6c0fb9d90b70800000000000000
+      internalID: 8865856756025912896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_49
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 0
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1505363aa72eddc0800000000000000
+      internalID: -3612406239097191139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_50
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 10
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba19189744f2900b0800000000000000
+      internalID: -5762022277101022805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_51
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 7
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c34ad477f35b2a00800000000000000
+      internalID: 732771686660326340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_52
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 4
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30e1d1d76e6466ee0800000000000000
+      internalID: -1268248289302733309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_53
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8eb0b6ff4e4ea3a10800000000000000
+      internalID: 1890074665824226280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_54
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 16
+        width: 18
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5d524030cc003a80800000000000000
+      internalID: -8489271278010475170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_55
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 18
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61c51ab9834870860800000000000000
+      internalID: 7496105483445558294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_56
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae67347221ce6fef0800000000000000
+      internalID: -74612781092735254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_57
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 16
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 345d751a629ebe3b0800000000000000
+      internalID: -5482031769268529853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_58
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 22
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81b5105ae435998a0800000000000000
+      internalID: -6297911006660044008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_59
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 9
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 744962093fc5e31c0800000000000000
+      internalID: -4522074774668143545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_60
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 2
+        width: 23
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50cf3690293368fb0800000000000000
+      internalID: -4645969263270298619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_61
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 0
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fe6af67cd1078970800000000000000
+      internalID: 8756970046845775602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_62
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 2
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6893a8707ad5d5fd0800000000000000
+      internalID: -2351620458450110074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_63
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 14
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5270204ffb9190a0800000000000000
+      internalID: -6876543635423202723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_64
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 1
+        width: 26
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b01bd87f9da1967d0800000000000000
+      internalID: -2924776959536942837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_65
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 0
+        width: 35
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 070950b0799b894c0800000000000000
+      internalID: -4280467387439542160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_66
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 0
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d2646805246d05f0800000000000000
+      internalID: -788864249502604583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_67
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 13
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ce5a76e8974a6c70800000000000000
+      internalID: 8965056730261774021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_68
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 6
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d845d687c8007540800000000000000
+      internalID: 5003508839062259921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_69
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 9
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c597e293a73a358f0800000000000000
+      internalID: -552918583895754404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_70
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 2
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd84d7ffb657a0a00800000000000000
+      internalID: 723519796854737116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_71
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 5
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 166a32fad7fe02b60800000000000000
+      internalID: 7719433084401329761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_72
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 6
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cec28f9fa864bd2c0800000000000000
+      internalID: -4405850247738675988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_73
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 1
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 696719a8aa4593ab0800000000000000
+      internalID: -5027894417536485738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_74
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 2
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6018c0b3c7b0a7be0800000000000000
+      internalID: -1478856899443261178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_75
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 9
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1cd32cbd42fb5a80800000000000000
+      internalID: -8476915457911956450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_76
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 0
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4058de03eec1cdb10800000000000000
+      internalID: 2007511343249065220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snow_heavy_77
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 0
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95e9a1a14451c2d20800000000000000
+      internalID: 3255000012921937497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
