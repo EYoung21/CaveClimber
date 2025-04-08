@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      eternal-ice-flattened_0: 2909607380893570968
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

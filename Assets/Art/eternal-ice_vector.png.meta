@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      eternal-ice_vector_0: 5705189426142823337
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

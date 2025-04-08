@@ -822,7 +822,35 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      player_animation_0: -2858138929005644686
+      player_animation_1: -2027423421355403931
+      player_animation_10: -6252725573290418745
+      player_animation_11: 8492644484388551018
+      player_animation_12: -7142836950505583526
+      player_animation_13: 3357167725807727081
+      player_animation_14: 5098779739073166483
+      player_animation_15: 1369964881449891564
+      player_animation_16: 8759359601426006509
+      player_animation_17: -8577523245438789716
+      player_animation_18: 4905027700752233809
+      player_animation_19: -7710428551857546119
+      player_animation_2: -4428325168554114149
+      player_animation_20: -4875241747511180243
+      player_animation_21: 8032789984524717577
+      player_animation_22: -2599927682993448213
+      player_animation_23: -1265686808411057556
+      player_animation_24: -2085688291016594564
+      player_animation_25: -2275228522975682293
+      player_animation_26: -7138617114083458729
+      player_animation_27: 3423450839270107271
+      player_animation_3: -1844345104009512776
+      player_animation_4: 1764488350933366207
+      player_animation_5: -4317523611598706774
+      player_animation_6: -6685751063027876880
+      player_animation_7: 6757301706793372122
+      player_animation_8: -6524665407989429073
+      player_animation_9: 8127555066500757699
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

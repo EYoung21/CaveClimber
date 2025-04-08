@@ -447,7 +447,20 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      spritesheet_caveman_0: 2713502286842181130
+      spritesheet_caveman_1: 8470216687460944335
+      spritesheet_caveman_10: -4392150843788611021
+      spritesheet_caveman_11: 3896411347393182378
+      spritesheet_caveman_12: -9189109756720816236
+      spritesheet_caveman_2: 557424584376333471
+      spritesheet_caveman_3: 4181211028581603382
+      spritesheet_caveman_4: 8665230588056363459
+      spritesheet_caveman_5: 5227187009465778033
+      spritesheet_caveman_6: 8820837540818299216
+      spritesheet_caveman_7: 5976111813585063825
+      spritesheet_caveman_8: -2724203132286513839
+      spritesheet_caveman_9: 7429458557326490985
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
