@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private float groundCheckDistance = 0.1f; // Distance for the ground check raycast
     private Collider2D playerCollider; // Store the player's collider
+    private float tipCheckRadius = 0.1f; // Radius for checking if tips hit climbable surfaces
 
     public Sprite[] jumpAnimation;
     public Sprite[] runAnimation;
@@ -174,36 +175,40 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             // Check if either tip hits a climbable surface
-            bool hitLeft = false;
-            bool hitRight = false;
+            bool hitLeftCollider = false;
+            bool hitRightCollider = false;
             
             if (icePickTipLeft != null)
             {
-                hitLeft = Physics2D.OverlapPoint(icePickTipLeft.position, climbableLayer);
+                hitLeftCollider = Physics2D.OverlapCircle(icePickTipLeft.position, tipCheckRadius, climbableLayer);
             }
             if (icePickTipRight != null)
             {
-                hitRight = Physics2D.OverlapPoint(icePickTipRight.position, climbableLayer);
+                hitRightCollider = Physics2D.OverlapCircle(icePickTipRight.position, tipCheckRadius, climbableLayer);
             }
             
-            if (hitLeft || hitRight) // Climb if either tip hits
+            if (hitLeftCollider != null || hitRightCollider != null) // Climb if either tip hits
             {
                 isClimbing = true;
                 rb.linearVelocity = Vector2.zero;
                 rb.gravityScale = 0f;
                 
-                // Calculate swing power based on mouse movement
-                swingDirection = (mousePosition - (Vector2)transform.position).normalized;
-                swingPower = Vector2.Distance(mousePosition, (Vector2)transform.position);
+                // Calculate swing power based on mouse movement - MOVED TO RELEASE
+                // swingDirection = (mousePosition - (Vector2)transform.position).normalized;
+                // swingPower = Vector2.Distance(mousePosition, (Vector2)transform.position);
             }
         }
-        else
+        else // Mouse button released
         {
             if (isClimbing)
             {
-                // Launch player based on swing
+                // Calculate direction and power based on mouse position AT RELEASE
+                swingDirection = (mousePosition - (Vector2)transform.position).normalized;
+                swingPower = Vector2.Distance(mousePosition, (Vector2)transform.position);
+                
+                // Launch player based on swing - NEGATE the direction for push-off effect
                 rb.gravityScale = 1f;
-                rb.AddForce(swingDirection * swingPower * swingForce, ForceMode2D.Impulse);
+                rb.AddForce(-swingDirection * swingPower * swingForce, ForceMode2D.Impulse); // Apply force in opposite direction
                 isClimbing = false;
             }
         }
