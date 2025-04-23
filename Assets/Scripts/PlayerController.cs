@@ -5,29 +5,21 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
-    public float swingForce = 15f;
     public LayerMask groundLayer;
     
     [Header("Ice Pick Settings")]
-    public Transform icePickTipLeft;
-    public Transform icePickTipRight;
-    public float icePickLength = 2f;
-    public LayerMask climbableLayer;
     public SpriteRenderer icePickSprite; // Reference to the ice pick sprite renderer
 
     SpriteRenderer spriteRenderer;
     public Transform icePickPivot; // Pivot point for the ice pick rotation
     
     private Rigidbody2D rb;
-    private bool isClimbing = false;
     private bool icePickEquipped = false;
     private Vector2 mousePosition;
-    private Vector2 swingDirection;
-    private float swingPower;
     private bool isGrounded;
-    private float groundCheckDistance = 0.1f; // Distance for the ground check raycast
-    private Collider2D playerCollider; // Store the player's collider
-    private float tipCheckRadius = 0.1f; // Radius for checking if tips hit climbable surfaces
+    public Transform groundCheck; // Assign a child GameObject positioned at the player's feet
+    public float groundCheckRadius = 0.2f; // Radius for the ground check overlap circle
+    private Collider2D playerCollider;
 
     public Sprite[] jumpAnimation;
     public Sprite[] runAnimation;
@@ -43,7 +35,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerCollider = GetComponent<Collider2D>(); // Get the player's collider
+        playerCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         currentFrame = 0;
@@ -54,7 +46,7 @@ public class PlayerController : MonoBehaviour
         // Initially hide the ice pick
         if (icePickSprite != null)
         {
-            icePickSprite.enabled = false;
+            icePickSprite.enabled = icePickEquipped;
         }
         
         // Ensure Rigidbody2D settings are correct
@@ -63,22 +55,27 @@ public class PlayerController : MonoBehaviour
             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             rb.interpolation = RigidbodyInterpolation2D.Interpolate;
             rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
+            rb.gravityScale = 1f; // Ensure gravity is on by default
         }
     }
     
     private void Update()
     {
 
-        // Check if player is grounded using Raycast
-        // Calculate ray origin slightly below the player center based on collider bounds
-        float raycastOriginOffsetY = playerCollider.bounds.extents.y + 0.05f; 
-        Vector2 raycastOrigin = (Vector2)transform.position - new Vector2(0, raycastOriginOffsetY);
-        RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, groundCheckDistance, groundLayer);
+        // Check if player is grounded using OverlapCircle at the groundCheck position
+        isGrounded = false;
+        if (groundCheck != null)
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundCheckRadius, groundLayer);
+            if (colliders.Length > 0)
+            {
+                isGrounded = true;
+            }
+        }
         
-        isGrounded = hit.collider != null;
-        Debug.Log($"Is Grounded: {isGrounded}"); // DEBUG: Log grounded status
-        Debug.DrawRay(raycastOrigin, Vector2.down * groundCheckDistance, isGrounded ? Color.green : Color.red); // Visualize the raycast
-        
+        // Debug log remains useful
+        Debug.Log($"Is Grounded: {isGrounded}"); 
+
         // Toggle ice pick
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -92,125 +89,106 @@ public class PlayerController : MonoBehaviour
         // Get mouse position
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-        // Handle movement regardless of ice pick state
+        // Handle movement only when grounded
         HandleMovement();
         
-        // Handle ice pick if equipped
+        // Handle ice pick rotation if equipped
         if (icePickEquipped)
         {
-            HandleIcePick();
+            HandleIcePickRotation(); // Renamed for clarity
         }
 
-        //animations handled
+        // Animations handled (no changes needed here)
         if (isGrounded) {
-            if (rb.linearVelocity.x < 0) {
+            if (rb.linearVelocity.x < -0.1f) { // Added small threshold
                 animationLoop(runAnimation);
                 spriteRenderer.flipX = true;
                 lastDirection = "left";
-            } else if (rb.linearVelocity.x > 0) {
+            } else if (rb.linearVelocity.x > 0.1f) { // Added small threshold
                 animationLoop(runAnimation);
                 spriteRenderer.flipX = false;
                 lastDirection = "right";
             } else {
                 animationLoop(idleAnimation);
+                // Keep last facing direction when idle
+                if (lastDirection == "left") spriteRenderer.flipX = true;
+                else spriteRenderer.flipX = false;
             }
-        } else {
-            if (rb.linearVelocity.y > 0) {
+        } else { // In air
+            if (rb.linearVelocity.y > 0.1f) { // Added small threshold
                 animationLoop(jumpAnimation);
+            } else if (rb.linearVelocity.y < -0.1f) { // Added small threshold
+                 animationLoop(fallAnimaiton);
             } else {
+                // Potentially keep falling animation if Y velocity is near zero but not grounded?
+                // Or switch to a specific 'mid-air idle'? For now, let's keep falling.
                 animationLoop(fallAnimaiton);
             }
 
-            if (rb.linearVelocity.x < 0) {
+            // Update facing direction based on horizontal velocity even in air
+            if (rb.linearVelocity.x < -0.1f) {
                 spriteRenderer.flipX = true;
                 lastDirection = "left";
-            } else if (rb.linearVelocity.x > 0) {
+            } else if (rb.linearVelocity.x > 0.1f) {
                 spriteRenderer.flipX = false;
                 lastDirection = "right";
+            } else {
+                // Keep last facing direction if horizontal velocity is near zero
+                if (lastDirection == "left") spriteRenderer.flipX = true;
+                else spriteRenderer.flipX = false;
             }
         }
     }
 
     private void animationLoop(Sprite[] animationArray) {
+        if (animationArray == null || animationArray.Length == 0) return; // Safety check
+
         animationTimer -= Time.deltaTime;
-        if (animationTimer < 0) {
+        if (animationTimer <= 0) {
             animationTimer = 1f / animationFPS;
-            currentFrame++;
-            if (currentFrame >= animationArray.Length) {
-                currentFrame = 0;
-            }
+            currentFrame = (currentFrame + 1) % animationArray.Length; // Simplified looping
             spriteRenderer.sprite = animationArray[currentFrame];
         }
-
     }
     
     private void HandleMovement()
     {
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
-        
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        // Only allow keyboard movement and jumping if grounded
+        if (isGrounded)
         {
-            Debug.Log("Jump Triggered!"); // DEBUG: Log jump event
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            float moveInput = Input.GetAxisRaw("Horizontal");
+            // Apply horizontal velocity directly when grounded
+            rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y); 
+            
+            // Use GetButtonDown for potentially better input handling / remapping
+            if (Input.GetButtonDown("Jump")) // Default Jump is Space, W, etc.
+            {
+                Debug.Log("Jump Triggered!"); 
+                // Apply impulse force for jump
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }
         }
+        // If not grounded, horizontal keyboard input does nothing to velocity directly.
+        // Player keeps existing horizontal momentum until hitting something or using the pick.
     }
     
-    private void HandleIcePick()
+    // Renamed from HandleIcePick
+    private void HandleIcePickRotation()
     {
-        // Calculate direction to mouse
-        Vector2 directionToMouse = (mousePosition - (Vector2)transform.position).normalized;
+        // Calculate direction to mouse relative to the pivot point for better accuracy
+        Vector2 directionToMouse = (mousePosition - (Vector2)icePickPivot.position).normalized;
         
-        // Position ice pick tip - REMOVED as tips are now children of pivot
-        // icePickTip.position = transform.position + (Vector3)(directionToMouse * icePickLength);
-        
-        // Rotate the ice pick to point at the mouse
+        // Rotate the ice pick pivot to point the ice pick towards the mouse
         if (icePickPivot != null)
         {
             float angle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
-            // Subtract 90 degrees because the default sprite orientation points UP
+            // Adjust the angle offset (-90f) based on your ice pick sprite's default orientation.
+            // If your sprite points right by default, use 0f. If it points up, use -90f.
             icePickPivot.rotation = Quaternion.Euler(0, 0, angle - 90f); 
         }
         
-        if (Input.GetMouseButton(0))
-        {
-            // Check if either tip hits a climbable surface
-            bool hitLeftCollider = false;
-            bool hitRightCollider = false;
-            
-            if (icePickTipLeft != null)
-            {
-                hitLeftCollider = Physics2D.OverlapCircle(icePickTipLeft.position, tipCheckRadius, climbableLayer);
-            }
-            if (icePickTipRight != null)
-            {
-                hitRightCollider = Physics2D.OverlapCircle(icePickTipRight.position, tipCheckRadius, climbableLayer);
-            }
-            
-            if (hitLeftCollider != null || hitRightCollider != null) // Climb if either tip hits
-            {
-                isClimbing = true;
-                rb.linearVelocity = Vector2.zero;
-                rb.gravityScale = 0f;
-                
-                // Calculate swing power based on mouse movement - MOVED TO RELEASE
-                // swingDirection = (mousePosition - (Vector2)transform.position).normalized;
-                // swingPower = Vector2.Distance(mousePosition, (Vector2)transform.position);
-            }
-        }
-        else // Mouse button released
-        {
-            if (isClimbing)
-            {
-                // Calculate direction and power based on mouse position AT RELEASE
-                swingDirection = (mousePosition - (Vector2)transform.position).normalized;
-                swingPower = Vector2.Distance(mousePosition, (Vector2)transform.position);
-                
-                // Launch player based on swing - NEGATE the direction for push-off effect
-                rb.gravityScale = 1f;
-                rb.AddForce(-swingDirection * swingPower * swingForce, ForceMode2D.Impulse); // Apply force in opposite direction
-                isClimbing = false;
-            }
-        }
+        // REMOVED: All climbing, latching, and swinging logic.
+        // Physics interactions are now handled by Unity's physics engine 
+        // based on the Colliders and Rigidbodies involved.
     }
 } 
