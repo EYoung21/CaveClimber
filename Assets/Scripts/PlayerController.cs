@@ -17,8 +17,7 @@ public class PlayerController : MonoBehaviour
     private bool icePickEquipped = false;
     private Vector2 mousePosition;
     private bool isGrounded;
-    public Transform groundCheck; // Assign a child GameObject positioned at the player's feet
-    public float groundCheckRadius = 0.2f; // Radius for the ground check overlap circle
+    private float groundCheckDistance = 0.1f; // Distance for the ground check raycast
     private Collider2D playerCollider;
 
     public Sprite[] jumpAnimation;
@@ -61,20 +60,15 @@ public class PlayerController : MonoBehaviour
     
     private void Update()
     {
-
-        // Check if player is grounded using OverlapCircle at the groundCheck position
-        isGrounded = false;
-        if (groundCheck != null)
-        {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundCheckRadius, groundLayer);
-            if (colliders.Length > 0)
-            {
-                isGrounded = true;
-            }
-        }
+        // Check if player is grounded using Raycast
+        // Calculate ray origin slightly below the player center based on collider bounds
+        float raycastOriginOffsetY = playerCollider.bounds.extents.y + 0.05f;
+        Vector2 raycastOrigin = (Vector2)transform.position - new Vector2(0, raycastOriginOffsetY);
+        RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, groundCheckDistance, groundLayer);
         
-        // Debug log remains useful
-        Debug.Log($"Is Grounded: {isGrounded}"); 
+        isGrounded = hit.collider != null;
+        Debug.Log($"Is Grounded: {isGrounded}"); // DEBUG: Log grounded status
+        Debug.DrawRay(raycastOrigin, Vector2.down * groundCheckDistance, isGrounded ? Color.green : Color.red); // Visualize the raycast
 
         // Toggle ice pick
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -153,23 +147,17 @@ public class PlayerController : MonoBehaviour
     
     private void HandleMovement()
     {
-        // Only allow keyboard movement and jumping if grounded
-        if (isGrounded)
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        
+        // Apply horizontal velocity regardless of grounded state
+        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+        
+        // Only allow jumping if grounded
+        if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            float moveInput = Input.GetAxisRaw("Horizontal");
-            // Apply horizontal velocity directly when grounded
-            rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y); 
-            
-            // Use GetButtonDown for potentially better input handling / remapping
-            if (Input.GetButtonDown("Jump")) // Default Jump is Space, W, etc.
-            {
-                Debug.Log("Jump Triggered!"); 
-                // Apply impulse force for jump
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            }
+            Debug.Log("Jump Triggered!"); 
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        // If not grounded, horizontal keyboard input does nothing to velocity directly.
-        // Player keeps existing horizontal momentum until hitting something or using the pick.
     }
     
     // Renamed from HandleIcePick
