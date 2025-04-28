@@ -303,8 +303,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  crawlSpeed: 2.5
   icePickSprite: {fileID: 507367123}
-  icePickPivot: {fileID: 231585579}
   jumpAnimation:
   - {fileID: 171476268641927911, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
   - {fileID: 6453749501852816527, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
@@ -324,7 +324,14 @@ MonoBehaviour:
   - {fileID: -3398387723872300468, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
   idleAnimation:
   - {fileID: -4138967266946298601, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
+  crawlAnimation:
+  - {fileID: -4262841958749487308, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
+  - {fileID: 154871077817343072, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
+  - {fileID: 3096773927223003758, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
+  - {fileID: 3210065995357130877, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
+  duckSprite: {fileID: -4562202449624446254, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
   animationFPS: 10
+  icePickPivot: {fileID: 231585579}
 --- !u!50 &381649420
 Rigidbody2D:
   serializedVersion: 5

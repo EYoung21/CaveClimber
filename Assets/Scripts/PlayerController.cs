@@ -6,9 +6,19 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public LayerMask groundLayer;
+    public float crawlSpeed = 2.5f; // Speed while crawling
     
     [Header("Ice Pick Settings")]
     public SpriteRenderer icePickSprite; // Reference to the ice pick sprite renderer
+
+    [Header("Animation")]
+    public Sprite[] jumpAnimation;
+    public Sprite[] runAnimation;
+    public Sprite[] fallAnimaiton;
+    public Sprite[] idleAnimation;
+    public Sprite[] crawlAnimation; // Animation for crawling
+    public Sprite duckSprite; // Single sprite for idle crawling/ducking
+    public float animationFPS;
 
     SpriteRenderer spriteRenderer;
     public Transform icePickPivot; // Pivot point for the ice pick rotation
@@ -19,14 +29,9 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private float groundCheckDistance = 0.1f; // Distance for the ground check raycast
     private Collider2D playerCollider;
+    private bool isCrawling = false; // Track crawling state
+    private bool wasIcePickEquipped = false; // Remember if ice pick was equipped before crawling
 
-    public Sprite[] jumpAnimation;
-    public Sprite[] runAnimation;
-    public Sprite[] fallAnimaiton;
-    public Sprite[] idleAnimation;
-
-
-    public float animationFPS;
     int currentFrame;
     float animationTimer;
     private string lastDirection;
@@ -60,6 +65,12 @@ public class PlayerController : MonoBehaviour
     
     private void Update()
     {
+        // Check for crawl toggle
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            ToggleCrawl();
+        }
+
         // Check if player is grounded using Raycast
         // Calculate ray origin slightly below the player center based on collider bounds
         float raycastOriginOffsetY = playerCollider.bounds.extents.y + 0.05f;
@@ -70,35 +81,94 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"Is Grounded: {isGrounded}"); // DEBUG: Log grounded status
         Debug.DrawRay(raycastOrigin, Vector2.down * groundCheckDistance, isGrounded ? Color.green : Color.red); // Visualize the raycast
 
-        // Toggle ice pick
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        // Toggle ice pick (allowed when standing or when crawling and idle)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && (!isCrawling || (isCrawling && Mathf.Abs(rb.linearVelocity.x) < 0.1f)))
         {
             icePickEquipped = !icePickEquipped;
-            if (icePickSprite != null)
-            {
-                icePickSprite.enabled = icePickEquipped;
-            }
+            UpdateIcePickVisibility();
         }
         
         // Get mouse position
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-        // Handle movement only when grounded
+        // Handle movement
         HandleMovement();
         
-        // Handle ice pick rotation if equipped
-        if (icePickEquipped)
+        // Update ice pick visibility based on movement when crawling
+        if (isCrawling)
         {
-            HandleIcePickRotation(); // Renamed for clarity
+            // If moving while crawling, hide the ice pick
+            if (Mathf.Abs(rb.linearVelocity.x) >= 0.1f && icePickEquipped)
+            {
+                if (icePickSprite != null)
+                {
+                    icePickSprite.enabled = false;
+                }
+            }
+            else if (Mathf.Abs(rb.linearVelocity.x) < 0.1f && icePickEquipped)
+            {
+                // When idle while crawling, show the ice pick
+                if (icePickSprite != null)
+                {
+                    icePickSprite.enabled = true;
+                }
+            }
+        }
+        
+        // Handle ice pick rotation if equipped and (not crawling OR crawling but idle)
+        if (icePickEquipped && (!isCrawling || (isCrawling && Mathf.Abs(rb.linearVelocity.x) < 0.1f)))
+        {
+            HandleIcePickRotation();
         }
 
-        // Animations handled (no changes needed here)
+        // Handle animations
+        HandleAnimations();
+    }
+
+    private void HandleAnimations()
+    {
+        // If crawling, use crawl animation or duck sprite if idle
+        if (isCrawling)
+        {
+            // Check if idle (not moving)
+            if (Mathf.Abs(rb.linearVelocity.x) < 0.1f)
+            {
+                // Use duck sprite when idle in crawl mode
+                spriteRenderer.sprite = duckSprite;
+            }
+            else
+            {
+                // Use crawl animation when moving
+                animationLoop(crawlAnimation);
+            }
+            
+            // Set facing direction
+            if (rb.linearVelocity.x < -0.1f)
+            {
+                spriteRenderer.flipX = true;
+                lastDirection = "left";
+            }
+            else if (rb.linearVelocity.x > 0.1f)
+            {
+                spriteRenderer.flipX = false;
+                lastDirection = "right";
+            }
+            else
+            {
+                // Keep last facing direction when idle
+                if (lastDirection == "left") spriteRenderer.flipX = true;
+                else spriteRenderer.flipX = false;
+            }
+            return;
+        }
+
+        // Standard animation handling (when not crawling)
         if (isGrounded) {
-            if (rb.linearVelocity.x < -0.1f) { // Added small threshold
+            if (rb.linearVelocity.x < -0.1f) {
                 animationLoop(runAnimation);
                 spriteRenderer.flipX = true;
                 lastDirection = "left";
-            } else if (rb.linearVelocity.x > 0.1f) { // Added small threshold
+            } else if (rb.linearVelocity.x > 0.1f) {
                 animationLoop(runAnimation);
                 spriteRenderer.flipX = false;
                 lastDirection = "right";
@@ -109,13 +179,11 @@ public class PlayerController : MonoBehaviour
                 else spriteRenderer.flipX = false;
             }
         } else { // In air
-            if (rb.linearVelocity.y > 0.1f) { // Added small threshold
+            if (rb.linearVelocity.y > 0.1f) {
                 animationLoop(jumpAnimation);
-            } else if (rb.linearVelocity.y < -0.1f) { // Added small threshold
+            } else if (rb.linearVelocity.y < -0.1f) {
                  animationLoop(fallAnimaiton);
             } else {
-                // Potentially keep falling animation if Y velocity is near zero but not grounded?
-                // Or switch to a specific 'mid-air idle'? For now, let's keep falling.
                 animationLoop(fallAnimaiton);
             }
 
@@ -148,19 +216,19 @@ public class PlayerController : MonoBehaviour
     private void HandleMovement()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
+        float currentSpeed = isCrawling ? crawlSpeed : moveSpeed;
         
         // Apply horizontal velocity regardless of grounded state
-        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(moveInput * currentSpeed, rb.linearVelocity.y);
         
-        // Only allow jumping if grounded
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        // Only allow jumping if grounded and not crawling
+        if (isGrounded && !isCrawling && Input.GetButtonDown("Jump"))
         {
             Debug.Log("Jump Triggered!"); 
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
     
-    // Renamed from HandleIcePick
     private void HandleIcePickRotation()
     {
         // Calculate direction to mouse relative to the pivot point for better accuracy
@@ -174,9 +242,31 @@ public class PlayerController : MonoBehaviour
             // If your sprite points right by default, use 0f. If it points up, use -90f.
             icePickPivot.rotation = Quaternion.Euler(0, 0, angle - 90f); 
         }
+    }
+    
+    private void ToggleCrawl()
+    {
+        isCrawling = !isCrawling;
         
-        // REMOVED: All climbing, latching, and swinging logic.
-        // Physics interactions are now handled by Unity's physics engine 
-        // based on the Colliders and Rigidbodies involved.
+        // Update the ice pick visibility based on new crawling state
+        UpdateIcePickVisibility();
+        
+        // Reset animation frame when toggling
+        currentFrame = 0;
+        Debug.Log($"Crawl mode: {isCrawling}");
+    }
+    
+    private void UpdateIcePickVisibility()
+    {
+        if (icePickSprite != null)
+        {
+            // Show ice pick if equipped AND either:
+            // 1. Not crawling, OR
+            // 2. Crawling but idle
+            bool shouldShowIcePick = icePickEquipped && 
+                                    (!isCrawling || (isCrawling && Mathf.Abs(rb.linearVelocity.x) < 0.1f));
+            
+            icePickSprite.enabled = shouldShowIcePick;
+        }
     }
 } 
