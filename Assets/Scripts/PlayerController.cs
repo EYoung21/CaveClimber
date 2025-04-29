@@ -8,9 +8,16 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public float crawlSpeed = 2.5f; // Speed while crawling
     
-    [Header("Ice Pick Settings")]
-    public SpriteRenderer icePickSprite; // Reference to the ice pick sprite renderer
-
+    // These will be ignored but are kept to avoid errors in the scene
+    [HideInInspector] public SpriteRenderer icePickSprite;
+    [HideInInspector] public Transform icePickPivot;
+    [HideInInspector] public Transform icePickTip;
+    [HideInInspector] public float icePickLength;
+    [HideInInspector] public float swingForce;
+    [HideInInspector] public Transform groundCheck;
+    [HideInInspector] public float groundCheckRadius;
+    [HideInInspector] public LayerMask climbableLayer;
+    
     [Header("Animation")]
     public Sprite[] jumpAnimation;
     public Sprite[] runAnimation;
@@ -21,16 +28,12 @@ public class PlayerController : MonoBehaviour
     public float animationFPS;
 
     SpriteRenderer spriteRenderer;
-    public Transform icePickPivot; // Pivot point for the ice pick rotation
     
     private Rigidbody2D rb;
-    private bool icePickEquipped = false;
-    private Vector2 mousePosition;
     private bool isGrounded;
     private float groundCheckDistance = 0.1f; // Distance for the ground check raycast
     private Collider2D playerCollider;
     private bool isCrawling = false; // Track crawling state
-    private bool wasIcePickEquipped = false; // Remember if ice pick was equipped before crawling
 
     int currentFrame;
     float animationTimer;
@@ -46,12 +49,6 @@ public class PlayerController : MonoBehaviour
         animationTimer = 1f / animationFPS;
 
         lastDirection = "right";
-        
-        // Initially hide the ice pick
-        if (icePickSprite != null)
-        {
-            icePickSprite.enabled = icePickEquipped;
-        }
         
         // Ensure Rigidbody2D settings are correct
         if (rb != null)
@@ -81,46 +78,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"Is Grounded: {isGrounded}"); // DEBUG: Log grounded status
         Debug.DrawRay(raycastOrigin, Vector2.down * groundCheckDistance, isGrounded ? Color.green : Color.red); // Visualize the raycast
 
-        // Toggle ice pick (allowed when standing or when crawling and idle)
-        if (Input.GetKeyDown(KeyCode.Alpha1) && (!isCrawling || (isCrawling && Mathf.Abs(rb.linearVelocity.x) < 0.1f)))
-        {
-            icePickEquipped = !icePickEquipped;
-            UpdateIcePickVisibility();
-        }
-        
-        // Get mouse position
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
         // Handle movement
         HandleMovement();
         
-        // Update ice pick visibility based on movement when crawling
-        if (isCrawling)
-        {
-            // If moving while crawling, hide the ice pick
-            if (Mathf.Abs(rb.linearVelocity.x) >= 0.1f && icePickEquipped)
-            {
-                if (icePickSprite != null)
-                {
-                    icePickSprite.enabled = false;
-                }
-            }
-            else if (Mathf.Abs(rb.linearVelocity.x) < 0.1f && icePickEquipped)
-            {
-                // When idle while crawling, show the ice pick
-                if (icePickSprite != null)
-                {
-                    icePickSprite.enabled = true;
-                }
-            }
-        }
-        
-        // Handle ice pick rotation if equipped and (not crawling OR crawling but idle)
-        if (icePickEquipped && (!isCrawling || (isCrawling && Mathf.Abs(rb.linearVelocity.x) < 0.1f)))
-        {
-            HandleIcePickRotation();
-        }
-
         // Handle animations
         HandleAnimations();
     }
@@ -229,44 +189,12 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    private void HandleIcePickRotation()
-    {
-        // Calculate direction to mouse relative to the pivot point for better accuracy
-        Vector2 directionToMouse = (mousePosition - (Vector2)icePickPivot.position).normalized;
-        
-        // Rotate the ice pick pivot to point the ice pick towards the mouse
-        if (icePickPivot != null)
-        {
-            float angle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
-            // Adjust the angle offset (-90f) based on your ice pick sprite's default orientation.
-            // If your sprite points right by default, use 0f. If it points up, use -90f.
-            icePickPivot.rotation = Quaternion.Euler(0, 0, angle - 90f); 
-        }
-    }
-    
     private void ToggleCrawl()
     {
         isCrawling = !isCrawling;
         
-        // Update the ice pick visibility based on new crawling state
-        UpdateIcePickVisibility();
-        
         // Reset animation frame when toggling
         currentFrame = 0;
         Debug.Log($"Crawl mode: {isCrawling}");
-    }
-    
-    private void UpdateIcePickVisibility()
-    {
-        if (icePickSprite != null)
-        {
-            // Show ice pick if equipped AND either:
-            // 1. Not crawling, OR
-            // 2. Crawling but idle
-            bool shouldShowIcePick = icePickEquipped && 
-                                    (!isCrawling || (isCrawling && Mathf.Abs(rb.linearVelocity.x) < 0.1f));
-            
-            icePickSprite.enabled = shouldShowIcePick;
-        }
     }
 } 

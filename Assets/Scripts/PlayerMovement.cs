@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using Random = UnityEngine.Random;  // This is the correct way to reference Random
 
+// Ice pick/pickaxe logic has been removed from this script
 public class PlayerMovement : MonoBehaviour
 {
     // private bool isMoving = false;
@@ -34,8 +35,6 @@ public class PlayerMovement : MonoBehaviour
 
     private string lastDirection;
 
-    private bool icePicked;
-
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -45,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
         frameIndexUp = frameIndexLeft = frameIndexRight = frameIndexDown = frameIndexIdle = frameIndexDeath = 0;
 
         lastDirection = "right"; //defaulted right
-        icePicked = false;
     }
 
     // Update is called once per frame
@@ -63,86 +61,82 @@ public class PlayerMovement : MonoBehaviour
         inputX = 0;
         playerSpriteRenderer.flipX = false;
 
-        if (!icePicked) { //you're not ice picked
-            if (Input.GetKey(left)) {
-                isMoving = true;
-                frameTimerLeft -= Time.deltaTime;
-                if (frameTimerLeft <= 0) {
-                    frameIndexLeft++;
-                    if (frameIndexLeft >= framesRight.Length)
-                    {
-                        frameIndexLeft = 0;
-                    }
-                    frameTimerLeft = (1f / framesPerSecond);
-                    playerSpriteRenderer.sprite = framesRight[frameIndexLeft];
+        if (Input.GetKey(left)) {
+            isMoving = true;
+            frameTimerLeft -= Time.deltaTime;
+            if (frameTimerLeft <= 0) {
+                frameIndexLeft++;
+                if (frameIndexLeft >= framesRight.Length)
+                {
+                    frameIndexLeft = 0;
                 }
-                playerSpriteRenderer.flipX = true;
-                lastDirection = "left";
-                inputX = -1;
+                frameTimerLeft = (1f / framesPerSecond);
+                playerSpriteRenderer.sprite = framesRight[frameIndexLeft];
             }
+            playerSpriteRenderer.flipX = true;
+            lastDirection = "left";
+            inputX = -1;
+        }
 
-            else if (Input.GetKey(right)) {
-                isMoving = true;
-                frameTimerRight -= Time.deltaTime;
-                if (frameTimerRight <= 0) {
-                    frameIndexRight++;
-                    if (frameIndexRight >= framesRight.Length) {
-                        frameIndexRight = 0;
-                    }
-                    frameTimerRight = (1f / framesPerSecond);
-                    playerSpriteRenderer.sprite = framesRight[frameIndexRight];
+        else if (Input.GetKey(right)) {
+            isMoving = true;
+            frameTimerRight -= Time.deltaTime;
+            if (frameTimerRight <= 0) {
+                frameIndexRight++;
+                if (frameIndexRight >= framesRight.Length) {
+                    frameIndexRight = 0;
                 }
-                inputX = 1;
-                lastDirection = "right";
+                frameTimerRight = (1f / framesPerSecond);
+                playerSpriteRenderer.sprite = framesRight[frameIndexRight];
             }
+            inputX = 1;
+            lastDirection = "right";
+        }
 
-            //idle animation
-            if (!isMoving) {
-                if (rb2d.linearVelocity.y < 0) {
-                    frameTimerDown -= Time.deltaTime;
-                    if (frameTimerDown <= 0) {
-                        frameIndexDown++;
-                        if (frameIndexDown >= framesDown.Length) {
-                            frameIndexDown = 0;
-                        }
-                        frameTimerDown = (1f / framesPerSecond);
-                        playerSpriteRenderer.sprite = framesDown[frameIndexDown];
+        //idle animation
+        if (!isMoving) {
+            if (rb2d.linearVelocity.y < 0) {
+                frameTimerDown -= Time.deltaTime;
+                if (frameTimerDown <= 0) {
+                    frameIndexDown++;
+                    if (frameIndexDown >= framesDown.Length) {
+                        frameIndexDown = 0;
                     }
-                    if (lastDirection == "left") {
-                        playerSpriteRenderer.flipX = true;
-                    }
+                    frameTimerDown = (1f / framesPerSecond);
+                    playerSpriteRenderer.sprite = framesDown[frameIndexDown];
                 }
-                else if (rb2d.linearVelocity.y > 0) {
-                    frameTimerUp -= Time.deltaTime;
-                    if (frameTimerUp <= 0) {
-                        frameIndexUp++;
-                        if (frameIndexUp >= framesUp.Length) {
-                            frameIndexUp = 0;
-                        }
-                        frameTimerUp = (1f / framesPerSecond);
-                        playerSpriteRenderer.sprite = framesUp[frameIndexUp];
-                    }
-                    if (lastDirection == "left") {
-                        playerSpriteRenderer.flipX = true;
-                    }
-                }
-                else if (rb2d.linearVelocity.y == 0) {
-                    frameTimerIdle -= Time.deltaTime;
-                    if (frameTimerIdle <= 0) {
-                        frameIndexIdle++;
-                        if (frameIndexIdle >= framesIdle.Length) {
-                            frameIndexIdle = 0;
-                        }
-                        frameTimerUp = (1f / framesPerSecond);
-                        playerSpriteRenderer.sprite = framesIdle[frameIndexIdle];
-                    }
-                    if (lastDirection == "left") {
-                        playerSpriteRenderer.flipX = true;
-                    }
+                if (lastDirection == "left") {
+                    playerSpriteRenderer.flipX = true;
                 }
             }
-        } else { //you are ice picked
-            //handle later
+            else if (rb2d.linearVelocity.y > 0) {
+                frameTimerUp -= Time.deltaTime;
+                if (frameTimerUp <= 0) {
+                    frameIndexUp++;
+                    if (frameIndexUp >= framesUp.Length) {
+                        frameIndexUp = 0;
+                    }
+                    frameTimerUp = (1f / framesPerSecond);
+                    playerSpriteRenderer.sprite = framesUp[frameIndexUp];
+                }
+                if (lastDirection == "left") {
+                    playerSpriteRenderer.flipX = true;
+                }
+            }
+            else if (rb2d.linearVelocity.y == 0) {
+                frameTimerIdle -= Time.deltaTime;
+                if (frameTimerIdle <= 0) {
+                    frameIndexIdle++;
+                    if (frameIndexIdle >= framesIdle.Length) {
+                        frameIndexIdle = 0;
+                    }
+                    frameTimerUp = (1f / framesPerSecond);
+                    playerSpriteRenderer.sprite = framesIdle[frameIndexIdle];
+                }
+                if (lastDirection == "left") {
+                    playerSpriteRenderer.flipX = true;
+                }
+            }
         }
 
         rb2d.linearVelocity = new Vector2(inputX, inputY) * speed;
