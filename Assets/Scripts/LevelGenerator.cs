@@ -20,6 +20,8 @@ public class LevelGenerator : MonoBehaviour
     private PlatformManager platformManager;
     private Camera mainCamera;
     
+    public bool enableDebugLogs = true; // Add debug toggle
+    
     // Changed back to Start
     void Start()
     {
@@ -76,6 +78,7 @@ public class LevelGenerator : MonoBehaviour
     {
         GameObject platformObject;
         GameObject prefabToUse = platformPrefab; // Default
+        string prefabSourceName = "Default"; // Track where the prefab came from
         bool isBreaking = false; // Keep track if it's a breaking platform
         
         // Use PlatformManager if available
@@ -85,20 +88,42 @@ public class LevelGenerator : MonoBehaviour
             if (randomPrefab != null)
             {
                 prefabToUse = randomPrefab;
+                prefabSourceName = "PlatformManager";
+                // Only log if it's a moving platform OR general debug is enabled
+                if (enableDebugLogs || randomPrefab.CompareTag("MovingPlatform")) 
+                {
+                    Debug.Log($"[LevelGenerator] PlatformManager selected: {randomPrefab.name}", randomPrefab);
+                }
+                
                 // Check if the selected prefab is a breaking platform
-                if (prefabToUse.GetComponent<BreakingPlatform>() != null)
+                if (randomPrefab.GetComponent<BreakingPlatform>() != null) 
                 { 
                     isBreaking = true;
                 }
             }
+            else
+            {
+                 if (enableDebugLogs) Debug.LogWarning("[LevelGenerator] PlatformManager returned null prefab, using default.");
+            }
+        }
+        else
+        {
+             if (enableDebugLogs) Debug.Log("[LevelGenerator] PlatformManager not found, using default platform prefab.");
         }
         
         // Instantiate the chosen platform prefab
         platformObject = Instantiate(prefabToUse, position, Quaternion.identity);
         
-        // Configure if using PlatformManager
-        if (platformManager != null && prefabToUse != platformPrefab)
+        // Configure if using PlatformManager AND the chosen prefab is different from the default one assigned in LevelGenerator's inspector
+        bool shouldConfigure = platformManager != null && prefabToUse != platformPrefab;
+        
+        if (shouldConfigure)
         {
+             // Only log the configuration call if it's a moving platform OR general debug is enabled
+             if (enableDebugLogs || platformObject.CompareTag("MovingPlatform"))
+             {
+                 Debug.Log($"[LevelGenerator] ---> Calling PlatformManager.ConfigurePlatform for {platformObject.name}", platformObject);
+             }
              platformManager.ConfigurePlatform(platformObject, position);
         }
         
@@ -106,6 +131,8 @@ public class LevelGenerator : MonoBehaviour
         // Only spawn if enemy prefab exists AND it's not a breaking platform AND random chance succeeds
         if (enemyPrefab != null && !isBreaking && Random.value < enemySpawnChance)
         {
+            // Keep enemy spawn logs conditional
+            if (enableDebugLogs) Debug.Log($"[LevelGenerator] Attempting to spawn enemy on {platformObject.name}", platformObject);
             SpawnEnemyOnPlatform(platformObject);
         }
         // --- End Enemy Spawn ---
@@ -119,6 +146,10 @@ public class LevelGenerator : MonoBehaviour
         Vector3 enemySpawnPos = platform.transform.position + new Vector3(0, (platformHeight / 2f) + enemyOffsetY, 0);
 
         Instantiate(enemyPrefab, enemySpawnPos, Quaternion.identity);
-        Debug.Log($"Spawned enemy on platform {platform.GetComponent<ClimbableSurface>()?.platformId}");
+        // Keep enemy spawn log conditional
+        if(enableDebugLogs) 
+        {
+            Debug.Log($"Spawned enemy on platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
+        }
     }
 } 

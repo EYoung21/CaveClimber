@@ -491,7 +491,7 @@ public class PlayerController : MonoBehaviour
         // If player is completely below camera view, trigger game over immediately
         if (transform.position.y + playerCollider.bounds.extents.y < cameraBottomY)
         {
-            if(showDebugLogs) Debug.Log("Player fell out of camera view. Game Over!");
+            // if(showDebugLogs) Debug.Log("Player fell out of camera view. Game Over!");
             gameManager.GameOver();
         }
     }

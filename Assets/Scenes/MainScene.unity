@@ -944,6 +944,7 @@ MonoBehaviour:
   maxY: 2
   initialPlatformsInView: 8
   platformHeightOffset: 0.5
+  enableDebugLogs: 1
 --- !u!4 &1308085859
 Transform:
   m_ObjectHideFlags: 0
@@ -1260,6 +1261,7 @@ MonoBehaviour:
     spawnChance: 0.2
   movingPlatformSpeed: 2
   movingPlatformDistance: 2
+  enableDebugLogs: 1
 --- !u!4 &1867293877
 Transform:
   m_ObjectHideFlags: 0
