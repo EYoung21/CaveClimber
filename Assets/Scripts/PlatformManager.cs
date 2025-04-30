@@ -17,7 +17,7 @@ public class PlatformManager : MonoBehaviour
     [Header("Moving Platform Settings")]
     public float movingPlatformSpeed = 2f;
     public float movingPlatformDistance = 2f;
-    public bool enableDebugLogs = true; // Add a flag to easily toggle logs
+    public bool enableDebugLogs = true; // Logs inside coroutine still depend on this
     
     private void Start()
     {
@@ -64,16 +64,12 @@ public class PlatformManager : MonoBehaviour
         ClimbableSurface platformScript = platform.GetComponent<ClimbableSurface>();
         Rigidbody2D rb = platform.GetComponent<Rigidbody2D>();
 
-        if (enableDebugLogs) Debug.Log($"[PlatformManager] ConfigurePlatform: Got components for {platform.name}. Script found: {platformScript != null}. Rigidbody found: {rb != null}. Tag: '{platform.tag}'", platform);
-
         if (platformScript != null)
         {
             if (platform.GetComponent<MovingPlatformMarker>() != null) 
             {
-                if (enableDebugLogs) Debug.Log($"[PlatformManager] Found MovingPlatform via Marker Component: {platform.name}", platform);
                 if (rb != null)
                 {
-                    if (enableDebugLogs) Debug.Log($"[PlatformManager] Rigidbody2D found for {platform.name}. Starting movement coroutine.", platform);
                     rb.bodyType = RigidbodyType2D.Kinematic;
                     rb.interpolation = RigidbodyInterpolation2D.Interpolate;
                     rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -82,13 +78,6 @@ public class PlatformManager : MonoBehaviour
                 else
                 {
                     Debug.LogWarning($"[PlatformManager] MovingPlatform {platform.name} is missing a Rigidbody2D. Movement disabled.", platform);
-                }
-            }
-            else
-            {
-                if (enableDebugLogs) 
-                {
-                    Debug.LogWarning($"[PlatformManager] ConfigurePlatform: {platform.name} is missing MovingPlatformMarker component. Skipping movement setup.", platform);
                 }
             }
         }

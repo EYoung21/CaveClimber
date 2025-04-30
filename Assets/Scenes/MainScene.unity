@@ -937,6 +937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformPrefab: {fileID: 5499878616013848630, guid: 979b6eece41baf745a8efceecff45316, type: 3}
   enemyPrefab: {fileID: 6232186471583543577, guid: 47791086da280f5479775a8137a27ef5, type: 3}
+  platformContainer: {fileID: 0}
   enemySpawnChance: 0.15
   numberOfPlatforms: 200
   levelWidth: 6
@@ -1254,11 +1255,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformTypes:
   - prefab: {fileID: 5499878616013848630, guid: 979b6eece41baf745a8efceecff45316, type: 3}
-    spawnChance: 0.6
+    spawnChance: 0.5
   - prefab: {fileID: 5499878616013848630, guid: 25f6ffd59cb374443b4a2dd7ee5644df, type: 3}
     spawnChance: 0.2
   - prefab: {fileID: 5499878616013848630, guid: 12cfcdd41feb4e245b4b4e665323e926, type: 3}
     spawnChance: 0.2
+  - prefab: {fileID: 5499878616013848630, guid: 692bd33abe68cc4458391e2068e69b3c, type: 3}
+    spawnChance: 0.1
   movingPlatformSpeed: 2
   movingPlatformDistance: 2
   enableDebugLogs: 1
