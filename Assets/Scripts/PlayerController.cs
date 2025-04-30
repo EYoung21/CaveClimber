@@ -3,10 +3,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float moveSpeed = 5f;
+    public float movementSpeed = 10f;
     public float jumpForce = 10f;
     public LayerMask groundLayer;
-    public float crawlSpeed = 2.5f; // Speed while crawling
+    public float groundCheckRadius = 0.2f; // Set a default value that's not zero
     
     // These will be ignored but are kept to avoid errors in the scene
     [HideInInspector] public SpriteRenderer icePickSprite;
@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float icePickLength;
     [HideInInspector] public float swingForce;
     [HideInInspector] public Transform groundCheck;
-    [HideInInspector] public float groundCheckRadius;
     [HideInInspector] public LayerMask climbableLayer;
     
     [Header("Animation")]
@@ -23,21 +22,25 @@ public class PlayerController : MonoBehaviour
     public Sprite[] runAnimation;
     public Sprite[] fallAnimaiton;
     public Sprite[] idleAnimation;
-    public Sprite[] crawlAnimation; // Animation for crawling
-    public Sprite duckSprite; // Single sprite for idle crawling/ducking
     public float animationFPS;
 
-    SpriteRenderer spriteRenderer;
-    
-    private Rigidbody2D rb;
-    private bool isGrounded;
-    private float groundCheckDistance = 0.1f; // Distance for the ground check raycast
-    private Collider2D playerCollider;
-    private bool isCrawling = false; // Track crawling state
+    [Header("Debug")]
+    public bool showDebugLogs = true;
 
+    // Screen wrapping
+    private float screenHalfWidth;
+    private float playerHalfWidth;
+
+    SpriteRenderer spriteRenderer;
+    private Rigidbody2D rb;
+    private Collider2D playerCollider;
+    private bool isGrounded;
+    private string lastDirection;
+    private float movement = 0f;
+    
     int currentFrame;
     float animationTimer;
-    private string lastDirection;
+    private float debugTimer = 0f;
     
     private void Start()
     {
@@ -47,154 +50,227 @@ public class PlayerController : MonoBehaviour
 
         currentFrame = 0;
         animationTimer = 1f / animationFPS;
-
         lastDirection = "right";
         
-        // Ensure Rigidbody2D settings are correct
-        if (rb != null)
+        // Setup for screen wrapping
+        screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
+        playerHalfWidth = GetComponent<Renderer>().bounds.extents.x;
+        
+        // Make sure we have a valid ground check radius
+        if (groundCheckRadius <= 0)
         {
-            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-            rb.interpolation = RigidbodyInterpolation2D.Interpolate;
-            rb.sleepMode = RigidbodySleepMode2D.NeverSleep;
-            rb.gravityScale = 1f; // Ensure gravity is on by default
+            groundCheckRadius = 0.2f;
+            Debug.LogWarning("Ground check radius was 0, set to default 0.2");
+        }
+        
+        // Log initial state
+        Debug.Log($"Player initialized. Ground Layer: {LayerMask.LayerToName(Mathf.RoundToInt(Mathf.Log(groundLayer.value, 2)))}");
+        Debug.Log($"Ground Check Radius: {groundCheckRadius}");
+        
+        // Ensure player is not on the Ground layer
+        if (gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            Debug.LogError("Player is on the Ground layer! This will cause issues with ground detection.");
         }
     }
     
     private void Update()
     {
-        // Check for crawl toggle
-        if (Input.GetKeyDown(KeyCode.C))
+        // Check if grounded
+        CheckGrounded();
+
+        // Periodically log state for debugging
+        if (showDebugLogs)
         {
-            ToggleCrawl();
+            debugTimer -= Time.deltaTime;
+            if (debugTimer <= 0)
+            {
+                Debug.Log($"Is Grounded: {isGrounded}, Position: {transform.position}, Velocity: {rb.linearVelocity}");
+                debugTimer = 1f;
+            }
         }
-
-        // Check if player is grounded using Raycast
-        // Calculate ray origin slightly below the player center based on collider bounds
-        float raycastOriginOffsetY = playerCollider.bounds.extents.y + 0.05f;
-        Vector2 raycastOrigin = (Vector2)transform.position - new Vector2(0, raycastOriginOffsetY);
-        RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, groundCheckDistance, groundLayer);
         
-        isGrounded = hit.collider != null;
-        Debug.Log($"Is Grounded: {isGrounded}"); // DEBUG: Log grounded status
-        Debug.DrawRay(raycastOrigin, Vector2.down * groundCheckDistance, isGrounded ? Color.green : Color.red); // Visualize the raycast
-
-        // Handle movement
-        HandleMovement();
+        // Get horizontal input
+        movement = Input.GetAxis("Horizontal") * movementSpeed;
         
-        // Handle animations
+        // Handle jump input
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("Jump button pressed");
+            if (isGrounded)
+            {
+                Debug.Log("Jumping!");
+                // Apply jump force on space press
+                Vector2 velocity = rb.linearVelocity;
+                velocity.y = jumpForce;
+                rb.linearVelocity = velocity;
+            }
+            else
+            {
+                Debug.Log("Cannot jump - not grounded");
+            }
+        }
+        
+        // Handle animations based on movement
         HandleAnimations();
+        
+        // Check for attack input
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Implement attack logic if needed
+        }
+        
+        // Handle screen wrapping
+        WrapAroundScreen();
+    }
+    
+    private void CheckGrounded()
+    {
+        // Alternative ground check method - use raycast down from slightly above the bottom
+        float raycastDistance = groundCheckRadius * 2;
+        Vector2 rayStart = new Vector2(transform.position.x, transform.position.y - playerCollider.bounds.extents.y + 0.1f);
+        
+        // Try multiple raycasts - one in center, one slightly left, one slightly right
+        bool hitGround = Physics2D.Raycast(rayStart, Vector2.down, raycastDistance, groundLayer) ||
+                         Physics2D.Raycast(rayStart + new Vector2(-0.2f, 0), Vector2.down, raycastDistance, groundLayer) ||
+                         Physics2D.Raycast(rayStart + new Vector2(0.2f, 0), Vector2.down, raycastDistance, groundLayer);
+        
+        // Set grounded state
+        isGrounded = hitGround;
+        
+        // Draw debug rays
+        if (showDebugLogs)
+        {
+            Debug.DrawRay(rayStart, Vector2.down * raycastDistance, hitGround ? Color.green : Color.red);
+            Debug.DrawRay(rayStart + new Vector2(-0.2f, 0), Vector2.down * raycastDistance, hitGround ? Color.green : Color.red);
+            Debug.DrawRay(rayStart + new Vector2(0.2f, 0), Vector2.down * raycastDistance, hitGround ? Color.green : Color.red);
+        }
+        
+        // Additional debug info for ground check
+        if (showDebugLogs && Input.GetButtonDown("Jump"))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(rayStart, Vector2.down, raycastDistance, groundLayer);
+            if (hit.collider != null)
+            {
+                Debug.Log($"Raycast hit: {hit.collider.gameObject.name} at distance {hit.distance}");
+            }
+            else
+            {
+                Debug.Log("Raycast didn't hit anything");
+            }
+        }
+    }
+    
+    private void FixedUpdate()
+    {
+        // Apply horizontal movement (Doodle Jump style)
+        Vector2 velocity = rb.linearVelocity;
+        velocity.x = movement;
+        rb.linearVelocity = velocity;
+    }
+    
+    private void WrapAroundScreen()
+    {
+        // Wrap player around screen edges
+        Vector3 pos = transform.position;
+        
+        if (pos.x + playerHalfWidth < -screenHalfWidth)
+        {
+            pos.x = screenHalfWidth + playerHalfWidth;
+        }
+        else if (pos.x - playerHalfWidth > screenHalfWidth)
+        {
+            pos.x = -screenHalfWidth - playerHalfWidth;
+        }
+        
+        transform.position = pos;
     }
 
     private void HandleAnimations()
     {
-        // If crawling, use crawl animation or duck sprite if idle
-        if (isCrawling)
+        // Animation handling based on velocity
+        if (rb.linearVelocity.y > 0.1f) 
         {
-            // Check if idle (not moving)
-            if (Mathf.Abs(rb.linearVelocity.x) < 0.1f)
-            {
-                // Use duck sprite when idle in crawl mode
-                spriteRenderer.sprite = duckSprite;
-            }
-            else
-            {
-                // Use crawl animation when moving
-                animationLoop(crawlAnimation);
-            }
-            
-            // Set facing direction
-            if (rb.linearVelocity.x < -0.1f)
-            {
-                spriteRenderer.flipX = true;
-                lastDirection = "left";
-            }
-            else if (rb.linearVelocity.x > 0.1f)
-            {
-                spriteRenderer.flipX = false;
-                lastDirection = "right";
-            }
-            else
-            {
-                // Keep last facing direction when idle
-                if (lastDirection == "left") spriteRenderer.flipX = true;
-                else spriteRenderer.flipX = false;
-            }
-            return;
+            // Jumping/moving up
+            animationLoop(jumpAnimation);
+        } 
+        else if (rb.linearVelocity.y < -0.1f) 
+        {
+            // Falling
+            animationLoop(fallAnimaiton);
         }
-
-        // Standard animation handling (when not crawling)
-        if (isGrounded) {
-            if (rb.linearVelocity.x < -0.1f) {
+        else 
+        {
+            // On platform or moving horizontally
+            if (Mathf.Abs(rb.linearVelocity.x) > 0.1f)
+            {
                 animationLoop(runAnimation);
-                spriteRenderer.flipX = true;
-                lastDirection = "left";
-            } else if (rb.linearVelocity.x > 0.1f) {
-                animationLoop(runAnimation);
-                spriteRenderer.flipX = false;
-                lastDirection = "right";
-            } else {
+            }
+            else
+            {
                 animationLoop(idleAnimation);
-                // Keep last facing direction when idle
-                if (lastDirection == "left") spriteRenderer.flipX = true;
-                else spriteRenderer.flipX = false;
             }
-        } else { // In air
-            if (rb.linearVelocity.y > 0.1f) {
-                animationLoop(jumpAnimation);
-            } else if (rb.linearVelocity.y < -0.1f) {
-                 animationLoop(fallAnimaiton);
-            } else {
-                animationLoop(fallAnimaiton);
-            }
-
-            // Update facing direction based on horizontal velocity even in air
-            if (rb.linearVelocity.x < -0.1f) {
-                spriteRenderer.flipX = true;
-                lastDirection = "left";
-            } else if (rb.linearVelocity.x > 0.1f) {
-                spriteRenderer.flipX = false;
-                lastDirection = "right";
-            } else {
-                // Keep last facing direction if horizontal velocity is near zero
-                if (lastDirection == "left") spriteRenderer.flipX = true;
-                else spriteRenderer.flipX = false;
-            }
+        }
+        
+        // Update sprite direction
+        if (rb.linearVelocity.x < -0.1f) 
+        {
+            spriteRenderer.flipX = true;
+            lastDirection = "left";
+        } 
+        else if (rb.linearVelocity.x > 0.1f) 
+        {
+            spriteRenderer.flipX = false;
+            lastDirection = "right";
+        }
+        else
+        {
+            // Keep last direction when idle
+            if (lastDirection == "left") spriteRenderer.flipX = true;
+            else spriteRenderer.flipX = false;
         }
     }
 
-    private void animationLoop(Sprite[] animationArray) {
-        if (animationArray == null || animationArray.Length == 0) return; // Safety check
+    private void animationLoop(Sprite[] animationArray) 
+    {
+        if (animationArray == null || animationArray.Length == 0) return;
 
         animationTimer -= Time.deltaTime;
-        if (animationTimer <= 0) {
+        if (animationTimer <= 0) 
+        {
             animationTimer = 1f / animationFPS;
-            currentFrame = (currentFrame + 1) % animationArray.Length; // Simplified looping
+            currentFrame = (currentFrame + 1) % animationArray.Length;
             spriteRenderer.sprite = animationArray[currentFrame];
         }
     }
     
-    private void HandleMovement()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        float currentSpeed = isCrawling ? crawlSpeed : moveSpeed;
-        
-        // Apply horizontal velocity regardless of grounded state
-        rb.linearVelocity = new Vector2(moveInput * currentSpeed, rb.linearVelocity.y);
-        
-        // Only allow jumping if grounded and not crawling
-        if (isGrounded && !isCrawling && Input.GetButtonDown("Jump"))
+        // Log collision info for debugging
+        if (showDebugLogs)
         {
-            Debug.Log("Jump Triggered!"); 
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            Debug.Log($"Collision with: {collision.gameObject.name} (Layer: {LayerMask.LayerToName(collision.gameObject.layer)})");
+            // Force a ground check immediately after collision
+            CheckGrounded();
+            Debug.Log($"After collision ground check: {isGrounded}");
         }
     }
     
-    private void ToggleCrawl()
+#if UNITY_EDITOR
+    // Debug visualization for ground check
+    private void OnDrawGizmos()
     {
-        isCrawling = !isCrawling;
-        
-        // Reset animation frame when toggling
-        currentFrame = 0;
-        Debug.Log($"Crawl mode: {isCrawling}");
+        if (playerCollider != null)
+        {
+            // Draw the ground check rays
+            Vector2 rayStart = new Vector2(transform.position.x, transform.position.y - playerCollider.bounds.extents.y + 0.1f);
+            float raycastDistance = groundCheckRadius * 2;
+            
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(rayStart, rayStart + Vector2.down * raycastDistance);
+            Gizmos.DrawLine(rayStart + new Vector2(-0.2f, 0), rayStart + new Vector2(-0.2f, 0) + Vector2.down * raycastDistance);
+            Gizmos.DrawLine(rayStart + new Vector2(0.2f, 0), rayStart + new Vector2(0.2f, 0) + Vector2.down * raycastDistance);
+        }
     }
+#endif
 } 
