@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public float animationFPS;
 
     [Header("Debug")]
-    public bool showDebugLogs = true;
+    public bool showDebugLogs = false; // Defaulting debug logs off now
 
     // Screen wrapping
     private float screenHalfWidth;
@@ -42,11 +42,21 @@ public class PlayerController : MonoBehaviour
     float animationTimer;
     private float debugTimer = 0f;
     
+    private CameraFollow cameraFollow; // Reference to the camera follow script
+    private bool hasLandedOnce = false; // Track if player has landed at least once
+    
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        // Find the CameraFollow script in the scene
+        cameraFollow = Camera.main.GetComponent<CameraFollow>();
+        if (cameraFollow == null)
+        {
+            Debug.LogError("Player could not find CameraFollow script on the main camera!");
+        }
 
         currentFrame = 0;
         animationTimer = 1f / animationFPS;
@@ -60,12 +70,12 @@ public class PlayerController : MonoBehaviour
         if (groundCheckRadius <= 0)
         {
             groundCheckRadius = 0.2f;
-            Debug.LogWarning("Ground check radius was 0, set to default 0.2");
+            if(showDebugLogs) Debug.LogWarning("Ground check radius was 0, set to default 0.2");
         }
         
         // Log initial state
-        Debug.Log($"Player initialized. Ground Layer: {LayerMask.LayerToName(Mathf.RoundToInt(Mathf.Log(groundLayer.value, 2)))}");
-        Debug.Log($"Ground Check Radius: {groundCheckRadius}");
+        if(showDebugLogs) Debug.Log($"Player initialized. Ground Layer: {LayerMask.LayerToName(Mathf.RoundToInt(Mathf.Log(groundLayer.value, 2)))}");
+        if(showDebugLogs) Debug.Log($"Ground Check Radius: {groundCheckRadius}");
         
         // Ensure player is not on the Ground layer
         if (gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -76,8 +86,22 @@ public class PlayerController : MonoBehaviour
     
     private void Update()
     {
+        // Store previous grounded state
+        bool wasGrounded = isGrounded;
+        
         // Check if grounded
         CheckGrounded();
+        
+        // Trigger camera follow on first landing
+        if (!wasGrounded && isGrounded && !hasLandedOnce)
+        {
+            hasLandedOnce = true;
+            if (cameraFollow != null)
+            {
+                cameraFollow.StartFollowing();
+            }
+            if(showDebugLogs) Debug.Log("Player landed for the first time.");
+        }
 
         // Periodically log state for debugging
         if (showDebugLogs)
@@ -96,10 +120,10 @@ public class PlayerController : MonoBehaviour
         // Handle jump input
         if (Input.GetButtonDown("Jump"))
         {
-            Debug.Log("Jump button pressed");
+            if(showDebugLogs) Debug.Log("Jump button pressed");
             if (isGrounded)
             {
-                Debug.Log("Jumping!");
+                if(showDebugLogs) Debug.Log("Jumping!");
                 // Apply jump force on space press
                 Vector2 velocity = rb.linearVelocity;
                 velocity.y = jumpForce;
@@ -107,7 +131,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Cannot jump - not grounded");
+                if(showDebugLogs) Debug.Log("Cannot jump - not grounded");
             }
         }
         

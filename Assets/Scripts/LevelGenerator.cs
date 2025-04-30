@@ -9,34 +9,28 @@ public class LevelGenerator : MonoBehaviour
     public float minY = 0.5f;
     public float maxY = 2f;
     
-    public Transform startPlatform { get; private set; } // Property to hold the transform of platform 0
-    
     private PlatformManager platformManager;
     
-    // Changed Start to Awake to ensure platforms are generated before GameManager tries to position the player
-    void Awake()
+    // Changed back to Start
+    void Start()
     {
         // Try to get PlatformManager using non-obsolete method
         platformManager = FindAnyObjectByType<PlatformManager>();
         
         Vector3 spawnPosition = new Vector3();
         
+        // Generate initial platforms
         for (int i = 0; i < numberOfPlatforms; i++)
         {
             spawnPosition.y += Random.Range(minY, maxY);
             spawnPosition.x = Random.Range(-levelWidth, levelWidth);
             
             // Spawn platform
-            SpawnPlatform(spawnPosition, i); // Pass the index as a potential ID hint (though ClimbableSurface handles the real ID)
-        }
-        
-        if (startPlatform == null)
-        {
-            Debug.LogWarning("Start platform (ID 0) was not found or generated!");
+            SpawnPlatform(spawnPosition); // Removed index parameter
         }
     }
     
-    void SpawnPlatform(Vector3 position, int index)
+    void SpawnPlatform(Vector3 position)
     {
         GameObject platformObject;
         GameObject prefabToUse = platformPrefab; // Default
@@ -60,12 +54,6 @@ public class LevelGenerator : MonoBehaviour
              platformManager.ConfigurePlatform(platformObject, position);
         }
         
-        // Check if this is the starting platform (ID 0)
-        ClimbableSurface platformScript = platformObject.GetComponent<ClimbableSurface>();
-        if (platformScript != null && platformScript.platformId == 0)
-        {
-            startPlatform = platformObject.transform;
-            Debug.Log($"Found start platform (ID 0) at position: {position}");
-        }
+        // Removed logic related to finding startPlatform ID 0
     }
 } 

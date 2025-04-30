@@ -18,15 +18,13 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     public float deathYThreshold = 10f; // How far below camera the player can fall
     public int scorePerPlatform = 10; // Score given for each new platform
-    public float playerSpawnOffsetY = 1.0f; // How high above the start platform the player spawns
+    public Vector3 playerSpawnOffset = new Vector3(0, 5, 0); // Offset relative to camera center
     
     private int currentScore = 0;
     private bool isGameOver = false;
     
     // Track platforms the player has already landed on
     private HashSet<int> visitedPlatformIds = new HashSet<int>();
-    
-    private LevelGenerator levelGenerator;
     
     private void Awake()
     {
@@ -39,13 +37,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
             return; // Stop execution if this isn't the main instance
-        }
-        
-        // Find the LevelGenerator - needed for player positioning
-        levelGenerator = FindAnyObjectByType<LevelGenerator>();
-        if (levelGenerator == null)
-        {
-            Debug.LogError("GameManager could not find LevelGenerator!");
         }
     }
     
@@ -62,7 +53,7 @@ public class GameManager : MonoBehaviour
         // Clear visited platforms
         visitedPlatformIds.Clear();
         
-        // Position the player above the start platform
+        // Position the player relative to the camera
         PositionPlayerAtStart();
     }
     
@@ -73,23 +64,12 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Player transform not assigned in GameManager!");
             return;
         }
-        
-        if (levelGenerator != null && levelGenerator.startPlatform != null)
-        {
-            // Calculate spawn position
-            Vector3 startPos = levelGenerator.startPlatform.position;
-            startPos.y += playerSpawnOffsetY;
-            
-            // Set player position
-            player.position = startPos;
-            Debug.Log($"Player positioned at {startPos} above start platform.");
-        }
-        else
-        {
-            Debug.LogWarning("Could not position player - start platform not found by LevelGenerator.");
-            // Optionally, set a default spawn position if platform 0 isn't found
-            // player.position = new Vector3(0, 2, 0);
-        }
+
+        // Spawn player relative to the main camera's starting position
+        Vector3 spawnPos = Camera.main.transform.position + playerSpawnOffset;
+        spawnPos.z = 0; // Ensure player is on the correct Z plane
+        player.position = spawnPos;
+        Debug.Log($"Player positioned at {spawnPos}");
     }
     
     private void Update()
@@ -115,7 +95,7 @@ public class GameManager : MonoBehaviour
             UpdateScoreUI();
             
             // Optional: Add a visual feedback for scoring
-            Debug.Log($"New platform visited! Score: {currentScore}");
+            // Debug.Log($"New platform visited! Score: {currentScore}");
         }
     }
     
