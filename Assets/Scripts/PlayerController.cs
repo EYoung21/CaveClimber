@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private string lastDirection;
     private float movement = 0f;
-    
+
     int currentFrame;
     float animationTimer;
     private float debugTimer = 0f;
@@ -125,80 +125,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    private void Update()
-    {
-        if (isAttacking) return; // Don't process movement/other actions during attack animation
-        
-        // Store previous grounded state
-        bool wasGrounded = isGrounded;
-        
-        // Check if grounded
-        CheckGrounded();
-        
-        // Trigger camera follow on first landing
-        if (!wasGrounded && isGrounded && !hasLandedOnce)
-        {
-            hasLandedOnce = true;
-            if (cameraFollow != null)
-            {
-                cameraFollow.StartFollowing();
-            }
-            if(showDebugLogs) Debug.Log("Player landed for the first time.");
-        }
-
-        // Periodically log state for debugging
-        if (showDebugLogs)
-        {
-            debugTimer -= Time.deltaTime;
-            if (debugTimer <= 0)
-            {
-                Debug.Log($"Is Grounded: {isGrounded}, Position: {transform.position}, Velocity: {rb.linearVelocity}");
-                debugTimer = 1f;
-            }
-        }
-        
-        // Get horizontal input
-        movement = Input.GetAxis("Horizontal") * movementSpeed;
-        
-        // --- Attack Input --- 
-        if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown)
-        {
-            StartCoroutine(Attack());
-        }
-        // --- End Attack Input ---
-        
-        // Handle jump input
-        if (Input.GetButtonDown("Jump"))
-        {
-            if(showDebugLogs) Debug.Log("Jump button pressed");
-            if (isGrounded)
-            {
-                if(showDebugLogs) Debug.Log("Jumping!");
-                // Apply jump force on space press
-                Vector2 velocity = rb.linearVelocity;
-                velocity.y = jumpForce;
-                rb.linearVelocity = velocity;
-            }
-            else
-            {
-                if(showDebugLogs) Debug.Log("Cannot jump - not grounded");
-            }
-        }
-        
-        // Only handle standard animations if not attacking
-        if (!isAttacking)
-        {
-            // Handle animations based on movement
-            HandleAnimations();
-        }
-        
-        // Handle screen wrapping
-        WrapAroundScreen();
-        
-        // Check if player has fallen below camera view
-        CheckIfOutOfCameraView();
-    }
-    
     private void CheckGrounded()
     {
         // Alternative ground check method - use raycast down from slightly above the bottom
@@ -236,20 +162,66 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    // Re-introduced Update for reliable input polling
+    private void Update()
+    {
+        // Attack Input Check (moved back from FixedUpdate)
+        // Added debug log inside the check
+        if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown && !isAttacking)
+        {
+            if(showDebugLogs) Debug.Log("Attack input detected in Update!");
+            StartCoroutine(Attack());
+        }
+        
+        // Other per-frame logic could go here if needed, but keep physics-related stuff in FixedUpdate
+    }
+    
     private void FixedUpdate()
     {
-        // Apply horizontal movement ONLY if not attacking
-        if (!isAttacking)
+        // Check grounded state (for animations etc.)
+        bool wasGrounded = isGrounded;
+        CheckGrounded();
+        
+        // Trigger camera follow on first landing
+        if (!wasGrounded && isGrounded && !hasLandedOnce)
         {
-            // Apply horizontal movement (Doodle Jump style)
-            Vector2 velocity = rb.linearVelocity;
-            velocity.x = movement;
-            rb.linearVelocity = velocity;
+            hasLandedOnce = true;
+            if (cameraFollow != null)
+            {
+                cameraFollow.StartFollowing();
+            }
+            if(showDebugLogs) Debug.Log("Player landed for the first time.");
         }
-        else
+        
+        // Process movement input regardless of attack state
+        movement = Input.GetAxis("Horizontal") * movementSpeed;
+    
+        // Apply horizontal movement (Doodle Jump style)
+        // Allow horizontal velocity change even during attack?
+        // Or maybe freeze horizontal movement during attack animation?
+        // Let's allow it for now, attack animation takes priority for visuals.
+        Vector2 velocity = rb.linearVelocity;
+        velocity.x = movement;
+        rb.linearVelocity = velocity;
+        
+        // Handle standard animations (Attack coroutine will override if active)
+        HandleAnimations();
+        
+        // Handle screen wrapping (moved from Update)
+        WrapAroundScreen();
+        
+        // Check if player has fallen below camera view (moved from Update)
+        CheckIfOutOfCameraView();
+        
+        // Periodically log state for debugging (moved from Update)
+        if (showDebugLogs)
         {
-            // Optionally reduce horizontal velocity during attack
-            // rb.linearVelocity = new Vector2(rb.linearVelocity.x * 0.5f, rb.linearVelocity.y);
+            debugTimer -= Time.fixedDeltaTime; // Use fixedDeltaTime in FixedUpdate
+            if (debugTimer <= 0)
+            {
+                Debug.Log($"Is Grounded: {isGrounded}, Position: {transform.position}, Velocity: {rb.linearVelocity}");
+                debugTimer = 1f;
+            }
         }
     }
     
@@ -273,49 +245,53 @@ public class PlayerController : MonoBehaviour
     private void HandleAnimations()
     {
         // Determine current direction based on input/velocity if needed
+        // We still need this for flipping the sprite correctly
         if (movement > 0.1f) lastDirection = "right";
         else if (movement < -0.1f) lastDirection = "left";
         
         // Animation handling based on velocity
+        // MODIFIED: Use jump anim for positive Y vel, run anim for negative Y vel
         if (rb.linearVelocity.y > 0.1f) 
-        {
-            // Jumping/moving up
-            animationLoop(jumpAnimation);
+        {   
+            // Moving up
+            animationLoop(jumpAnimation); 
         } 
         else if (rb.linearVelocity.y < -0.1f) 
-        {
-            // Falling
-            animationLoop(fallAnimaiton);
+        { 
+            // Falling - Use Run Animation as requested
+            animationLoop(runAnimation); // << CHANGED FROM fallAnimation
         }
         else 
-        {
-            // On platform or moving horizontally
+        {   
+            // On ground or very small Y velocity
             if (Mathf.Abs(movement) > 0.1f)
             {
+                // Use Run animation if moving horizontally on ground
                 animationLoop(runAnimation);
             }
             else
             {
+                 // Use Idle animation if still on ground
                 animationLoop(idleAnimation);
             }
-        }
-        
-        // Update sprite direction
-        if (rb.linearVelocity.x < -0.1f) 
-        {
-            spriteRenderer.flipX = true;
-            lastDirection = "left";
-        } 
-        else if (rb.linearVelocity.x > 0.1f) 
-        {
-            spriteRenderer.flipX = false;
-            lastDirection = "right";
-        }
-        else
-        {
-            // Keep last direction when idle
-            if (lastDirection == "left") spriteRenderer.flipX = true;
-            else spriteRenderer.flipX = false;
+            }
+            
+        // Update sprite direction based on actual velocity or last input direction
+            if (rb.linearVelocity.x < -0.1f)
+            {
+                spriteRenderer.flipX = true;
+                lastDirection = "left";
+            }
+            else if (rb.linearVelocity.x > 0.1f)
+            {
+                spriteRenderer.flipX = false;
+                lastDirection = "right";
+            }
+            else
+            {
+            // Horizontal velocity is near zero, use the last known movement input direction
+                if (lastDirection == "left") spriteRenderer.flipX = true;
+                else spriteRenderer.flipX = false;
         }
     }
 
@@ -339,13 +315,48 @@ public class PlayerController : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Log collision info for debugging
-        if (showDebugLogs)
+        // Check if colliding with the ground layer
+        if (((1 << collision.gameObject.layer) & groundLayer) != 0)
         {
-            Debug.Log($"Collision with: {collision.gameObject.name} (Layer: {LayerMask.LayerToName(collision.gameObject.layer)})");
-            // Force a ground check immediately after collision
-            CheckGrounded();
-            Debug.Log($"After collision ground check: {isGrounded}");
+            // Check if the collision came from above (landing)
+            bool landedOnTop = false;
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                // A normal pointing upwards (positive Y) indicates collision on the top surface
+                if (contact.normal.y > 0.5f) 
+                {
+                    landedOnTop = true;
+                    break; // Found a top contact, no need to check others
+                }
+            }
+
+            if (landedOnTop)
+            {
+                // Apply automatic jump force upon landing
+                if(showDebugLogs) Debug.Log($"Auto-Jumping off {collision.gameObject.name}");
+                Vector2 velocity = rb.linearVelocity;
+                velocity.y = jumpForce;
+                rb.linearVelocity = velocity;
+                
+                // Optional: Trigger first landing camera follow here as well?
+                // It's currently triggered in FixedUpdate based on isGrounded state change,
+                // which should still work fine after this collision sets things up.
+            }
+        }
+        
+        // Handle enemy collision (keep existing logic if it was here)
+        if (((1 << collision.gameObject.layer) & enemyLayer) != 0)
+        {
+             // Add enemy collision logic here if it was removed from Update
+             EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
+             if (enemy != null)
+             {
+                 // Example: Apply knockback
+                 Vector2 knockbackDirection = (transform.position - enemy.transform.position).normalized;
+                 rb.AddForce(knockbackDirection * 5f, ForceMode2D.Impulse); // Adjust force as needed
+                 // Maybe trigger game over or damage?
+                 // gameManager?.GameOver(); 
+             }
         }
     }
     
@@ -425,6 +436,9 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Attack()
     {
+        // Added debug log at the start of the coroutine
+        if(showDebugLogs) Debug.Log("Attack() coroutine started.");
+        
         isAttacking = true;
         lastAttackTime = Time.time;
         if(showDebugLogs) Debug.Log("Player attacking!");
@@ -457,6 +471,7 @@ public class PlayerController : MonoBehaviour
         // --- End Attack Animation --- 
 
         isAttacking = false;
+        if(showDebugLogs) Debug.Log("Attack() coroutine finished, isAttacking set to false.");
         // Reset to appropriate animation after attacking (e.g., idle/run/fall)
         HandleAnimations(); 
     }

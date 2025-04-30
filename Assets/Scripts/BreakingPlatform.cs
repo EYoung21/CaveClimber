@@ -4,8 +4,8 @@ using System.Collections;
 public class BreakingPlatform : ClimbableSurface
 {
     [Header("Breaking Platform Settings")]
-    public float breakDelay = 0.3f;
-    public Color breakingColor = Color.red;
+    public float breakDelay = 0.2f;
+    public Color breakingColor = new Color(1f, 0.5f, 0.5f, 0.8f);
     
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
@@ -13,48 +13,64 @@ public class BreakingPlatform : ClimbableSurface
     
     protected override void Awake()
     {
-        // Call base Awake for platform ID assignment
         base.Awake();
-        
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
             originalColor = spriteRenderer.color;
         }
+        else
+        {
+             Debug.LogWarning("BreakingPlatform is missing a SpriteRenderer!", this);
+        }
     }
     
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        // First call the base class method to handle scoring
         base.OnCollisionEnter2D(collision);
         
-        // Check if this is a landing collision from above
-        if (collision.relativeVelocity.y <= 0f && !hasBeenLandedOn)
+        if (hasBeenLandedOn) return;
+        
+        if (collision.gameObject.CompareTag("Player"))
         {
-            hasBeenLandedOn = true;
-            StartCoroutine(BreakPlatform());
+            Collider2D playerCollider = collision.collider;
+            if (playerCollider == null) return;
+            
+            float playerBottomY = playerCollider.bounds.min.y;
+            float contactThreshold = 0.1f;
+            
+            bool landedOnTopWithFeet = false;
+
+            if (collision.relativeVelocity.y < -0.1f)
+            {
+                foreach (ContactPoint2D contact in collision.contacts)
+                {
+                    if (contact.normal.y > 0.5f && 
+                        contact.point.y <= playerBottomY + contactThreshold)
+                    {
+                        landedOnTopWithFeet = true;
+                        break;
+                    }
+                }
+            }
+
+            if (landedOnTopWithFeet)
+            {
+                hasBeenLandedOn = true;
+                StartCoroutine(BreakPlatform());
+            }
         }
     }
     
     private IEnumerator BreakPlatform()
     {
-        // Change color to indicate breaking
         if (spriteRenderer != null)
         {
             spriteRenderer.color = breakingColor;
         }
         
-        // Wait for the specified delay
         yield return new WaitForSeconds(breakDelay);
         
-        // Disable the platform
         gameObject.SetActive(false);
-        
-        // Reset state for reuse
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.color = originalColor;
-        }
-        hasBeenLandedOn = false;
     }
 } 
