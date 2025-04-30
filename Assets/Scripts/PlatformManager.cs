@@ -15,8 +15,10 @@ public class PlatformManager : MonoBehaviour
     public PlatformType[] platformTypes;
     
     [Header("Moving Platform Settings")]
-    public float movingPlatformSpeed = 2f;
-    public float movingPlatformDistance = 2f;
+    public float minMovingPlatformSpeed = 1.5f;
+    public float maxMovingPlatformSpeed = 3.0f;
+    public float minMovingPlatformDistance = 1.5f;
+    public float maxMovingPlatformDistance = 3.5f;
     public bool enableDebugLogs = true; // Logs inside coroutine still depend on this
     
     private void Start()
@@ -91,22 +93,32 @@ public class PlatformManager : MonoBehaviour
     {
         if (enableDebugLogs) Debug.Log($"[PlatformManager] MovePlatformRigidbody coroutine started for {platform.name}", platform);
         
-        Vector3 startPos = rb.position;
-        Vector3 endPos = startPos + new Vector3(movingPlatformDistance, 0, 0);
+        // Randomize movement parameters for this platform
+        float randomSpeed = Random.Range(minMovingPlatformSpeed, maxMovingPlatformSpeed);
+        float randomDistance = Random.Range(minMovingPlatformDistance, maxMovingPlatformDistance);
         
-        float journeyLength = movingPlatformDistance;
+        // Randomly choose direction
+        bool startMovingRight = Random.value > 0.5f;
+        float direction = startMovingRight ? 1f : -1f;
+        
+        Vector3 startPos = rb.position;
+        Vector3 endPos = startPos + new Vector3(randomDistance * direction, 0, 0);
+        
+        float journeyLength = randomDistance;
         if (journeyLength <= 0) 
         {
              if (enableDebugLogs) Debug.LogWarning($"[PlatformManager] MovingPlatformDistance is zero or negative for {platform.name}. Movement disabled.", platform);
              yield break;
         }
         
+        if (enableDebugLogs) Debug.Log($"[PlatformManager] Platform {platform.name} starting with Speed: {randomSpeed}, Distance: {randomDistance}, Direction: {(startMovingRight ? "right" : "left")}", platform);
+        
         float startTime = Time.time;
-        bool movingRight = true;
+        bool movingRight = startMovingRight;
         
         while (platform != null && platform.activeInHierarchy)
         {
-            float distCovered = (Time.time - startTime) * movingPlatformSpeed;
+            float distCovered = (Time.time - startTime) * randomSpeed;
             float fractionOfJourney = distCovered / journeyLength;
             
             Vector3 targetPosition;
