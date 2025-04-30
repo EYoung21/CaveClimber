@@ -182,6 +182,14 @@ public class PlayerController : MonoBehaviour
         bool wasGrounded = isGrounded;
         CheckGrounded();
         
+        // --- Unparent if player becomes not grounded --- 
+        if (wasGrounded && !isGrounded && transform.parent != null)
+        {
+            transform.parent = null;
+            if (showDebugLogs) Debug.Log("Player became ungrounded, unparented from platform.");
+        }
+        // --- End modification --- 
+        
         // Trigger camera follow on first landing
         if (!wasGrounded && isGrounded && !hasLandedOnce)
         {
@@ -332,17 +340,35 @@ public class PlayerController : MonoBehaviour
 
             if (landedOnTop)
             {
+                // --- Handle Parenting --- 
+                MovingPlatformMarker movingPlatform = collision.gameObject.GetComponent<MovingPlatformMarker>();
+                if (movingPlatform != null)
+                {
+                    transform.parent = collision.transform;
+                    if (showDebugLogs) Debug.Log($"Player landed on moving platform {collision.gameObject.name}, parenting.", collision.gameObject);
+                }
+                else
+                {
+                    // Ensure unparented if landing on a non-moving platform
+                    transform.parent = null;
+                }
+                // --- End Parenting --- 
+
                 // --- Prevent jumping off breaking platforms --- 
                 BreakingPlatform breakingPlatform = collision.gameObject.GetComponent<BreakingPlatform>();
                 if (breakingPlatform != null)
                 {
                     if(showDebugLogs) Debug.Log("Landed on a BreakingPlatform, preventing auto-jump.");
-                    // Do nothing - the breaking platform handles disabling itself
+                    // Make sure we unparent even from breaking platforms if somehow parented
+                    transform.parent = null; 
                 }
                 else
                 {
                     // Apply automatic jump force upon landing on normal platforms
                     if(showDebugLogs) Debug.Log($"Auto-Jumping off {collision.gameObject.name}");
+                    // --- Unparent before jumping --- 
+                    transform.parent = null;
+                    // --- End unparent --- 
                     Vector2 velocity = rb.linearVelocity;
                     velocity.y = jumpForce;
                     rb.linearVelocity = velocity;
