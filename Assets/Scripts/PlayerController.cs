@@ -158,8 +158,8 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Debug.Log("Raycast didn't hit anything");
-            }
         }
+    }
     }
     
     // Re-introduced Update for reliable input polling
@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
             animationLoop(jumpAnimation); 
         } 
         else if (rb.linearVelocity.y < -0.1f) 
-        { 
+            {
             // Falling - Use Run Animation as requested
             animationLoop(runAnimation); // << CHANGED FROM fallAnimation
         }
@@ -292,7 +292,7 @@ public class PlayerController : MonoBehaviour
             // Horizontal velocity is near zero, use the last known movement input direction
                 if (lastDirection == "left") spriteRenderer.flipX = true;
                 else spriteRenderer.flipX = false;
-        }
+            }
     }
 
     private void animationLoop(Sprite[] animationArray) 
@@ -332,11 +332,22 @@ public class PlayerController : MonoBehaviour
 
             if (landedOnTop)
             {
-                // Apply automatic jump force upon landing
-                if(showDebugLogs) Debug.Log($"Auto-Jumping off {collision.gameObject.name}");
-                Vector2 velocity = rb.linearVelocity;
-                velocity.y = jumpForce;
-                rb.linearVelocity = velocity;
+                // --- Prevent jumping off breaking platforms --- 
+                BreakingPlatform breakingPlatform = collision.gameObject.GetComponent<BreakingPlatform>();
+                if (breakingPlatform != null)
+                {
+                    if(showDebugLogs) Debug.Log("Landed on a BreakingPlatform, preventing auto-jump.");
+                    // Do nothing - the breaking platform handles disabling itself
+                }
+                else
+                {
+                    // Apply automatic jump force upon landing on normal platforms
+                    if(showDebugLogs) Debug.Log($"Auto-Jumping off {collision.gameObject.name}");
+                    Vector2 velocity = rb.linearVelocity;
+                    velocity.y = jumpForce;
+                    rb.linearVelocity = velocity;
+                }
+                // --- End modification --- 
                 
                 // Optional: Trigger first landing camera follow here as well?
                 // It's currently triggered in FixedUpdate based on isGrounded state change,
@@ -356,7 +367,7 @@ public class PlayerController : MonoBehaviour
                  rb.AddForce(knockbackDirection * 5f, ForceMode2D.Impulse); // Adjust force as needed
                  // Maybe trigger game over or damage?
                  // gameManager?.GameOver(); 
-             }
+            }
         }
     }
     
@@ -430,8 +441,8 @@ public class PlayerController : MonoBehaviour
              Vector2 attackDir = (lastDirection == "right") ? Vector2.right : Vector2.left;
              Gizmos.color = Color.red;
              Gizmos.DrawLine(transform.position, (Vector2)transform.position + attackDir * attackRange);
+            }
         }
-    }
 #endif
 
     IEnumerator Attack()
@@ -496,7 +507,7 @@ public class PlayerController : MonoBehaviour
              if(showDebugLogs) Debug.Log("Attack missed.");
         }
     }
-
+    
     private void CheckIfOutOfCameraView()
     {
         if (mainCamera == null || gameManager == null) return;
