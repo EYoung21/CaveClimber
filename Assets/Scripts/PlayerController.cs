@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections; // Needed for IEnumerator
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,6 +8,12 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     public LayerMask groundLayer;
     public float groundCheckRadius = 0.2f; // Set a default value that's not zero
+    
+    [Header("Attack Settings")]
+    public float attackRange = 1.5f;
+    public LayerMask enemyLayer; // Set this to your Enemy layer in inspector
+    public float attackCooldown = 0.5f;
+    public Sprite[] attackAnimation; // Assign attack sprites
     
     // These will be ignored but are kept to avoid errors in the scene
     [HideInInspector] public SpriteRenderer icePickSprite;
@@ -45,6 +52,13 @@ public class PlayerController : MonoBehaviour
     private CameraFollow cameraFollow; // Reference to the camera follow script
     private bool hasLandedOnce = false; // Track if player has landed at least once
     
+    // Attack state
+    private bool isAttacking = false;
+    private float lastAttackTime = -1f;
+    
+    private Camera mainCamera;
+    private GameManager gameManager;
+    
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -56,6 +70,14 @@ public class PlayerController : MonoBehaviour
         if (cameraFollow == null)
         {
             Debug.LogError("Player could not find CameraFollow script on the main camera!");
+        }
+        
+        // Get reference to the main camera and game manager
+        mainCamera = Camera.main;
+        gameManager = GameManager.Instance;
+        if (gameManager == null)
+        {
+            Debug.LogError("Could not find GameManager instance!");
         }
 
         currentFrame = 0;
@@ -82,10 +104,31 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogError("Player is on the Ground layer! This will cause issues with ground detection.");
         }
+        
+        // Setup platform collision handling
+        SetupCollisionDetection();
+    }
+    
+    private void SetupCollisionDetection()
+    {
+        // Set up physics 2D to ignore collisions between player and platforms when moving horizontally
+        if (rb != null && playerCollider != null)
+        {
+            // Get the player's collision detection mode and make sure it's continuous
+            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+            
+            // Log setup for debugging
+            if (showDebugLogs)
+            {
+                Debug.Log($"Player collision setup - Layer: {gameObject.layer}, Ground Layer: {Mathf.RoundToInt(Mathf.Log(groundLayer.value, 2))}");
+            }
+        }
     }
     
     private void Update()
     {
+        if (isAttacking) return; // Don't process movement/other actions during attack animation
+        
         // Store previous grounded state
         bool wasGrounded = isGrounded;
         
@@ -117,6 +160,13 @@ public class PlayerController : MonoBehaviour
         // Get horizontal input
         movement = Input.GetAxis("Horizontal") * movementSpeed;
         
+        // --- Attack Input --- 
+        if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown)
+        {
+            StartCoroutine(Attack());
+        }
+        // --- End Attack Input ---
+        
         // Handle jump input
         if (Input.GetButtonDown("Jump"))
         {
@@ -135,17 +185,18 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        // Handle animations based on movement
-        HandleAnimations();
-        
-        // Check for attack input
-        if (Input.GetMouseButtonDown(0))
+        // Only handle standard animations if not attacking
+        if (!isAttacking)
         {
-            // Implement attack logic if needed
+            // Handle animations based on movement
+            HandleAnimations();
         }
         
         // Handle screen wrapping
         WrapAroundScreen();
+        
+        // Check if player has fallen below camera view
+        CheckIfOutOfCameraView();
     }
     
     private void CheckGrounded()
@@ -187,10 +238,19 @@ public class PlayerController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        // Apply horizontal movement (Doodle Jump style)
-        Vector2 velocity = rb.linearVelocity;
-        velocity.x = movement;
-        rb.linearVelocity = velocity;
+        // Apply horizontal movement ONLY if not attacking
+        if (!isAttacking)
+        {
+            // Apply horizontal movement (Doodle Jump style)
+            Vector2 velocity = rb.linearVelocity;
+            velocity.x = movement;
+            rb.linearVelocity = velocity;
+        }
+        else
+        {
+            // Optionally reduce horizontal velocity during attack
+            // rb.linearVelocity = new Vector2(rb.linearVelocity.x * 0.5f, rb.linearVelocity.y);
+        }
     }
     
     private void WrapAroundScreen()
@@ -212,6 +272,10 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAnimations()
     {
+        // Determine current direction based on input/velocity if needed
+        if (movement > 0.1f) lastDirection = "right";
+        else if (movement < -0.1f) lastDirection = "left";
+        
         // Animation handling based on velocity
         if (rb.linearVelocity.y > 0.1f) 
         {
@@ -226,7 +290,7 @@ public class PlayerController : MonoBehaviour
         else 
         {
             // On platform or moving horizontally
-            if (Mathf.Abs(rb.linearVelocity.x) > 0.1f)
+            if (Mathf.Abs(movement) > 0.1f)
             {
                 animationLoop(runAnimation);
             }
@@ -258,13 +322,18 @@ public class PlayerController : MonoBehaviour
     private void animationLoop(Sprite[] animationArray) 
     {
         if (animationArray == null || animationArray.Length == 0) return;
+        if (isAttacking && animationArray != attackAnimation) return; // Don't override attack animation
 
         animationTimer -= Time.deltaTime;
         if (animationTimer <= 0) 
         {
             animationTimer = 1f / animationFPS;
             currentFrame = (currentFrame + 1) % animationArray.Length;
-            spriteRenderer.sprite = animationArray[currentFrame];
+            // Check bounds just in case
+            if (currentFrame >= 0 && currentFrame < animationArray.Length)
+            {
+                spriteRenderer.sprite = animationArray[currentFrame];
+            }
         }
     }
     
@@ -277,6 +346,54 @@ public class PlayerController : MonoBehaviour
             // Force a ground check immediately after collision
             CheckGrounded();
             Debug.Log($"After collision ground check: {isGrounded}");
+        }
+    }
+    
+    // Override collision resolution to prevent sticking to sides of platforms
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        // Only process for platform collisions
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            for (int i = 0; i < collision.contactCount; i++)
+            {
+                Vector2 normal = collision.GetContact(i).normal;
+                
+                // If collision is from the side (normal.y is near 0)
+                if (Mathf.Abs(normal.y) < 0.1f)
+                {
+                    // Get the platform effector
+                    PlatformEffector2D effector = collision.gameObject.GetComponent<PlatformEffector2D>();
+                    
+                    // If the platform has an effector, temporarily disable collision
+                    if (effector != null && effector.useOneWay)
+                    {
+                        // Create a temporary non-collision state
+                        Physics2D.IgnoreCollision(playerCollider, collision.collider, true);
+                        
+                        // Re-enable collision after a short delay
+                        StartCoroutine(ReenableCollision(playerCollider, collision.collider));
+                    }
+                }
+            }
+        }
+    }
+    
+    private IEnumerator ReenableCollision(Collider2D player, Collider2D platform)
+    {
+        // Wait a short time
+        yield return new WaitForSeconds(0.2f);
+        
+        // Only re-enable collision if the player is above the platform
+        if (player.bounds.min.y > platform.bounds.max.y - 0.1f)
+        {
+            Physics2D.IgnoreCollision(player, platform, false);
+        }
+        else
+        {
+            // Check again later if still beside the platform
+            yield return new WaitForSeconds(0.2f);
+            Physics2D.IgnoreCollision(player, platform, false);
         }
     }
     
@@ -295,6 +412,87 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawLine(rayStart + new Vector2(-0.2f, 0), rayStart + new Vector2(-0.2f, 0) + Vector2.down * raycastDistance);
             Gizmos.DrawLine(rayStart + new Vector2(0.2f, 0), rayStart + new Vector2(0.2f, 0) + Vector2.down * raycastDistance);
         }
+        
+        // Draw attack raycast when debug enabled
+        if (showDebugLogs && Application.isPlaying) // Only draw when playing
+        {
+             Vector2 attackDir = (lastDirection == "right") ? Vector2.right : Vector2.left;
+             Gizmos.color = Color.red;
+             Gizmos.DrawLine(transform.position, (Vector2)transform.position + attackDir * attackRange);
+        }
     }
 #endif
+
+    IEnumerator Attack()
+    {
+        isAttacking = true;
+        lastAttackTime = Time.time;
+        if(showDebugLogs) Debug.Log("Player attacking!");
+
+        // Determine attack direction
+        Vector2 attackDir = (lastDirection == "right") ? Vector2.right : Vector2.left;
+        spriteRenderer.flipX = (lastDirection == "left"); // Ensure sprite faces attack direction
+
+        // --- Play Attack Animation --- 
+        if (attackAnimation != null && attackAnimation.Length > 0)
+        {
+            float frameDuration = 1f / animationFPS;
+            for (int i = 0; i < attackAnimation.Length; i++)
+            {
+                spriteRenderer.sprite = attackAnimation[i];
+                // --- Perform Raycast during a specific frame (e.g., midway) --- 
+                if (i == attackAnimation.Length / 2) // Adjust frame index if needed
+                {
+                    PerformAttackRaycast(attackDir);
+                }
+                yield return new WaitForSeconds(frameDuration);
+            }
+        }
+        else
+        {
+            // If no animation, perform raycast immediately
+            PerformAttackRaycast(attackDir);
+            yield return new WaitForSeconds(0.1f); // Small delay even without animation
+        }
+        // --- End Attack Animation --- 
+
+        isAttacking = false;
+        // Reset to appropriate animation after attacking (e.g., idle/run/fall)
+        HandleAnimations(); 
+    }
+
+    void PerformAttackRaycast(Vector2 direction)
+    {
+        if(showDebugLogs) Debug.DrawRay(transform.position, direction * attackRange, Color.red, 0.5f);
+        
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, attackRange, enemyLayer);
+        
+        if (hit.collider != null)
+        {
+            if(showDebugLogs) Debug.Log($"Attack hit: {hit.collider.name}");
+            EnemyController enemy = hit.collider.GetComponent<EnemyController>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage();
+            }
+        }
+        else
+        {
+             if(showDebugLogs) Debug.Log("Attack missed.");
+        }
+    }
+
+    private void CheckIfOutOfCameraView()
+    {
+        if (mainCamera == null || gameManager == null) return;
+        
+        float cameraBottomY = mainCamera.transform.position.y - mainCamera.orthographicSize;
+        
+        // If player is completely below camera view, trigger game over immediately
+        if (transform.position.y + playerCollider.bounds.extents.y < cameraBottomY)
+        {
+            if(showDebugLogs) Debug.Log("Player fell out of camera view. Game Over!");
+            gameManager.GameOver();
+        }
+    }
 } 

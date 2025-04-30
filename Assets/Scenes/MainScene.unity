@@ -387,6 +387,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   groundCheckRadius: 0
+  attackRange: 1.5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  attackCooldown: 0.5
+  attackAnimation:
+  - {fileID: -4807823064868867790, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
+  - {fileID: -8915493241197941782, guid: 2949788f590fa44aba8c81499cdab7c1, type: 3}
   icePickSprite: {fileID: 0}
   icePickPivot: {fileID: 0}
   icePickTip: {fileID: 0}
@@ -526,7 +534,6 @@ MonoBehaviour:
   target: {fileID: 381649422}
   smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: -10}
-  scoreText: {fileID: 0}
 --- !u!1 &945035244
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,10 +936,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformPrefab: {fileID: 5499878616013848630, guid: 979b6eece41baf745a8efceecff45316, type: 3}
+  enemyPrefab: {fileID: 6232186471583543577, guid: 47791086da280f5479775a8137a27ef5, type: 3}
+  enemySpawnChance: 0.15
   numberOfPlatforms: 200
   levelWidth: 6
   minY: 0.5
   maxY: 2
+  initialPlatformsInView: 8
+  platformHeightOffset: 0.5
 --- !u!4 &1308085859
 Transform:
   m_ObjectHideFlags: 0
@@ -1118,7 +1129,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1816775190}
   deathYThreshold: 10
   scorePerPlatform: 10
-  playerSpawnOffsetY: 1
+  playerSpawnOffset: {x: 0, y: 5, z: 0}
 --- !u!4 &1806377240
 Transform:
   m_ObjectHideFlags: 0
