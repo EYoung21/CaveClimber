@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections; // Needed for IEnumerator
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -59,11 +60,29 @@ public class PlayerController : MonoBehaviour
     private Camera mainCamera;
     private GameManager gameManager;
     
+    [Header("Power-up Settings")]
+    public float defaultJumpForce = 10f; // Store the default jump force
+    public TextMeshProUGUI jumpBoostTimerText; // Reference to the timer UI
+    
+    // Power-up state
+    private bool jumpBoostActive = false;
+    private float jumpBoostTimeRemaining = 0f;
+    private float currentJumpBoostMultiplier = 1f;
+    
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        // Store the default jump force value
+        defaultJumpForce = jumpForce;
+        
+        // Hide the jump boost timer initially
+        if (jumpBoostTimerText != null)
+        {
+            jumpBoostTimerText.gameObject.SetActive(false);
+        }
         
         // Find the CameraFollow script in the scene
         cameraFollow = Camera.main.GetComponent<CameraFollow>();
@@ -165,6 +184,24 @@ public class PlayerController : MonoBehaviour
     // Re-introduced Update for reliable input polling
     private void Update()
     {
+        // Handle jump boost timer
+        if (jumpBoostActive)
+        {
+            jumpBoostTimeRemaining -= Time.deltaTime;
+            
+            // Update timer UI
+            if (jumpBoostTimerText != null)
+            {
+                jumpBoostTimerText.text = Mathf.Ceil(jumpBoostTimeRemaining).ToString();
+            }
+            
+            // Check if boost has expired
+            if (jumpBoostTimeRemaining <= 0)
+            {
+                DeactivateJumpBoost();
+            }
+        }
+        
         // Attack Input Check (moved back from FixedUpdate)
         // Added debug log inside the check
         if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown && !isAttacking)
@@ -598,5 +635,49 @@ public class PlayerController : MonoBehaviour
             // if(showDebugLogs) Debug.Log("Player fell out of camera view. Game Over!");
             gameManager.GameOver();
         }
+    }
+
+    // Call this method to apply a jump boost
+    public void ApplyJumpBoost(float multiplier, float duration)
+    {
+        // Set the jump force to the boosted value
+        jumpForce = defaultJumpForce * multiplier;
+        
+        // Store the boost multiplier for reference
+        currentJumpBoostMultiplier = multiplier;
+        
+        // Set timer
+        jumpBoostTimeRemaining = duration;
+        jumpBoostActive = true;
+        
+        // Show the timer UI
+        if (jumpBoostTimerText != null)
+        {
+            jumpBoostTimerText.gameObject.SetActive(true);
+            jumpBoostTimerText.color = Color.red;
+            jumpBoostTimerText.text = Mathf.Ceil(jumpBoostTimeRemaining).ToString();
+        }
+        
+        if (showDebugLogs) Debug.Log($"Jump boost activated! Multiplier: {multiplier}, Duration: {duration}s");
+    }
+    
+    // Deactivate the jump boost effect
+    private void DeactivateJumpBoost()
+    {
+        // Reset jump force to default
+        jumpForce = defaultJumpForce;
+        
+        // Reset state
+        jumpBoostActive = false;
+        jumpBoostTimeRemaining = 0f;
+        currentJumpBoostMultiplier = 1f;
+        
+        // Hide the timer UI
+        if (jumpBoostTimerText != null)
+        {
+            jumpBoostTimerText.gameObject.SetActive(false);
+        }
+        
+        if (showDebugLogs) Debug.Log("Jump boost deactivated");
     }
 } 
