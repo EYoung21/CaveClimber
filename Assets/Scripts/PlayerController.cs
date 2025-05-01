@@ -62,15 +62,22 @@ public class PlayerController : MonoBehaviour
     
     [Header("Power-up Settings")]
     public float defaultJumpForce = 10f; // Store the default jump force
+    public float defaultMovementSpeed = 10f; // Store the default movement speed
     public TextMeshProUGUI powerupTimerText; // Reference to the timer UI (renamed from jumpBoostTimerText)
     public Color jumpBoostTimerColor = Color.red; // Color for jump boost timer
     public Color slowEffectTimerColor = Color.blue; // Color for slow effect timer
+    public Color speedBoostTimerColor = Color.green; // Color for speed boost timer
     
     // Power-up state
     private bool jumpBoostActive = false;
+    private bool speedBoostActive = false;
     private float powerupTimeRemaining = 0f;
     private float currentJumpBoostMultiplier = 1f;
+    private float currentSpeedBoostMultiplier = 1f;
     private PowerUpType currentPowerUpType = PowerUpType.None;
+    
+    // Store the original sprite color
+    private Color originalSpriteColor;
     
     private void Start()
     {
@@ -78,8 +85,15 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         
-        // Store the default jump force value
+        // Store the original sprite color
+        if (spriteRenderer != null)
+        {
+            originalSpriteColor = spriteRenderer.color;
+        }
+        
+        // Store the default values
         defaultJumpForce = jumpForce;
+        defaultMovementSpeed = movementSpeed;
         
         // Hide the powerup timer initially and set to normal (non-bold) font
         if (powerupTimerText != null)
@@ -201,6 +215,12 @@ public class PlayerController : MonoBehaviour
                 if (powerupTimeRemaining <= 0)
                 {
                     powerupTimerText.gameObject.SetActive(false);
+                    
+                    // Reset player tint when powerup expires
+                    if (spriteRenderer != null)
+                    {
+                        spriteRenderer.color = originalSpriteColor;
+                    }
                 }
                 else
                 {
@@ -213,16 +233,44 @@ public class PlayerController : MonoBehaviour
                     if (currentPowerUpType == PowerUpType.Jump)
                     {
                         powerupTimerText.color = jumpBoostTimerColor;
+                        // Tint player red for jump powerup
+                        if (spriteRenderer != null)
+                        {
+                            spriteRenderer.color = new Color(jumpBoostTimerColor.r * 0.8f + 0.2f, 
+                                                            jumpBoostTimerColor.g * 0.8f + 0.2f, 
+                                                            jumpBoostTimerColor.b * 0.8f + 0.2f, 
+                                                            1.0f);
+                        }
                     }
                     else if (currentPowerUpType == PowerUpType.Slow)
                     {
                         powerupTimerText.color = slowEffectTimerColor;
+                        // Tint player blue for slow powerup
+                        if (spriteRenderer != null)
+                        {
+                            spriteRenderer.color = new Color(slowEffectTimerColor.r * 0.8f + 0.2f, 
+                                                            slowEffectTimerColor.g * 0.8f + 0.2f, 
+                                                            slowEffectTimerColor.b * 0.8f + 0.2f, 
+                                                            1.0f);
+                        }
+                    }
+                    else if (currentPowerUpType == PowerUpType.Speed)
+                    {
+                        powerupTimerText.color = speedBoostTimerColor;
+                        // Tint player green for speed powerup
+                        if (spriteRenderer != null)
+                        {
+                            spriteRenderer.color = new Color(speedBoostTimerColor.r * 0.8f + 0.2f, 
+                                                            speedBoostTimerColor.g * 0.8f + 0.2f, 
+                                                            speedBoostTimerColor.b * 0.8f + 0.2f, 
+                                                            1.0f);
+                        }
                     }
                 }
             }
         }
         // Otherwise, if we have a locally tracked powerup (legacy)
-        else if (jumpBoostActive && powerupTimeRemaining > 0)
+        else if ((jumpBoostActive || speedBoostActive) && powerupTimeRemaining > 0)
         {
             powerupTimeRemaining -= Time.deltaTime;
             
@@ -244,7 +292,14 @@ public class PlayerController : MonoBehaviour
             // Check if boost has expired
             if (powerupTimeRemaining <= 0)
             {
-                DeactivateJumpBoost();
+                if (jumpBoostActive)
+                {
+                    DeactivateJumpBoost();
+                }
+                if (speedBoostActive)
+                {
+                    DeactivateSpeedBoost();
+                }
             }
         }
         // If no active powerup, ensure timer is hidden
@@ -701,6 +756,15 @@ public class PlayerController : MonoBehaviour
         jumpBoostActive = true;
         currentPowerUpType = PowerUpType.Jump;
         
+        // Tint player red for jump powerup
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = new Color(jumpBoostTimerColor.r * 0.8f + 0.2f, 
+                                            jumpBoostTimerColor.g * 0.8f + 0.2f, 
+                                            jumpBoostTimerColor.b * 0.8f + 0.2f, 
+                                            1.0f);
+        }
+        
         // Show the timer UI with jump boost color
         if (powerupTimerText != null)
         {
@@ -720,6 +784,15 @@ public class PlayerController : MonoBehaviour
         powerupTimeRemaining = duration;
         currentPowerUpType = PowerUpType.Slow;
         
+        // Tint player blue for slow powerup
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = new Color(slowEffectTimerColor.r * 0.8f + 0.2f, 
+                                            slowEffectTimerColor.g * 0.8f + 0.2f, 
+                                            slowEffectTimerColor.b * 0.8f + 0.2f, 
+                                            1.0f);
+        }
+        
         // Show the timer UI with slow effect color
         if (powerupTimerText != null)
         {
@@ -738,6 +811,12 @@ public class PlayerController : MonoBehaviour
         // Reset jump force to default
         jumpForce = defaultJumpForce;
         
+        // Reset sprite color to original
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = originalSpriteColor;
+        }
+        
         // Reset state
         jumpBoostActive = false;
         powerupTimeRemaining = 0f;
@@ -751,6 +830,68 @@ public class PlayerController : MonoBehaviour
         }
         
         if (showDebugLogs) Debug.Log("Jump boost deactivated");
+    }
+    
+    // Apply speed boost effect
+    public void ApplySpeedBoost(float multiplier, float duration)
+    {
+        // Set the movement speed to the boosted value
+        movementSpeed = defaultMovementSpeed * multiplier;
+        
+        // Store the boost multiplier for reference
+        currentSpeedBoostMultiplier = multiplier;
+        
+        // Set timer
+        powerupTimeRemaining = duration;
+        speedBoostActive = true;
+        currentPowerUpType = PowerUpType.Speed;
+        
+        // Tint player green for speed powerup
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = new Color(speedBoostTimerColor.r * 0.8f + 0.2f, 
+                                            speedBoostTimerColor.g * 0.8f + 0.2f, 
+                                            speedBoostTimerColor.b * 0.8f + 0.2f, 
+                                            1.0f);
+        }
+        
+        // Show the timer UI with speed boost color
+        if (powerupTimerText != null)
+        {
+            powerupTimerText.gameObject.SetActive(true);
+            powerupTimerText.fontStyle = FontStyles.Normal; // Ensure normal font style
+            powerupTimerText.color = speedBoostTimerColor;
+            powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
+        }
+        
+        if (showDebugLogs) Debug.Log($"Speed boost activated! Multiplier: {multiplier}, Duration: {duration}s");
+    }
+    
+    // Deactivate the speed boost effect
+    private void DeactivateSpeedBoost()
+    {
+        // Reset movement speed to default
+        movementSpeed = defaultMovementSpeed;
+        
+        // Reset sprite color to original
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = originalSpriteColor;
+        }
+        
+        // Reset state
+        speedBoostActive = false;
+        powerupTimeRemaining = 0f;
+        currentSpeedBoostMultiplier = 1f;
+        currentPowerUpType = PowerUpType.None;
+        
+        // Hide the timer UI
+        if (powerupTimerText != null)
+        {
+            powerupTimerText.gameObject.SetActive(false);
+        }
+        
+        if (showDebugLogs) Debug.Log("Speed boost deactivated");
     }
     
     // Added method to hide powerup timer (called from PowerUpManager)

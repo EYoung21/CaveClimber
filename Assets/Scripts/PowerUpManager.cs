@@ -6,7 +6,8 @@ public enum PowerUpType
 {
     None,
     Jump,
-    Slow
+    Slow,
+    Speed
 }
 
 public class PowerUpManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class PowerUpManager : MonoBehaviour
     // Lists to track all powerups in the scene
     private List<JumpPotion> jumpPotions = new List<JumpPotion>();
     private List<SlowPotion> slowPotions = new List<SlowPotion>();
+    private List<SpeedPotion> speedPotions = new List<SpeedPotion>();
     
     // Track enemies for slow effect
     private List<EnemyController> activeEnemies = new List<EnemyController>();
@@ -43,6 +45,7 @@ public class PowerUpManager : MonoBehaviour
             powerupTimeRemaining = 0f;
             jumpPotions.Clear();
             slowPotions.Clear();
+            speedPotions.Clear();
             activeEnemies.Clear();
             if (activeCoroutine != null)
             {
@@ -79,6 +82,12 @@ public class PowerUpManager : MonoBehaviour
             slowPotions.Add(potion);
     }
     
+    public void RegisterSpeedPotion(SpeedPotion potion)
+    {
+        if (!speedPotions.Contains(potion))
+            speedPotions.Add(potion);
+    }
+    
     public void UnregisterJumpPotion(JumpPotion potion)
     {
         jumpPotions.Remove(potion);
@@ -87,6 +96,11 @@ public class PowerUpManager : MonoBehaviour
     public void UnregisterSlowPotion(SlowPotion potion)
     {
         slowPotions.Remove(potion);
+    }
+    
+    public void UnregisterSpeedPotion(SpeedPotion potion)
+    {
+        speedPotions.Remove(potion);
     }
     
     public void RegisterEnemy(EnemyController enemy)
@@ -106,7 +120,7 @@ public class PowerUpManager : MonoBehaviour
         activeEnemies.Remove(enemy);
     }
     
-    // Activate a powerup
+    // Activate a jump powerup
     public void ActivateJumpPowerup(float duration)
     {
         // If any powerup is already active, cancel it first
@@ -152,6 +166,26 @@ public class PowerUpManager : MonoBehaviour
         activeCoroutine = StartCoroutine(PowerupCooldown(duration));
     }
     
+    // Activate speed powerup
+    public void ActivateSpeedPowerup(float duration)
+    {
+        // If any powerup is already active, cancel it first
+        if (ActivePowerUp != PowerUpType.None)
+        {
+            DeactivateCurrentPowerup();
+        }
+        
+        // Set the active powerup
+        ActivePowerUp = PowerUpType.Speed;
+        powerupTimeRemaining = duration;
+        
+        // Start the cooldown coroutine
+        if (activeCoroutine != null)
+            StopCoroutine(activeCoroutine);
+            
+        activeCoroutine = StartCoroutine(PowerupCooldown(duration));
+    }
+    
     // Deactivate current powerup
     private void DeactivateCurrentPowerup()
     {
@@ -167,6 +201,10 @@ public class PowerUpManager : MonoBehaviour
                 {
                     enemy.SetSlowEffect(false);
                 }
+                break;
+                
+            case PowerUpType.Speed:
+                // No specific cleanup needed for speed, handled by PlayerController
                 break;
         }
         
@@ -216,6 +254,7 @@ public class PowerUpManager : MonoBehaviour
         // Clear all lists
         jumpPotions.Clear();
         slowPotions.Clear();
+        speedPotions.Clear();
         activeEnemies.Clear();
         
         // Reset any remaining state

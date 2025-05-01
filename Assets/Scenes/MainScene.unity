@@ -426,9 +426,11 @@ MonoBehaviour:
   animationFPS: 10
   showDebugLogs: 1
   defaultJumpForce: 10
+  defaultMovementSpeed: 10
   powerupTimerText: {fileID: 677462877}
   jumpBoostTimerColor: {r: 1, g: 0, b: 0, a: 1}
   slowEffectTimerColor: {r: 0, g: 0, b: 1, a: 1}
+  speedBoostTimerColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &413808532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,10 +1126,13 @@ MonoBehaviour:
   enemyPrefab: {fileID: 6232186471583543577, guid: 47791086da280f5479775a8137a27ef5, type: 3}
   jumpPotionPrefab: {fileID: 4911355975134009272, guid: 364444aba896e234e899fd0b9149ebe8, type: 3}
   slowPotionPrefab: {fileID: 729658262999511345, guid: 4f72f6994db346c4d89b0b48d16a08e7, type: 3}
+  speedPotionPrefab: {fileID: 6798242797512665665, guid: 861c5294410375f4ba5599ed340bd863, type: 3}
   platformContainer: {fileID: 0}
   enemySpawnChance: 0.15
+  powerupSpawnChance: 0.1
   jumpPotionSpawnChance: 0.1
   slowPotionSpawnChance: 0.1
+  speedPotionSpawnChance: 0.1
   levelWidth: 6
   minY: 0.5
   maxY: 2
