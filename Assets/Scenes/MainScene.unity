@@ -426,7 +426,53 @@ MonoBehaviour:
   animationFPS: 10
   showDebugLogs: 1
   defaultJumpForce: 10
-  jumpBoostTimerText: {fileID: 677462877}
+  powerupTimerText: {fileID: 677462877}
+  jumpBoostTimerColor: {r: 1, g: 0, b: 0, a: 1}
+  slowEffectTimerColor: {r: 0, g: 0, b: 1, a: 1}
+--- !u!1 &413808532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 413808534}
+  - component: {fileID: 413808533}
+  m_Layer: 0
+  m_Name: PowerupManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &413808533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413808532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e372f50acf53fb64da39ae679a3211ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &413808534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413808532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.6830337, y: 0.8991826, z: 0.97337806}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,9 +1123,11 @@ MonoBehaviour:
   platformPrefab: {fileID: 5499878616013848630, guid: 979b6eece41baf745a8efceecff45316, type: 3}
   enemyPrefab: {fileID: 6232186471583543577, guid: 47791086da280f5479775a8137a27ef5, type: 3}
   jumpPotionPrefab: {fileID: 4911355975134009272, guid: 364444aba896e234e899fd0b9149ebe8, type: 3}
+  slowPotionPrefab: {fileID: 729658262999511345, guid: 4f72f6994db346c4d89b0b48d16a08e7, type: 3}
   platformContainer: {fileID: 0}
   enemySpawnChance: 0.15
-  potionSpawnChance: 0.15
+  jumpPotionSpawnChance: 0.1
+  slowPotionSpawnChance: 0.1
   levelWidth: 6
   minY: 0.5
   maxY: 2
@@ -1675,3 +1723,4 @@ SceneRoots:
   - {fileID: 1806377240}
   - {fileID: 945035248}
   - {fileID: 2074513458}
+  - {fileID: 413808534}

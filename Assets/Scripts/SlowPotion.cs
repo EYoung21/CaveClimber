@@ -1,15 +1,14 @@
 using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
 
-public class JumpPotion : MonoBehaviour
+public class SlowPotion : MonoBehaviour
 {
     [Header("Potion Settings")]
     public float bobSpeed = 1.5f;        // How fast the potion moves up and down
     public float bobHeight = 0.3f;       // How high the potion moves up and down
     public float rotationSpeed = 45f;    // How fast the potion rotates
-    public float jumpBoostMultiplier = 1.5f;  // 50% increase in jump height
-    public float jumpBoostDuration = 15f;     // Duration in seconds
+    public float slowFactor = 0.5f;      // Enemy speed reduced to 50%
+    public float slowDuration = 15f;     // Duration in seconds
     
     [Header("Visual Effects")]
     public GameObject collectEffectPrefab; // Optional particle effect prefab
@@ -22,7 +21,7 @@ public class JumpPotion : MonoBehaviour
         // Register with PowerUpManager
         if (PowerUpManager.Instance != null)
         {
-            PowerUpManager.Instance.RegisterJumpPotion(this);
+            PowerUpManager.Instance.RegisterSlowPotion(this);
         }
     }
     
@@ -31,7 +30,7 @@ public class JumpPotion : MonoBehaviour
         // Unregister with PowerUpManager
         if (PowerUpManager.Instance != null)
         {
-            PowerUpManager.Instance.UnregisterJumpPotion(this);
+            PowerUpManager.Instance.UnregisterSlowPotion(this);
         }
     }
 
@@ -48,7 +47,7 @@ public class JumpPotion : MonoBehaviour
         float yOffset = Mathf.Sin(bobTime) * bobHeight;
         transform.localPosition = startLocalPosition + new Vector3(0f, yOffset, 0f);
         
-        // Slow rotation (transform.Rotate works in local space by default)
+        // Slow rotation
         transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
     }
 
@@ -58,14 +57,14 @@ public class JumpPotion : MonoBehaviour
         if (other.CompareTag("Player") && PowerUpManager.Instance != null && 
             PowerUpManager.Instance.ActivePowerUp == PowerUpType.None)
         {
-            // Apply jump boost to player
+            // Apply slow effect through the PowerUpManager
+            PowerUpManager.Instance.ActivateSlowPowerup(slowDuration, slowFactor);
+            
+            // Apply slow effect to player controller for UI updates
             PlayerController playerController = other.GetComponent<PlayerController>();
             if (playerController != null)
             {
-                playerController.ApplyJumpBoost(jumpBoostMultiplier, jumpBoostDuration);
-                
-                // Activate powerup in the manager
-                PowerUpManager.Instance.ActivateJumpPowerup(jumpBoostDuration);
+                playerController.ApplySlowEffect(slowDuration);
             }
             
             // Spawn collection effect if assigned
@@ -85,7 +84,7 @@ public class JumpPotion : MonoBehaviour
         }
     }
     
-    // This static method creates an intermediate GameObject that neutralizes a parent's non-uniform scale
+    // Static method to create an intermediate GameObject with neutralized scale
     public static GameObject CreateScaleNeutralizer(GameObject parent, Vector3 worldPosition)
     {
         // Create empty GameObject as a scale neutralizer

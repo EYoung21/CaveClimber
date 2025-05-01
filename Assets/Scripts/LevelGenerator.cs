@@ -5,14 +5,17 @@ public class LevelGenerator : MonoBehaviour
 {
     public GameObject platformPrefab; // Default platform if PlatformManager isn't used
     public GameObject enemyPrefab; // Assign your Enemy prefab here
-    public GameObject jumpPotionPrefab; // Assign your potion prefab here
+    public GameObject jumpPotionPrefab; // Assign your jump potion prefab here
+    public GameObject slowPotionPrefab; // Assign your slow potion prefab here
     public Transform platformContainer; // ADDED: Assign in Inspector to hold platforms
     
     [Header("Spawn Settings")]
     [Range(0f, 1f)]
     public float enemySpawnChance = 0.15f; // 15% chance to spawn an enemy
     [Range(0f, 1f)]
-    public float potionSpawnChance = 0.1f; // 10% chance to spawn a potion
+    public float jumpPotionSpawnChance = 0.1f; // 10% chance to spawn a jump potion
+    [Range(0f, 1f)]
+    public float slowPotionSpawnChance = 0.1f; // 10% chance to spawn a slow potion
     public float levelWidth = 6f;
     public float minY = 0.5f;
     public float maxY = 2f;
@@ -41,6 +44,17 @@ public class LevelGenerator : MonoBehaviour
     private float highestPlatformY = 0f; // Track highest platform's Y position
     
     public bool enableDebugLogs = false; // General debug toggle
+    
+    // Spawn an object at position with given chance
+    private bool TrySpawnObjectWithChance(float chance, GameObject prefab, GameObject platform, System.Func<GameObject, GameObject> spawnFunc)
+    {
+        if (prefab != null && Random.value < chance)
+        {
+            spawnFunc(platform);
+            return true;
+        }
+        return false;
+    }
     
     private GameObject SpawnPlatform(Vector3 position, float currentDifficulty)
     {
@@ -102,22 +116,28 @@ public class LevelGenerator : MonoBehaviour
             platformManager.ConfigurePlatform(newPlatform, position, currentDifficulty); 
         }
 
-        // Scale enemy spawn chance with difficulty
-        float adjustedEnemyChance = Mathf.Lerp(enemySpawnChance, enemyChanceAtMaxDifficulty, currentDifficulty);
-        
-        // Spawn Enemy?
-        if (!isBreakingPlatform && Random.value < adjustedEnemyChance) // Don't spawn on breaking platforms
+        // After platform is generated, spawn objects if not a breaking platform
+        if (!isBreakingPlatform)
         {
-            // Only log if general debug is enabled
-            if(enableDebugLogs) Debug.Log($"[LevelGenerator] Attempting to spawn enemy on {newPlatform.name}", newPlatform);
-            SpawnEnemyOnPlatform(newPlatform);
-        }
-        // If we didn't spawn an enemy, maybe spawn a potion (don't spawn both on same platform)
-        else if (!isBreakingPlatform && jumpPotionPrefab != null && 
-                Random.value < potionSpawnChance && 
-                !JumpPotion.isJumpBoostActive) // Only spawn potions if no active jump boost
-        {
-            SpawnPotionOnPlatform(newPlatform);
+            bool spawnedEnemy = false;
+            bool spawnedPotion = false;
+            
+            // Try to spawn an enemy first (with adjusted chance based on difficulty)
+            float adjustedEnemyChance = Mathf.Lerp(enemySpawnChance, enemyChanceAtMaxDifficulty, currentDifficulty);
+            spawnedEnemy = TrySpawnObjectWithChance(adjustedEnemyChance, enemyPrefab, newPlatform, SpawnEnemyOnPlatform);
+            
+            // If we didn't spawn an enemy, maybe spawn a potion
+            if (!spawnedEnemy)
+            {
+                // Try to spawn a jump potion
+                spawnedPotion = TrySpawnObjectWithChance(jumpPotionSpawnChance, jumpPotionPrefab, newPlatform, SpawnJumpPotionOnPlatform);
+                
+                // If we didn't spawn a jump potion, try to spawn a slow potion
+                if (!spawnedPotion)
+                {
+                    TrySpawnObjectWithChance(slowPotionSpawnChance, slowPotionPrefab, newPlatform, SpawnSlowPotionOnPlatform);
+                }
+            }
         }
         
         activePlatforms.Add(newPlatform);
@@ -226,9 +246,10 @@ public class LevelGenerator : MonoBehaviour
     
     void CleanupPlatforms()
     {
-        if (mainCamera == null || activePlatforms.Count <= platformsToKeep) return;
+        if (mainCamera == null) return;
         
-        float despawnY = mainCamera.transform.position.y - mainCamera.orthographicSize - platformDespawnThreshold;
+        // Simplified: Immediately destroy platforms that go below camera view
+        float despawnY = mainCamera.transform.position.y - mainCamera.orthographicSize;
         List<GameObject> platformsToRemove = new List<GameObject>();
         
         // Find platforms below the threshold
@@ -256,30 +277,10 @@ public class LevelGenerator : MonoBehaviour
                 if (enableDebugLogs) Debug.Log($"Destroyed platform at y={platform.transform.position.y}");
             }
         }
-        
-        if (platformsToRemove.Count > 0 && enableDebugLogs)
-        {
-            Debug.Log($"Cleaned up {platformsToRemove.Count} platforms below y={despawnY}. {activePlatforms.Count} remain active.");
-        }
     }
 
-    void SpawnEnemyOnPlatform(GameObject platform)
-    {
-        // Calculate spawn position slightly above the platform center
-        float platformHeight = platform.GetComponent<Collider2D>()?.bounds.size.y ?? 0.2f;
-        float enemyOffsetY = 0.5f; // Adjust as needed based on enemy sprite pivot
-        Vector3 enemySpawnPos = platform.transform.position + new Vector3(0, (platformHeight / 2f) + enemyOffsetY, 0);
-
-        Instantiate(enemyPrefab, enemySpawnPos, Quaternion.identity);
-        // Keep enemy spawn log conditional
-        if(enableDebugLogs) 
-        {
-            Debug.Log($"Spawned enemy on platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
-        }
-    }
-
-    // New method to spawn potions
-    void SpawnPotionOnPlatform(GameObject platform)
+    // New method to spawn jump potions
+    GameObject SpawnJumpPotionOnPlatform(GameObject platform)
     {
         // Calculate spawn position slightly above the platform center
         float platformHeight = platform.GetComponent<Collider2D>()?.bounds.size.y ?? 0.2f;
@@ -299,7 +300,7 @@ public class LevelGenerator : MonoBehaviour
             potion = Instantiate(jumpPotionPrefab, potionSpawnPos, Quaternion.identity);
             potion.transform.parent = neutralizer.transform;
             
-            if (enableDebugLogs) Debug.Log($"Parented potion to scale neutralizer on moving platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
+            if (enableDebugLogs) Debug.Log($"Parented jump potion to scale neutralizer on moving platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
         }
         else
         {
@@ -315,5 +316,67 @@ public class LevelGenerator : MonoBehaviour
         {
             Debug.Log($"Spawned jump potion on platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
         }
+        
+        return potion;
+    }
+    
+    // New method to spawn slow potions
+    GameObject SpawnSlowPotionOnPlatform(GameObject platform)
+    {
+        // Calculate spawn position slightly above the platform center
+        float platformHeight = platform.GetComponent<Collider2D>()?.bounds.size.y ?? 0.2f;
+        float potionOffsetY = 0.8f; // Slightly higher than enemies
+        Vector3 potionSpawnPos = platform.transform.position + new Vector3(0, (platformHeight / 2f) + potionOffsetY, 0);
+
+        // Check if this is a moving platform
+        MovingPlatformMarker movingPlatform = platform.GetComponent<MovingPlatformMarker>();
+        GameObject potion;
+        
+        if (movingPlatform != null)
+        {
+            // Create a scale neutralizer between the platform and potion
+            GameObject neutralizer = SlowPotion.CreateScaleNeutralizer(platform, potionSpawnPos);
+            
+            // Create potion as a child of the neutralizer at local position zero
+            potion = Instantiate(slowPotionPrefab, potionSpawnPos, Quaternion.identity);
+            potion.transform.parent = neutralizer.transform;
+            
+            if (enableDebugLogs) Debug.Log($"Parented slow potion to scale neutralizer on moving platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
+        }
+        else
+        {
+            // For non-moving platforms, just create the potion normally
+            potion = Instantiate(slowPotionPrefab, potionSpawnPos, Quaternion.identity);
+            
+            // If not a moving platform, parent to the main container for organization
+            potion.transform.parent = platformContainer ?? transform;
+        }
+        
+        // Keep potion spawn log conditional
+        if(enableDebugLogs) 
+        {
+            Debug.Log($"Spawned slow potion on platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
+        }
+        
+        return potion;
+    }
+    
+    // Method to spawn enemies renamed for consistency
+    GameObject SpawnEnemyOnPlatform(GameObject platform)
+    {
+        // Calculate spawn position slightly above the platform center
+        float platformHeight = platform.GetComponent<Collider2D>()?.bounds.size.y ?? 0.2f;
+        float enemyOffsetY = 0.5f; // Adjust as needed based on enemy sprite pivot
+        Vector3 enemySpawnPos = platform.transform.position + new Vector3(0, (platformHeight / 2f) + enemyOffsetY, 0);
+
+        GameObject enemy = Instantiate(enemyPrefab, enemySpawnPos, Quaternion.identity);
+        
+        // Keep enemy spawn log conditional
+        if(enableDebugLogs) 
+        {
+            Debug.Log($"Spawned enemy on platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
+        }
+        
+        return enemy;
     }
 } 

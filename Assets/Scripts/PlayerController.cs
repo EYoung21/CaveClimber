@@ -62,12 +62,15 @@ public class PlayerController : MonoBehaviour
     
     [Header("Power-up Settings")]
     public float defaultJumpForce = 10f; // Store the default jump force
-    public TextMeshProUGUI jumpBoostTimerText; // Reference to the timer UI
+    public TextMeshProUGUI powerupTimerText; // Reference to the timer UI (renamed from jumpBoostTimerText)
+    public Color jumpBoostTimerColor = Color.red; // Color for jump boost timer
+    public Color slowEffectTimerColor = Color.blue; // Color for slow effect timer
     
     // Power-up state
     private bool jumpBoostActive = false;
-    private float jumpBoostTimeRemaining = 0f;
+    private float powerupTimeRemaining = 0f;
     private float currentJumpBoostMultiplier = 1f;
+    private PowerUpType currentPowerUpType = PowerUpType.None;
     
     private void Start()
     {
@@ -78,10 +81,10 @@ public class PlayerController : MonoBehaviour
         // Store the default jump force value
         defaultJumpForce = jumpForce;
         
-        // Hide the jump boost timer initially
-        if (jumpBoostTimerText != null)
+        // Hide the powerup timer initially
+        if (powerupTimerText != null)
         {
-            jumpBoostTimerText.gameObject.SetActive(false);
+            powerupTimerText.gameObject.SetActive(false);
         }
         
         // Find the CameraFollow script in the scene
@@ -184,26 +187,70 @@ public class PlayerController : MonoBehaviour
     // Re-introduced Update for reliable input polling
     private void Update()
     {
-        // Handle jump boost timer
-        if (jumpBoostActive)
+        // If the PowerUpManager has an active powerup, get time from there
+        if (PowerUpManager.Instance != null && PowerUpManager.Instance.ActivePowerUp != PowerUpType.None)
         {
-            jumpBoostTimeRemaining -= Time.deltaTime;
+            powerupTimeRemaining = PowerUpManager.Instance.GetRemainingPowerupTime();
+            currentPowerUpType = PowerUpManager.Instance.ActivePowerUp;
             
             // Update timer UI
-            if (jumpBoostTimerText != null)
+            if (powerupTimerText != null)
             {
-                jumpBoostTimerText.text = Mathf.Ceil(jumpBoostTimeRemaining).ToString();
+                // Hide the timer if powerup time is 0 or less
+                if (powerupTimeRemaining <= 0)
+                {
+                    powerupTimerText.gameObject.SetActive(false);
+                }
+                else
+                {
+                    // Make sure timer is visible and update text
+                    powerupTimerText.gameObject.SetActive(true);
+                    powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
+                    
+                    // Apply appropriate color based on powerup type
+                    if (currentPowerUpType == PowerUpType.Jump)
+                    {
+                        powerupTimerText.color = jumpBoostTimerColor;
+                    }
+                    else if (currentPowerUpType == PowerUpType.Slow)
+                    {
+                        powerupTimerText.color = slowEffectTimerColor;
+                    }
+                }
+            }
+        }
+        // Otherwise, if we have a locally tracked powerup (legacy)
+        else if (jumpBoostActive && powerupTimeRemaining > 0)
+        {
+            powerupTimeRemaining -= Time.deltaTime;
+            
+            // Update timer UI
+            if (powerupTimerText != null)
+            {
+                if (powerupTimeRemaining <= 0)
+                {
+                    powerupTimerText.gameObject.SetActive(false);
+                }
+                else
+                {
+                    powerupTimerText.gameObject.SetActive(true);
+                    powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
+                }
             }
             
             // Check if boost has expired
-            if (jumpBoostTimeRemaining <= 0)
+            if (powerupTimeRemaining <= 0)
             {
                 DeactivateJumpBoost();
             }
         }
+        // If no active powerup, ensure timer is hidden
+        else if (powerupTimerText != null && powerupTimerText.gameObject.activeSelf)
+        {
+            powerupTimerText.gameObject.SetActive(false);
+        }
         
-        // Attack Input Check (moved back from FixedUpdate)
-        // Added debug log inside the check
+        // Attack Input Check
         if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown && !isAttacking)
         {
             if(showDebugLogs) Debug.Log("Attack input detected in Update!");
@@ -647,18 +694,37 @@ public class PlayerController : MonoBehaviour
         currentJumpBoostMultiplier = multiplier;
         
         // Set timer
-        jumpBoostTimeRemaining = duration;
+        powerupTimeRemaining = duration;
         jumpBoostActive = true;
+        currentPowerUpType = PowerUpType.Jump;
         
-        // Show the timer UI
-        if (jumpBoostTimerText != null)
+        // Show the timer UI with jump boost color
+        if (powerupTimerText != null)
         {
-            jumpBoostTimerText.gameObject.SetActive(true);
-            jumpBoostTimerText.color = Color.red;
-            jumpBoostTimerText.text = Mathf.Ceil(jumpBoostTimeRemaining).ToString();
+            powerupTimerText.gameObject.SetActive(true);
+            powerupTimerText.color = jumpBoostTimerColor;
+            powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
         }
         
         if (showDebugLogs) Debug.Log($"Jump boost activated! Multiplier: {multiplier}, Duration: {duration}s");
+    }
+    
+    // Apply slow effect (to enemies) with UI update
+    public void ApplySlowEffect(float duration)
+    {
+        // Set timer
+        powerupTimeRemaining = duration;
+        currentPowerUpType = PowerUpType.Slow;
+        
+        // Show the timer UI with slow effect color
+        if (powerupTimerText != null)
+        {
+            powerupTimerText.gameObject.SetActive(true);
+            powerupTimerText.color = slowEffectTimerColor;
+            powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
+        }
+        
+        if (showDebugLogs) Debug.Log($"Slow effect activated! Duration: {duration}s");
     }
     
     // Deactivate the jump boost effect
@@ -669,15 +735,26 @@ public class PlayerController : MonoBehaviour
         
         // Reset state
         jumpBoostActive = false;
-        jumpBoostTimeRemaining = 0f;
+        powerupTimeRemaining = 0f;
         currentJumpBoostMultiplier = 1f;
+        currentPowerUpType = PowerUpType.None;
         
         // Hide the timer UI
-        if (jumpBoostTimerText != null)
+        if (powerupTimerText != null)
         {
-            jumpBoostTimerText.gameObject.SetActive(false);
+            powerupTimerText.gameObject.SetActive(false);
         }
         
         if (showDebugLogs) Debug.Log("Jump boost deactivated");
+    }
+    
+    // Added method to hide powerup timer (called from PowerUpManager)
+    public void HidePowerupTimer()
+    {
+        // Hide the timer UI
+        if (powerupTimerText != null)
+        {
+            powerupTimerText.gameObject.SetActive(false);
+        }
     }
 } 

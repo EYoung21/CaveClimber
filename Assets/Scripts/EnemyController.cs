@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     [Header("Visual Effects")]
     public float damageBlinkDuration = 0.2f; // How long the enemy blinks red before being destroyed
     public Color damageColor = new Color(1f, 0.5f, 0.5f, 0.8f); // Bright red with slight transparency
+    public Color slowColor = new Color(0.5f, 0.5f, 1f, 0.8f); // Blue tint for slow effect
     
     [Header("Animation (Optional)")]
     public Sprite[] runAnimation;
@@ -24,6 +25,10 @@ public class EnemyController : MonoBehaviour
     private bool isActivated = false; // Track if enemy is activated
     private Collider2D enemyCollider; // Reference to the enemy's collider
     private Color originalColor; // Store the original sprite color
+    
+    // Slow effect tracking
+    private bool isSlowed = false;
+    private float originalMoveSpeed;
     
     // Animation state
     private int currentFrame;
@@ -39,11 +44,12 @@ public class EnemyController : MonoBehaviour
         enemyCollider = GetComponent<Collider2D>();
         lastPosition = transform.position;
         
-        // Store original sprite color
+        // Store original values
         if (spriteRenderer != null)
         {
             originalColor = spriteRenderer.color;
         }
+        originalMoveSpeed = moveSpeed;
         
         // Create and apply a frictionless physics material to prevent player sticking
         ApplyFrictionlessPhysics();
@@ -79,8 +85,58 @@ public class EnemyController : MonoBehaviour
         
         animationTimer = 1f / animationFPS;
         currentFrame = 0;
+        
+        // Register with PowerUpManager
+        if (PowerUpManager.Instance != null)
+        {
+            PowerUpManager.Instance.RegisterEnemy(this);
+        }
     }
-
+    
+    void OnDestroy()
+    {
+        // Unregister with PowerUpManager
+        if (PowerUpManager.Instance != null)
+        {
+            PowerUpManager.Instance.UnregisterEnemy(this);
+        }
+    }
+    
+    // Public method to set slow effect
+    public void SetSlowEffect(bool enabled)
+    {
+        if (enabled == isSlowed) return; // No change needed
+        
+        isSlowed = enabled;
+        
+        if (enabled)
+        {
+            // Apply slow effect
+            moveSpeed = originalMoveSpeed * 0.5f; // Slow to 50%
+            
+            // Apply blue tint
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = slowColor;
+            }
+            
+            if (debugMode) Debug.Log($"{gameObject.name}: Slowed down to {moveSpeed}");
+        }
+        else
+        {
+            // Remove slow effect
+            moveSpeed = originalMoveSpeed;
+            
+            // Restore original color
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = originalColor;
+            }
+            
+            if (debugMode) Debug.Log($"{gameObject.name}: Speed restored to {moveSpeed}");
+        }
+    }
+    
     void Update()
     {
         // Check if the enemy should be activated

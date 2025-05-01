@@ -133,6 +133,12 @@ public class GameManager : MonoBehaviour
     
     public void RestartGame()
     {
+        // Reset PowerUpManager if it exists
+        if (PowerUpManager.Instance != null)
+        {
+            PowerUpManager.Instance.Reset();
+        }
+        
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
