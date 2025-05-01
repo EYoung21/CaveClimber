@@ -99,6 +99,16 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    // New method for adding score from defeating enemies or other sources
+    public void AddScore(int points)
+    {
+        currentScore += points;
+        UpdateScoreUI();
+        
+        // Optional: Add visual feedback for scoring
+        Debug.Log($"Score increased by {points}! New score: {currentScore}");
+    }
+    
     private void UpdateScoreUI()
     {
         // Update UI

@@ -222,6 +222,16 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage()
     {
         Debug.Log($"{gameObject.name} took damage and was destroyed.");
+        
+        // Add 10 points to the score when enemy is defeated
+        if (GameManager.Instance != null)
+        {
+            // Add 10 points to the score
+            GameManager.Instance.AddScore(10);
+            
+            if (debugMode) Debug.Log("Player earned 10 points for defeating an enemy!");
+        }
+        
         // TODO: Add optional death effect/sound here
         Destroy(gameObject);
     }
