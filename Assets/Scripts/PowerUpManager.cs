@@ -189,10 +189,21 @@ public class PowerUpManager : MonoBehaviour
     // Deactivate current powerup
     private void DeactivateCurrentPowerup()
     {
+        Debug.Log($"Deactivating power-up: {ActivePowerUp}");
+        
         switch (ActivePowerUp)
         {
             case PowerUpType.Jump:
-                // No specific cleanup needed for jump, handled by PlayerController
+                // Call DeactivateJumpBoost on the PlayerController
+                if (playerController != null)
+                {
+                    Debug.Log("Calling PlayerController.DeactivateJumpBoost()");
+                    playerController.DeactivateJumpBoost();
+                }
+                else
+                {
+                    Debug.LogWarning("Cannot deactivate jump boost: playerController is null!");
+                }
                 break;
                 
             case PowerUpType.Slow:
@@ -215,8 +226,11 @@ public class PowerUpManager : MonoBehaviour
         }
         
         // Reset state
+        PowerUpType oldType = ActivePowerUp;
         ActivePowerUp = PowerUpType.None;
         powerupTimeRemaining = 0f;
+        
+        Debug.Log($"Power-up {oldType} deactivated successfully");
     }
     
     // Powerup cooldown coroutine

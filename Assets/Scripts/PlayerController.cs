@@ -208,6 +208,25 @@ public class PlayerController : MonoBehaviour
             powerupTimeRemaining = PowerUpManager.Instance.GetRemainingPowerupTime();
             currentPowerUpType = PowerUpManager.Instance.ActivePowerUp;
             
+            // Ensure local state is synced with PowerUpManager
+            if (currentPowerUpType == PowerUpType.Jump && !jumpBoostActive)
+            {
+                jumpBoostActive = true;
+            }
+            else if (currentPowerUpType == PowerUpType.Speed && !speedBoostActive)
+            {
+                speedBoostActive = true;
+            }
+            else if (currentPowerUpType != PowerUpType.Jump && jumpBoostActive)
+            {
+                // Force deactivate if out of sync
+                DeactivateJumpBoost();
+            }
+            else if (currentPowerUpType != PowerUpType.Speed && speedBoostActive)
+            {
+                DeactivateSpeedBoost();
+            }
+            
             // Update timer UI
             if (powerupTimerText != null)
             {
@@ -302,10 +321,32 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        // If no active powerup, ensure timer is hidden
-        else if (powerupTimerText != null && powerupTimerText.gameObject.activeSelf)
+        // If no active powerup, ensure timer is hidden and local states are reset
+        else
         {
-            powerupTimerText.gameObject.SetActive(false);
+            if (powerupTimerText != null && powerupTimerText.gameObject.activeSelf)
+            {
+                powerupTimerText.gameObject.SetActive(false);
+            }
+            
+            // Make sure jump is reset if power-up ended
+            if (jumpBoostActive)
+            {
+                DeactivateJumpBoost();
+            }
+            
+            // Make sure speed is reset if power-up ended
+            if (speedBoostActive)
+            {
+                DeactivateSpeedBoost();
+            }
+            
+            // Double-check jump force value
+            if (jumpForce != defaultJumpForce)
+            {
+                Debug.LogWarning($"Jump force mismatch detected! Current: {jumpForce}, Default: {defaultJumpForce}. Resetting.");
+                jumpForce = defaultJumpForce;
+            }
         }
         
         // Attack Input Check
@@ -806,7 +847,7 @@ public class PlayerController : MonoBehaviour
     }
     
     // Deactivate the jump boost effect
-    private void DeactivateJumpBoost()
+    public void DeactivateJumpBoost()
     {
         // Reset jump force to default
         jumpForce = defaultJumpForce;
@@ -829,7 +870,7 @@ public class PlayerController : MonoBehaviour
             powerupTimerText.gameObject.SetActive(false);
         }
         
-        if (showDebugLogs) Debug.Log("Jump boost deactivated");
+        Debug.Log($"Jump boost deactivated. Jump force reset to {defaultJumpForce}");
     }
     
     // Apply speed boost effect
@@ -894,10 +935,9 @@ public class PlayerController : MonoBehaviour
         if (showDebugLogs) Debug.Log("Speed boost deactivated");
     }
     
-    // Added method to hide powerup timer (called from PowerUpManager)
+    // Hide the powerup timer UI
     public void HidePowerupTimer()
     {
-        // Hide the timer UI
         if (powerupTimerText != null)
         {
             powerupTimerText.gameObject.SetActive(false);
