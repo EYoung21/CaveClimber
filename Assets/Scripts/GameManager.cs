@@ -142,4 +142,13 @@ public class GameManager : MonoBehaviour
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    
+    public void ReturnToMainMenu()
+    {
+        // Reset time scale
+        Time.timeScale = 1f;
+        
+        // Load the main menu scene
+        SceneManager.LoadScene("MainMenu");
+    }
 } 
