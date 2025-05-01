@@ -81,10 +81,11 @@ public class PlayerController : MonoBehaviour
         // Store the default jump force value
         defaultJumpForce = jumpForce;
         
-        // Hide the powerup timer initially
+        // Hide the powerup timer initially and set to normal (non-bold) font
         if (powerupTimerText != null)
         {
             powerupTimerText.gameObject.SetActive(false);
+            powerupTimerText.fontStyle = FontStyles.Normal; // Set to normal font style (non-bold)
         }
         
         // Find the CameraFollow script in the scene
@@ -205,6 +206,7 @@ public class PlayerController : MonoBehaviour
                 {
                     // Make sure timer is visible and update text
                     powerupTimerText.gameObject.SetActive(true);
+                    powerupTimerText.fontStyle = FontStyles.Normal; // Ensure normal font style
                     powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
                     
                     // Apply appropriate color based on powerup type
@@ -234,6 +236,7 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     powerupTimerText.gameObject.SetActive(true);
+                    powerupTimerText.fontStyle = FontStyles.Normal; // Ensure normal font style
                     powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
                 }
             }
@@ -702,6 +705,7 @@ public class PlayerController : MonoBehaviour
         if (powerupTimerText != null)
         {
             powerupTimerText.gameObject.SetActive(true);
+            powerupTimerText.fontStyle = FontStyles.Normal; // Ensure normal font style
             powerupTimerText.color = jumpBoostTimerColor;
             powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
         }
@@ -720,6 +724,7 @@ public class PlayerController : MonoBehaviour
         if (powerupTimerText != null)
         {
             powerupTimerText.gameObject.SetActive(true);
+            powerupTimerText.fontStyle = FontStyles.Normal; // Ensure normal font style
             powerupTimerText.color = slowEffectTimerColor;
             powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
         }

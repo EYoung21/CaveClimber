@@ -187,8 +187,57 @@ public class PlatformManager : MonoBehaviour
 
         if (platformScript != null)
         {
-            // Check if this is a moving platform
-            if (platform.GetComponent<MovingPlatformMarker>() != null) 
+            // Get platform components to determine type
+            MovingPlatformMarker movingMarker = platform.GetComponent<MovingPlatformMarker>();
+            BreakingPlatform breakingPlatform = platform.GetComponent<BreakingPlatform>();
+            
+            // Get all sprite renderers on this platform
+            SpriteRenderer[] renderers = platform.GetComponentsInChildren<SpriteRenderer>();
+            
+            // Define colors
+            Color blueColor = new Color(0.7f, 0.9f, 1.0f, 1.0f); // Lighter blue tint for moving
+            Color blackColor = new Color(0.4f, 0.4f, 0.4f, 1.0f); // Dark tint for breaking
+            
+            // Apply appropriate tint based on platform type
+            if (movingMarker != null && breakingPlatform != null)
+            {
+                // Both moving AND breaking - apply just black tint, no blue
+                foreach (SpriteRenderer renderer in renderers)
+                {
+                    renderer.color = blackColor;
+                }
+                
+                if (enableDebugLogs) Debug.Log($"[PlatformManager] Tinted platform {platform.name} black (moving + breaking)", platform);
+            }
+            else if (movingMarker != null)
+            {
+                // Only moving - apply light blue tint
+                foreach (SpriteRenderer renderer in renderers)
+                {
+                    renderer.color = blueColor;
+                }
+                
+                if (enableDebugLogs) Debug.Log($"[PlatformManager] Tinted platform {platform.name} light blue (moving)", platform);
+            }
+            else if (breakingPlatform != null)
+            {
+                // Only breaking - apply dark tint
+                foreach (SpriteRenderer renderer in renderers)
+                {
+                    renderer.color = blackColor;
+                }
+                
+                if (enableDebugLogs) Debug.Log($"[PlatformManager] Tinted platform {platform.name} dark (breaking)", platform);
+            }
+            
+            // Log warning if no renderers found
+            if (renderers.Length == 0 && enableDebugLogs && (movingMarker != null || breakingPlatform != null))
+            {
+                Debug.LogWarning($"[PlatformManager] No SpriteRenderers found to tint on platform {platform.name}", platform);
+            }
+            
+            // Configure moving platform behavior
+            if (movingMarker != null)
             {
                 if (rb != null)
                 {
@@ -203,8 +252,7 @@ public class PlatformManager : MonoBehaviour
                 }
             }
             
-            // Configure any breaking platforms based on difficulty
-            BreakingPlatform breakingPlatform = platform.GetComponent<BreakingPlatform>();
+            // Configure breaking platform properties if needed
             if (breakingPlatform != null)
             {
                 // Optionally adjust breaking platform properties based on difficulty
