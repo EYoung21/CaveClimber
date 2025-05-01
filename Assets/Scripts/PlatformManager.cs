@@ -12,6 +12,7 @@ public class PlatformManager : MonoBehaviour
         public bool isBasic = false; // Is this the basic platform type?
         public bool isBreaking = false; // Is this a breaking platform?
         public bool isMoving = false; // Is this a moving platform?
+        public bool isSingleUse = false; // Is this a single-use jump platform?
     }
     
     [Header("Platform Types")]
@@ -24,10 +25,12 @@ public class PlatformManager : MonoBehaviour
     public float maxMovingPlatformDistance = 3.5f;
     
     [Header("Difficulty Settings")]
-    public float breakingPlatformBaseChance = 0.1f; // Base chance for breaking platforms
+    public float breakingPlatformBaseChance = 0.1f; // Base chance for breaking platforms (changed from 0.15f)
     public float breakingPlatformMaxChance = 0.4f;  // Max chance at highest difficulty
-    public float movingPlatformBaseChance = 0.2f;   // Base chance for moving platforms
+    public float movingPlatformBaseChance = 0.1f;   // Base chance for moving platforms (changed from 0.2f) 
     public float movingPlatformMaxChance = 0.5f;    // Max chance at highest difficulty
+    public float singleUsePlatformBaseChance = 0.1f; // Base chance for single-use platforms (changed from 0.15f)
+    public float singleUsePlatformMaxChance = 0.3f;  // Max chance at highest difficulty
     public float maxMovingSpeedAtMaxDifficulty = 5.0f; // Maximum speed for moving platforms at max difficulty
     public float maxMovingDistanceAtMaxDifficulty = 6.0f; // Maximum distance for moving platforms at max difficulty
     
@@ -37,6 +40,7 @@ public class PlatformManager : MonoBehaviour
     private List<PlatformType> basicPlatforms = new List<PlatformType>();
     private List<PlatformType> breakingPlatforms = new List<PlatformType>();
     private List<PlatformType> movingPlatforms = new List<PlatformType>();
+    private List<PlatformType> singleUsePlatforms = new List<PlatformType>();
     
     private void Start()
     {
@@ -55,6 +59,7 @@ public class PlatformManager : MonoBehaviour
         basicPlatforms.Clear();
         breakingPlatforms.Clear();
         movingPlatforms.Clear();
+        singleUsePlatforms.Clear();
         
         foreach (PlatformType platform in platformTypes)
         {
@@ -66,6 +71,10 @@ public class PlatformManager : MonoBehaviour
             {
                 movingPlatforms.Add(platform);
             }
+            else if (platform.isSingleUse)
+            {
+                singleUsePlatforms.Add(platform);
+            }
             else if (platform.isBasic)
             {
                 basicPlatforms.Add(platform);
@@ -75,7 +84,8 @@ public class PlatformManager : MonoBehaviour
         if (enableDebugLogs)
         {
             Debug.Log($"Categorized platforms: {basicPlatforms.Count} basic, " +
-                      $"{breakingPlatforms.Count} breaking, {movingPlatforms.Count} moving");
+                      $"{breakingPlatforms.Count} breaking, {movingPlatforms.Count} moving, " +
+                      $"{singleUsePlatforms.Count} single-use");
         }
     }
     
@@ -88,22 +98,35 @@ public class PlatformManager : MonoBehaviour
         // Calculate platform type chance based on difficulty
         float breakingChance = Mathf.Lerp(breakingPlatformBaseChance, breakingPlatformMaxChance, difficulty);
         float movingChance = Mathf.Lerp(movingPlatformBaseChance, movingPlatformMaxChance, difficulty);
+        float singleUseChance = Mathf.Lerp(singleUsePlatformBaseChance, singleUsePlatformMaxChance, difficulty);
         
         // Decide which platform category to use
         float randomValue = Random.value;
+        float currentThreshold = 0f;
         
-        // Try to select a breaking platform if we pass the chance check and have any available
-        if (randomValue < breakingChance && breakingPlatforms.Count > 0)
+        // Try to select a breaking platform
+        currentThreshold += breakingChance;
+        if (randomValue < currentThreshold && breakingPlatforms.Count > 0)
         {
             return GetRandomFromCategory(breakingPlatforms);
         }
-        // Otherwise try to select a moving platform if we pass that chance check and have any available
-        else if (randomValue < (breakingChance + movingChance) && movingPlatforms.Count > 0)
+        
+        // Otherwise try to select a moving platform
+        currentThreshold += movingChance;
+        if (randomValue < currentThreshold && movingPlatforms.Count > 0)
         {
             return GetRandomFromCategory(movingPlatforms);
         }
+        
+        // Otherwise try to select a single-use platform
+        currentThreshold += singleUseChance;
+        if (randomValue < currentThreshold && singleUsePlatforms.Count > 0)
+        {
+            return GetRandomFromCategory(singleUsePlatforms);
+        }
+        
         // Otherwise use a basic platform if available
-        else if (basicPlatforms.Count > 0)
+        if (basicPlatforms.Count > 0)
         {
             return GetRandomFromCategory(basicPlatforms);
         }
@@ -190,6 +213,8 @@ public class PlatformManager : MonoBehaviour
             // Get platform components to determine type
             MovingPlatformMarker movingMarker = platform.GetComponent<MovingPlatformMarker>();
             BreakingPlatform breakingPlatform = platform.GetComponent<BreakingPlatform>();
+            SingleUseJumpPlatform singleUsePlatform = platform.GetComponent<SingleUseJumpPlatform>();
+            MovingSingleUseJumpPlatform movingSingleUsePlatform = platform.GetComponent<MovingSingleUseJumpPlatform>();
             
             // Get all sprite renderers on this platform
             SpriteRenderer[] renderers = platform.GetComponentsInChildren<SpriteRenderer>();
@@ -197,9 +222,30 @@ public class PlatformManager : MonoBehaviour
             // Define colors
             Color blueColor = new Color(0.7f, 0.9f, 1.0f, 1.0f); // Lighter blue tint for moving
             Color blackColor = new Color(0.4f, 0.4f, 0.4f, 1.0f); // Dark tint for breaking
+            Color purpleColor = new Color(0.8f, 0.2f, 1.0f, 1.0f); // Bright purple for single-use platforms
             
             // Apply appropriate tint based on platform type
-            if (movingMarker != null && breakingPlatform != null)
+            if (movingSingleUsePlatform != null)
+            {
+                // Moving single-use platforms - purple only
+                foreach (SpriteRenderer renderer in renderers)
+                {
+                    renderer.color = purpleColor;
+                }
+                
+                if (enableDebugLogs) Debug.Log($"[PlatformManager] Tinted platform {platform.name} purple (moving + single-use)", platform);
+            }
+            else if (singleUsePlatform != null)
+            {
+                // Single-use platform - purple tint
+                foreach (SpriteRenderer renderer in renderers)
+                {
+                    renderer.color = purpleColor;
+                }
+                
+                if (enableDebugLogs) Debug.Log($"[PlatformManager] Tinted platform {platform.name} purple (single-use)", platform);
+            }
+            else if (movingMarker != null && breakingPlatform != null)
             {
                 // Both moving AND breaking - apply just black tint, no blue
                 foreach (SpriteRenderer renderer in renderers)

@@ -1,6 +1,7 @@
 using UnityEngine;
 
+// This is a marker component to identify platforms that should move
 public class MovingPlatformMarker : MonoBehaviour
 {
-    // No code needed inside, this script just acts as a tag/marker
+    // This component is just a marker, no functionality needed
 }

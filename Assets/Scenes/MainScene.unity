@@ -1731,21 +1731,37 @@ MonoBehaviour:
     isBasic: 1
     isBreaking: 0
     isMoving: 0
+    isSingleUse: 0
   - prefab: {fileID: 5499878616013848630, guid: 25f6ffd59cb374443b4a2dd7ee5644df, type: 3}
-    spawnChance: 0.2
+    spawnChance: 0.1
     isBasic: 0
     isBreaking: 1
     isMoving: 0
+    isSingleUse: 0
   - prefab: {fileID: 5499878616013848630, guid: 12cfcdd41feb4e245b4b4e665323e926, type: 3}
-    spawnChance: 0.2
+    spawnChance: 0.1
     isBasic: 0
     isBreaking: 0
     isMoving: 1
+    isSingleUse: 0
   - prefab: {fileID: 5499878616013848630, guid: 692bd33abe68cc4458391e2068e69b3c, type: 3}
     spawnChance: 0.1
     isBasic: 0
     isBreaking: 1
     isMoving: 1
+    isSingleUse: 0
+  - prefab: {fileID: 5499878616013848630, guid: d9827a1c6bf2ece4791a1b13376d8a96, type: 3}
+    spawnChance: 0.1
+    isBasic: 0
+    isBreaking: 0
+    isMoving: 0
+    isSingleUse: 1
+  - prefab: {fileID: 5499878616013848630, guid: b7c53adea5b04f14d995c97a7fa93812, type: 3}
+    spawnChance: 0.1
+    isBasic: 0
+    isBreaking: 0
+    isMoving: 1
+    isSingleUse: 1
   minMovingPlatformSpeed: 1.5
   maxMovingPlatformSpeed: 3
   minMovingPlatformDistance: 1.5
@@ -1754,6 +1770,8 @@ MonoBehaviour:
   breakingPlatformMaxChance: 0.4
   movingPlatformBaseChance: 0.2
   movingPlatformMaxChance: 0.5
+  singleUsePlatformBaseChance: 0.15
+  singleUsePlatformMaxChance: 0.3
   maxMovingSpeedAtMaxDifficulty: 5
   maxMovingDistanceAtMaxDifficulty: 6
   enableDebugLogs: 0
