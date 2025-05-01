@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
@@ -6,6 +7,10 @@ public class EnemyController : MonoBehaviour
     public float moveSpeed = 2f;
     public float offScreenDestroyOffset = 15f; // How far below camera enemy must be to be destroyed
     public bool debugMode = true; // Enable debugging by default
+    
+    [Header("Visual Effects")]
+    public float damageBlinkDuration = 0.2f; // How long the enemy blinks red before being destroyed
+    public Color damageColor = new Color(1f, 0.5f, 0.5f, 0.8f); // Bright red with slight transparency
     
     [Header("Animation (Optional)")]
     public Sprite[] runAnimation;
@@ -18,6 +23,7 @@ public class EnemyController : MonoBehaviour
     private Camera mainCamera;
     private bool isActivated = false; // Track if enemy is activated
     private Collider2D enemyCollider; // Reference to the enemy's collider
+    private Color originalColor; // Store the original sprite color
     
     // Animation state
     private int currentFrame;
@@ -32,6 +38,15 @@ public class EnemyController : MonoBehaviour
         mainCamera = Camera.main;
         enemyCollider = GetComponent<Collider2D>();
         lastPosition = transform.position;
+        
+        // Store original sprite color
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
+        }
+        
+        // Create and apply a frictionless physics material to prevent player sticking
+        ApplyFrictionlessPhysics();
         
         // Initially disable the enemy
         SetEnemyActive(false);
@@ -218,10 +233,49 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    // Create and apply a physics material with no friction to prevent player sticking
+    private void ApplyFrictionlessPhysics()
+    {
+        if (enemyCollider != null)
+        {
+            // Create a new physics material
+            PhysicsMaterial2D frictionlessMaterial = new PhysicsMaterial2D("EnemyFrictionless");
+            frictionlessMaterial.friction = 0f;       // Zero friction
+            frictionlessMaterial.bounciness = 0.1f;   // A tiny bit of bounce
+            
+            // Apply to the collider
+            enemyCollider.sharedMaterial = frictionlessMaterial;
+            
+            if (debugMode) Debug.Log($"Applied frictionless material to {gameObject.name}");
+            
+            // Also add these properties to the Rigidbody2D if it exists
+            if (rb != null)
+            {
+                // These settings make it harder for the player to "stick" to the enemy
+                rb.linearDamping = 0f;
+                rb.angularDamping = 0f;
+            }
+        }
+    }
+
     // Public method called by player's attack
     public void TakeDamage()
     {
         Debug.Log($"{gameObject.name} took damage and was destroyed.");
+        
+        // Disable movement and collisions during death animation
+        if (rb != null)
+        {
+            rb.simulated = false;
+        }
+        
+        if (enemyCollider != null) 
+        {
+            enemyCollider.enabled = false;
+        }
+        
+        // Start blink and destroy coroutine
+        StartCoroutine(BlinkAndDestroy());
         
         // Add 10 points to the score when enemy is defeated
         if (GameManager.Instance != null)
@@ -231,8 +285,22 @@ public class EnemyController : MonoBehaviour
             
             if (debugMode) Debug.Log("Player earned 10 points for defeating an enemy!");
         }
+    }
+    
+    // Coroutine to make the enemy blink red before destroying
+    private IEnumerator BlinkAndDestroy()
+    {
+        // Check if we have a sprite renderer
+        if (spriteRenderer != null)
+        {
+            // Change to damage color (red)
+            spriteRenderer.color = damageColor;
+        }
         
-        // TODO: Add optional death effect/sound here
+        // Wait for the visual blink duration
+        yield return new WaitForSeconds(damageBlinkDuration);
+        
+        // Now destroy the enemy
         Destroy(gameObject);
     }
     

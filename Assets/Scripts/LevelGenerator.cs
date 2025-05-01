@@ -12,7 +12,7 @@ public class LevelGenerator : MonoBehaviour
     [Range(0f, 1f)]
     public float enemySpawnChance = 0.15f; // 15% chance to spawn an enemy
     [Range(0f, 1f)]
-    public float potionSpawnChance = 0.1f; // 15% chance to spawn a potion
+    public float potionSpawnChance = 0.1f; // 10% chance to spawn a potion
     public float levelWidth = 6f;
     public float minY = 0.5f;
     public float maxY = 2f;
