@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float movementSpeed = 10f;
-    public float jumpForce = 10f;
+    public float jumpForce = 2f;
     public LayerMask groundLayer;
     public float groundCheckRadius = 0.2f; // Set a default value that's not zero
     
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
     
     [Header("Power-up Settings")]
-    public float defaultJumpForce = 10f; // Store the default jump force
+    public float defaultJumpForce = 2f; // Store the default jump force
     public float defaultMovementSpeed = 10f; // Store the default movement speed
     public TextMeshProUGUI powerupTimerText; // Reference to the timer UI (renamed from jumpBoostTimerText)
     public Color jumpBoostTimerColor = Color.red; // Color for jump boost timer

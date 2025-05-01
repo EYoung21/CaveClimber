@@ -114,6 +114,17 @@ public class MovingSingleUseJumpPlatform : ClimbableSurface
         // Disable collider immediately
         platformCollider.enabled = false;
         
+        // Unparent any potential children (like the player)
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Transform child = transform.GetChild(i);
+            child.SetParent(null);
+            if (debugMode) Debug.Log($"[MovingSingleUseJumpPlatform] Unparented child: {child.name}", child.gameObject);
+        }
+        
+        // Freeze platform at current position
+        Vector3 frozenPosition = transform.position;
+        
         if (debugMode) Debug.Log($"[MovingSingleUseJumpPlatform] Starting fade out for {name}", gameObject);
         
         // Fade out animation
@@ -123,6 +134,9 @@ public class MovingSingleUseJumpPlatform : ClimbableSurface
         
         while (elapsedTime < fadeDuration)
         {
+            // Keep platform at frozen position while fading
+            transform.position = frozenPosition;
+            
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / fadeDuration;
             spriteRenderer.color = Color.Lerp(startColor, endColor, t);
