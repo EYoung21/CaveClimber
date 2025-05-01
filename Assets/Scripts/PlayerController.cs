@@ -401,26 +401,47 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         // Only process for platform collisions
-        if (collision.gameObject.CompareTag("Platform"))
+        if (((1 << collision.gameObject.layer) & groundLayer) != 0)
         {
+            bool hasSideContact = false;
+            bool hasTopContact = false;
+            
             for (int i = 0; i < collision.contactCount; i++)
             {
-                Vector2 normal = collision.GetContact(i).normal;
+                ContactPoint2D contact = collision.GetContact(i);
+                Vector2 normal = contact.normal;
                 
-                // If collision is from the side (normal.y is near 0)
-                if (Mathf.Abs(normal.y) < 0.1f)
+                // Check for top contact (normal pointing up)
+                if (normal.y > 0.7f)
                 {
-                    // Get the platform effector
-                    PlatformEffector2D effector = collision.gameObject.GetComponent<PlatformEffector2D>();
+                    hasTopContact = true;
+                }
+                
+                // Check for side contact (normal mostly horizontal)
+                if (Mathf.Abs(normal.x) > 0.7f && Mathf.Abs(normal.y) < 0.3f)
+                {
+                    hasSideContact = true;
+                }
+            }
+            
+            // If we have side contacts but no top contacts, the player is likely
+            // colliding with the side of a platform
+            if (hasSideContact && !hasTopContact)
+            {
+                // Get the platform's collider
+                Collider2D platformCollider = collision.collider;
+                
+                // Temporarily ignore collision with this platform
+                if (platformCollider != null)
+                {
+                    Physics2D.IgnoreCollision(playerCollider, platformCollider, true);
                     
-                    // If the platform has an effector, temporarily disable collision
-                    if (effector != null && effector.useOneWay)
+                    // Set up to re-enable collision later
+                    StartCoroutine(ReenableCollision(playerCollider, platformCollider));
+                    
+                    if (showDebugLogs)
                     {
-                        // Create a temporary non-collision state
-                        Physics2D.IgnoreCollision(playerCollider, collision.collider, true);
-                        
-                        // Re-enable collision after a short delay
-                        StartCoroutine(ReenableCollision(playerCollider, collision.collider));
+                        Debug.Log($"Ignoring side collision with {collision.gameObject.name}");
                     }
                 }
             }
@@ -429,19 +450,50 @@ public class PlayerController : MonoBehaviour
     
     private IEnumerator ReenableCollision(Collider2D player, Collider2D platform)
     {
-        // Wait a short time
+        // Wait a short time before checking relative positions
         yield return new WaitForSeconds(0.2f);
         
-        // Only re-enable collision if the player is above the platform
-        if (player.bounds.min.y > platform.bounds.max.y - 0.1f)
+        // Get the player's position and velocity
+        Vector2 playerPos = player.transform.position;
+        Vector2 platformPos = platform.transform.position;
+        Vector2 playerVel = rb.linearVelocity;
+        
+        // Check if player is clearly above the platform
+        bool isAbovePlatform = player.bounds.min.y > platform.bounds.max.y - 0.05f;
+        
+        // Check if player is moving away from the platform horizontally
+        bool isMovingAway = (playerPos.x < platformPos.x && playerVel.x < -0.1f) || 
+                           (playerPos.x > platformPos.x && playerVel.x > 0.1f);
+        
+        // Only re-enable collision if:
+        // 1. Player is clearly above the platform, or
+        // 2. Player has moved sufficiently away from the platform
+        if (isAbovePlatform || isMovingAway)
         {
+            if (showDebugLogs) Debug.Log($"Re-enabling collision with platform: Above={isAbovePlatform}, MovingAway={isMovingAway}");
             Physics2D.IgnoreCollision(player, platform, false);
         }
         else
         {
-            // Check again later if still beside the platform
-            yield return new WaitForSeconds(0.2f);
-            Physics2D.IgnoreCollision(player, platform, false);
+            // If the player is still beside or inside the platform, wait longer
+            yield return new WaitForSeconds(0.3f);
+            
+            // If the player is now clearly above or has moved away, re-enable
+            isAbovePlatform = player.bounds.min.y > platform.bounds.max.y - 0.05f;
+            isMovingAway = (playerPos.x < platformPos.x && playerVel.x < -0.1f) || 
+                           (playerPos.x > platformPos.x && playerVel.x > 0.1f);
+            
+            if (isAbovePlatform || isMovingAway || Vector2.Distance(playerPos, platformPos) > 1.5f)
+            {
+                if (showDebugLogs) Debug.Log($"Delayed re-enabling collision with platform");
+                Physics2D.IgnoreCollision(player, platform, false);
+            }
+            else
+            {
+                // If still overlapping, keep collision disabled longer
+                yield return new WaitForSeconds(0.5f);
+                Physics2D.IgnoreCollision(player, platform, false);
+            }
         }
     }
     
