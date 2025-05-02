@@ -1019,6 +1019,19 @@ public class PlayerController : MonoBehaviour
             batWingsCoroutine = null;
         }
         
+        // Find and destroy any wing objects
+        Transform leftWing = transform.Find("LeftBatWing");
+        if (leftWing != null)
+        {
+            Destroy(leftWing.gameObject);
+        }
+        
+        Transform rightWing = transform.Find("RightBatWing");
+        if (rightWing != null)
+        {
+            Destroy(rightWing.gameObject);
+        }
+        
         // Reset sprite color to original
         if (spriteRenderer != null)
         {
@@ -1047,8 +1060,26 @@ public class PlayerController : MonoBehaviour
         float frameTime = 1f / animationFPS;
         float upwardSpeed = 15f; // Fast upward movement speed
         
-        // Store original animation
-        Sprite[] originalJumpAnimation = jumpAnimation;
+        // Create left wing
+        GameObject leftWingObject = new GameObject("LeftBatWing");
+        leftWingObject.transform.SetParent(transform);
+        leftWingObject.transform.localPosition = new Vector3(-0.15f, 0, 0.1f); // Left side of player, even closer
+        leftWingObject.transform.localScale = new Vector3(0.17f, 0.17f, 1.0f); // Very small scale
+        
+        // Add a sprite renderer for the left wing
+        SpriteRenderer leftWingRenderer = leftWingObject.AddComponent<SpriteRenderer>();
+        leftWingRenderer.sortingOrder = spriteRenderer.sortingOrder - 1; // Put behind player
+        
+        // Create right wing
+        GameObject rightWingObject = new GameObject("RightBatWing");
+        rightWingObject.transform.SetParent(transform);
+        rightWingObject.transform.localPosition = new Vector3(0.15f, 0, 0.1f); // Right side of player, even closer
+        rightWingObject.transform.localScale = new Vector3(0.17f, 0.17f, 1.0f); // Very small scale
+        
+        // Add a sprite renderer for the right wing
+        SpriteRenderer rightWingRenderer = rightWingObject.AddComponent<SpriteRenderer>();
+        rightWingRenderer.sortingOrder = spriteRenderer.sortingOrder - 1; // Put behind player
+        rightWingRenderer.flipX = true; // Mirror this wing
         
         // While the effect is active
         while (elapsedTime < duration && batWingsActive)
@@ -1058,23 +1089,55 @@ public class PlayerController : MonoBehaviour
             velocity.y = upwardSpeed;
             rb.linearVelocity = velocity;
             
-            // Handle animation
+            // Handle wings animation
             batWingsAnimTimer -= Time.deltaTime;
             if (batWingsAnimTimer <= 0)
             {
                 batWingsAnimTimer = frameTime;
                 batWingsCurrentFrame = (batWingsCurrentFrame + 1) % batWingsSprites.Length;
-                spriteRenderer.sprite = batWingsSprites[batWingsCurrentFrame];
+                
+                // Update both wings' sprites
+                if (batWingsCurrentFrame < batWingsSprites.Length)
+                {
+                    if (leftWingRenderer != null)
+                    {
+                        leftWingRenderer.sprite = batWingsSprites[batWingsCurrentFrame];
+                    }
+                    
+                    if (rightWingRenderer != null)
+                    {
+                        rightWingRenderer.sprite = batWingsSprites[batWingsCurrentFrame];
+                    }
+                }
+            }
+            
+            // If player direction changes, update wing positions
+            if (spriteRenderer.flipX)
+            {
+                // Player facing left
+                if (leftWingObject != null) leftWingObject.transform.localPosition = new Vector3(0.15f, 0, 0.1f);
+                if (rightWingObject != null) rightWingObject.transform.localPosition = new Vector3(-0.15f, 0, 0.1f);
+            }
+            else
+            {
+                // Player facing right
+                if (leftWingObject != null) leftWingObject.transform.localPosition = new Vector3(-0.15f, 0, 0.1f);
+                if (rightWingObject != null) rightWingObject.transform.localPosition = new Vector3(0.15f, 0, 0.1f);
             }
             
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         
-        // Reset animation
-        if (jumpAnimation == batWingsSprites)
+        // Clean up
+        if (leftWingObject != null)
         {
-            jumpAnimation = originalJumpAnimation;
+            Destroy(leftWingObject);
+        }
+        
+        if (rightWingObject != null)
+        {
+            Destroy(rightWingObject);
         }
         
         if (batWingsActive)
