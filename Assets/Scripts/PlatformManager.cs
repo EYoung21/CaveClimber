@@ -25,11 +25,11 @@ public class PlatformManager : MonoBehaviour
     public float maxMovingPlatformDistance = 3.5f;
     
     [Header("Difficulty Settings")]
-    public float breakingPlatformBaseChance = 0.1f; // Base chance for breaking platforms (changed from 0.15f)
+    public float breakingPlatformBaseChance = 0.05f; // Reduced base chance (was 0.1)
     public float breakingPlatformMaxChance = 0.4f;  // Max chance at highest difficulty
-    public float movingPlatformBaseChance = 0.1f;   // Base chance for moving platforms (changed from 0.2f) 
+    public float movingPlatformBaseChance = 0.05f;   // Reduced base chance (was 0.1)
     public float movingPlatformMaxChance = 0.5f;    // Max chance at highest difficulty
-    public float singleUsePlatformBaseChance = 0.1f; // Base chance for single-use platforms (changed from 0.15f)
+    public float singleUsePlatformBaseChance = 0.05f; // Reduced base chance (was 0.1)
     public float singleUsePlatformMaxChance = 0.3f;  // Max chance at highest difficulty
     public float maxMovingSpeedAtMaxDifficulty = 5.0f; // Maximum speed for moving platforms at max difficulty
     public float maxMovingDistanceAtMaxDifficulty = 6.0f; // Maximum distance for moving platforms at max difficulty
@@ -94,6 +94,16 @@ public class PlatformManager : MonoBehaviour
     {
         if (platformTypes.Length == 0)
             return null;
+            
+        float initialPhaseDifficultyThreshold = 0.05f; // Difficulty below which only basic platforms spawn
+        
+        // --- Start Modification: Force basic platforms at low difficulty ---
+        if (difficulty < initialPhaseDifficultyThreshold && basicPlatforms.Count > 0)
+        {
+            if (enableDebugLogs) Debug.Log($"[PlatformManager] Difficulty ({difficulty}) below threshold ({initialPhaseDifficultyThreshold}), forcing basic platform.");
+            return GetRandomFromCategory(basicPlatforms);
+        }
+        // --- End Modification ---
         
         // Calculate platform type chance based on difficulty
         float breakingChance = Mathf.Lerp(breakingPlatformBaseChance, breakingPlatformMaxChance, difficulty);

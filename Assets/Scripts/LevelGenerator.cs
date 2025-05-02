@@ -13,9 +13,11 @@ public class LevelGenerator : MonoBehaviour
     
     [Header("Spawn Settings")]
     [Range(0f, 1f)]
-    public float enemySpawnChance = 0.15f; // 15% chance to spawn an enemy
+    // public float enemySpawnChance = 0.15f; // OLD: Base 15% chance to spawn an enemy
+    public float maxEnemySpawnChance = 0.85f; // EVEN MORE enemies (was 0.70)
+    // [Range(0f, 1f)] public float powerupSpawnChance = 0.05f; // Removed, now scales with difficulty
     [Range(0f, 1f)]
-    public float powerupSpawnChance = 0.05f; // 5% chance to spawn any powerup
+    public float maxPowerupSpawnChance = 0.35f; // EVEN MORE powerups (was 0.25)
     
     // These are kept for backward compatibility but no longer used directly
     [HideInInspector]
@@ -25,8 +27,8 @@ public class LevelGenerator : MonoBehaviour
     [HideInInspector]
     public float speedPotionSpawnChance = 0.1f;
     public float levelWidth = 6f;
-    public float minY = 0.5f;
-    public float maxY = 2f;
+    public float minY = 0.4f; // Minimum vertical gap (slightly reduced)
+    public float maxY = 1.2f; // Further reduced base max gap (was 1.5) -> Denser platforms
     
     [Header("Initial Spawn Settings")]
     public int initialPlatformsInView = 8; // How many platforms to place in initial view
@@ -38,10 +40,10 @@ public class LevelGenerator : MonoBehaviour
     public float platformDespawnThreshold = 15f; // How far below to despawn platforms
     
     [Header("Difficulty Scaling")]
-    public float minYAtMaxDifficulty = 2.5f; // Maximum vertical gap at highest difficulty
-    public float maxYAtMaxDifficulty = 4.0f; // Maximum vertical gap at highest difficulty
-    public float enemyChanceAtMaxDifficulty = 0.4f; // Maximum enemy spawn chance
-    public float difficultyScalingHeight = 500f; // Height at which max difficulty is reached
+    public float minYAtMaxDifficulty = 1.5f; // Reduced min gap at max difficulty (was 2.0)
+    public float maxYAtMaxDifficulty = 2.5f; // Further reduced max gap (was 3.0) -> Denser platforms at high difficulty
+    // public float enemyChanceAtMaxDifficulty = 0.4f; // Removed, replaced by maxEnemySpawnChance
+    public float difficultyScalingHeight = 700f; // Increased scaling height (was 500f)
     public float breakingPlatformChanceMax = 0.4f; // Maximum chance for breaking platforms
     public float movingPlatformChanceMax = 0.5f; // Maximum chance for moving platforms
     
@@ -129,12 +131,15 @@ public class LevelGenerator : MonoBehaviour
         {
             bool spawnedEnemy = false;
             
-            // Try to spawn an enemy first (with adjusted chance based on difficulty)
-            float adjustedEnemyChance = Mathf.Lerp(enemySpawnChance, enemyChanceAtMaxDifficulty, currentDifficulty);
+            // Calculate enemy spawn chance based on difficulty (0% to maxEnemySpawnChance)
+            float adjustedEnemyChance = Mathf.Lerp(0f, maxEnemySpawnChance, currentDifficulty);
             spawnedEnemy = TrySpawnObjectWithChance(adjustedEnemyChance, enemyPrefab, newPlatform, SpawnEnemyOnPlatform);
             
+            // Calculate powerup chance based on difficulty
+            float adjustedPowerupSpawnChance = Mathf.Lerp(0f, maxPowerupSpawnChance, currentDifficulty);
+            
             // If we didn't spawn an enemy, maybe spawn a powerup
-            if (!spawnedEnemy && Random.value < powerupSpawnChance)
+            if (!spawnedEnemy && Random.value < adjustedPowerupSpawnChance)
             {
                 // Randomly select which type of powerup to spawn (equal 25% chance for each)
                 float randomValue = Random.value;
