@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     private float debugTimer = 0f;
     
     private CameraFollow cameraFollow; // Reference to the camera follow script
-    private bool hasLandedOnce = false; // Track if player has landed at least once
+    private bool hasStartedGameplay = false; // Track if player has landed or bounced on enemy at least once
     
     // Attack state
     private bool isAttacking = false;
@@ -400,14 +400,14 @@ public class PlayerController : MonoBehaviour
         // --- End modification --- 
         
         // Trigger camera follow on first landing
-        if (!wasGrounded && isGrounded && !hasLandedOnce)
+        if (!wasGrounded && isGrounded && !hasStartedGameplay)
         {
-            hasLandedOnce = true;
+            hasStartedGameplay = true;
             if (cameraFollow != null)
             {
                 cameraFollow.StartFollowing();
             }
-            if(showDebugLogs) Debug.Log("Player landed for the first time.");
+            if(showDebugLogs) Debug.Log("Player landed for the first time, starting camera follow.");
         }
         
         // Process movement input regardless of attack state
@@ -593,16 +593,54 @@ public class PlayerController : MonoBehaviour
         // Handle enemy collision (keep existing logic if it was here)
         if (((1 << collision.gameObject.layer) & enemyLayer) != 0)
         {
-             // Add enemy collision logic here if it was removed from Update
              EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
              if (enemy != null)
              {
-                 // Example: Apply knockback
-                 Vector2 knockbackDirection = (transform.position - enemy.transform.position).normalized;
-                 rb.AddForce(knockbackDirection * 5f, ForceMode2D.Impulse); // Adjust force as needed
-                 // Maybe trigger game over or damage?
-                 // gameManager?.GameOver(); 
-            }
+                 bool bouncedOnHead = false;
+                 foreach (ContactPoint2D contact in collision.contacts)
+                 {
+                     // Check if player hit the top of the enemy (normal pointing down from player's perspective)
+                     if (contact.normal.y < -0.5f) 
+                     {
+                         bouncedOnHead = true;
+                         break;
+                     }
+                 }
+
+                 if (bouncedOnHead)
+                 {
+                    // Apply bounce force
+                    Vector2 velocity = rb.linearVelocity;
+                    velocity.y = jumpForce; // Use existing jumpForce for bounce
+                    rb.linearVelocity = velocity;
+                    if (showDebugLogs) Debug.Log($"Player bounced on head of {enemy.name}");
+                    
+                    // Damage the enemy
+                    enemy.TakeDamage(); 
+                    
+                    // Trigger camera follow on first bounce if not already started
+                    if (!hasStartedGameplay)
+                    {
+                        hasStartedGameplay = true;
+                        if (cameraFollow != null)
+                        {
+                            cameraFollow.StartFollowing();
+                        }
+                        if (showDebugLogs) Debug.Log("Player bounced on enemy head for the first time, starting camera follow.");
+                    }
+                 }
+                 else
+                 {
+                    // Player hit the side - apply knockback to player (existing logic)
+                    Vector2 knockbackDirection = (transform.position - enemy.transform.position).normalized;
+                    knockbackDirection.y = Mathf.Max(knockbackDirection.y, 0.1f); // Ensure a little upward knockback
+                    rb.AddForce(knockbackDirection * 5f, ForceMode2D.Impulse); // Adjust force as needed
+                    if (showDebugLogs) Debug.Log($"Player hit side of {enemy.name}, applying knockback.");
+                    
+                    // Optional: Trigger game over or player damage here if desired
+                    // gameManager?.GameOver(); 
+                 }
+             }
         }
     }
     

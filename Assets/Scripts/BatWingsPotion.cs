@@ -7,7 +7,7 @@ public class BatWingsPotion : MonoBehaviour
     public float bobSpeed = 1.5f;        // How fast the potion moves up and down
     public float bobHeight = 0.3f;       // How high the potion moves up and down
     public float rotationSpeed = 45f;    // How fast the potion rotates
-    public float batWingsDuration = 10f; // Duration in seconds
+    public float batWingsDuration = 6f; // Duration in seconds
     
     [Header("Visual Effects")]
     public GameObject collectEffectPrefab; // Optional particle effect prefab

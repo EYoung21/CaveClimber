@@ -140,7 +140,7 @@ MonoBehaviour:
   bobSpeed: 1.5
   bobHeight: 0.3
   rotationSpeed: 45
-  batWingsDuration: 10
+  batWingsDuration: 6
   collectEffectPrefab: {fileID: 0}
   batWingsAnimation:
   - {fileID: 7342898855717948256, guid: 837c86569aa941c449486f1a9b5500d3, type: 3}
