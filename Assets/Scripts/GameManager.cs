@@ -17,13 +17,14 @@ public class GameManager : MonoBehaviour
     
     [Header("Game Settings")]
     public float deathYThreshold = 10f; // How far below camera the player can fall
-    public int scorePerPlatform = 10; // Score given for each new platform
+    // public int scorePerPlatform = 10; // Score given for each new platform (No longer used)
     public Vector3 playerSpawnOffset = new Vector3(0, 5, 0); // Offset relative to camera center
     
     private int currentScore = 0;
+    private float maxPlayerHeight = 0f;
     private bool isGameOver = false;
     
-    // Track platforms the player has already landed on
+    // Track platforms the player has already landed on (No longer used for scoring)
     private HashSet<int> visitedPlatformIds = new HashSet<int>();
     
     private void Awake()
@@ -82,8 +83,21 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
+        
+        // Update score based on max height
+        if (player != null)
+        {
+            if (player.position.y > maxPlayerHeight)
+            {
+                maxPlayerHeight = player.position.y;
+                // Score is simply the max height reached, rounded down
+                currentScore = Mathf.FloorToInt(maxPlayerHeight);
+                UpdateScoreUI();
+            }
+        }
     }
     
+    /* // No longer used for scoring
     // Called by platforms when player lands on them
     public void RegisterPlatformVisit(int platformId)
     {
@@ -91,13 +105,14 @@ public class GameManager : MonoBehaviour
         if (!visitedPlatformIds.Contains(platformId))
         {
             visitedPlatformIds.Add(platformId);
-            currentScore += scorePerPlatform;
-            UpdateScoreUI();
+            // currentScore += scorePerPlatform; // No longer add score per platform
+            // UpdateScoreUI();
             
             // Optional: Add a visual feedback for scoring
-            // Debug.Log($"New platform visited! Score: {currentScore}");
+            // Debug.Log($"New platform visited! Platform ID: {platformId}");
         }
     }
+    */
     
     // New method for adding score from defeating enemies or other sources
     public void AddScore(int points)

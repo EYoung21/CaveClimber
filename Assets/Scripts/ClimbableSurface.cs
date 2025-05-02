@@ -34,11 +34,13 @@ public class ClimbableSurface : MonoBehaviour
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
             if (player != null)
             {
-                // Register this platform visit with GameManager for scoring
+                // Register this platform visit with GameManager for scoring (No longer needed)
+                /*
                 if (GameManager.Instance != null)
                 {
                     GameManager.Instance.RegisterPlatformVisit(platformId);
                 }
+                */
             }
         }
         
