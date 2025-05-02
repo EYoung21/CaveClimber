@@ -8,13 +8,14 @@ public class LevelGenerator : MonoBehaviour
     public GameObject jumpPotionPrefab; // Assign your jump potion prefab here
     public GameObject slowPotionPrefab; // Assign your slow potion prefab here
     public GameObject speedPotionPrefab; // Assign your speed potion prefab here
+    public GameObject batWingsPotionPrefab; // Assign your bat wings potion prefab here
     public Transform platformContainer; // ADDED: Assign in Inspector to hold platforms
     
     [Header("Spawn Settings")]
     [Range(0f, 1f)]
     public float enemySpawnChance = 0.15f; // 15% chance to spawn an enemy
     [Range(0f, 1f)]
-    public float powerupSpawnChance = 0.1f; // 10% chance to spawn any powerup
+    public float powerupSpawnChance = 0.05f; // 5% chance to spawn any powerup
     
     // These are kept for backward compatibility but no longer used directly
     [HideInInspector]
@@ -135,26 +136,32 @@ public class LevelGenerator : MonoBehaviour
             // If we didn't spawn an enemy, maybe spawn a powerup
             if (!spawnedEnemy && Random.value < powerupSpawnChance)
             {
-                // Randomly select which type of powerup to spawn (equal 33% chance for each)
+                // Randomly select which type of powerup to spawn (equal 25% chance for each)
                 float randomValue = Random.value;
                 
-                if (randomValue < 0.33f && jumpPotionPrefab != null)
+                if (randomValue < 0.25f && jumpPotionPrefab != null)
                 {
-                    // Spawn jump potion (33% of powerups)
+                    // Spawn jump potion (25% of powerups)
                     SpawnJumpPotionOnPlatform(newPlatform);
-                    if(enableDebugLogs) Debug.Log($"Spawning jump potion on platform (1/3 chance of powerups)");
+                    if(enableDebugLogs) Debug.Log($"Spawning jump potion on platform (1/4 chance of powerups)");
                 }
-                else if (randomValue < 0.66f && slowPotionPrefab != null)
+                else if (randomValue < 0.5f && slowPotionPrefab != null)
                 {
-                    // Spawn slow potion (33% of powerups)
+                    // Spawn slow potion (25% of powerups)
                     SpawnSlowPotionOnPlatform(newPlatform);
-                    if(enableDebugLogs) Debug.Log($"Spawning slow potion on platform (1/3 chance of powerups)");
+                    if(enableDebugLogs) Debug.Log($"Spawning slow potion on platform (1/4 chance of powerups)");
                 }
-                else if (speedPotionPrefab != null)
+                else if (randomValue < 0.75f && speedPotionPrefab != null)
                 {
-                    // Spawn speed potion (33% of powerups)
+                    // Spawn speed potion (25% of powerups)
                     SpawnSpeedPotionOnPlatform(newPlatform);
-                    if(enableDebugLogs) Debug.Log($"Spawning speed potion on platform (1/3 chance of powerups)");
+                    if(enableDebugLogs) Debug.Log($"Spawning speed potion on platform (1/4 chance of powerups)");
+                }
+                else if (batWingsPotionPrefab != null)
+                {
+                    // Spawn bat wings potion (25% of powerups)
+                    SpawnBatWingsPotionOnPlatform(newPlatform);
+                    if(enableDebugLogs) Debug.Log($"Spawning bat wings potion on platform (1/4 chance of powerups)");
                 }
             }
         }
@@ -435,6 +442,47 @@ public class LevelGenerator : MonoBehaviour
         if(enableDebugLogs) 
         {
             Debug.Log($"Spawned speed potion on platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
+        }
+        
+        return potion;
+    }
+
+    // New method to spawn bat wings potions
+    GameObject SpawnBatWingsPotionOnPlatform(GameObject platform)
+    {
+        // Calculate spawn position slightly above the platform center
+        float platformHeight = platform.GetComponent<Collider2D>()?.bounds.size.y ?? 0.2f;
+        float potionOffsetY = 0.8f; // Slightly higher than enemies
+        Vector3 potionSpawnPos = platform.transform.position + new Vector3(0, (platformHeight / 2f) + potionOffsetY, 0);
+
+        // Check if this is a moving platform
+        MovingPlatformMarker movingPlatform = platform.GetComponent<MovingPlatformMarker>();
+        GameObject potion;
+        
+        if (movingPlatform != null)
+        {
+            // Create a scale neutralizer between the platform and potion
+            GameObject neutralizer = BatWingsPotion.CreateScaleNeutralizer(platform, potionSpawnPos);
+            
+            // Create potion as a child of the neutralizer at local position zero
+            potion = Instantiate(batWingsPotionPrefab, potionSpawnPos, Quaternion.identity);
+            potion.transform.parent = neutralizer.transform;
+            
+            if (enableDebugLogs) Debug.Log($"Parented bat wings potion to scale neutralizer on moving platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
+        }
+        else
+        {
+            // For non-moving platforms, just create the potion normally
+            potion = Instantiate(batWingsPotionPrefab, potionSpawnPos, Quaternion.identity);
+            
+            // If not a moving platform, parent to the main container for organization
+            potion.transform.parent = platformContainer ?? transform;
+        }
+        
+        // Keep potion spawn log conditional
+        if(enableDebugLogs) 
+        {
+            Debug.Log($"Spawned bat wings potion on platform {platform.GetComponent<ClimbableSurface>()?.platformId}", platform);
         }
         
         return potion;

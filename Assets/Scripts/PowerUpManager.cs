@@ -7,7 +7,8 @@ public enum PowerUpType
     None,
     Jump,
     Slow,
-    Speed
+    Speed,
+    BatWings
 }
 
 public class PowerUpManager : MonoBehaviour
@@ -21,6 +22,7 @@ public class PowerUpManager : MonoBehaviour
     private List<JumpPotion> jumpPotions = new List<JumpPotion>();
     private List<SlowPotion> slowPotions = new List<SlowPotion>();
     private List<SpeedPotion> speedPotions = new List<SpeedPotion>();
+    private List<BatWingsPotion> batWingsPotions = new List<BatWingsPotion>();
     
     // Track enemies for slow effect
     private List<EnemyController> activeEnemies = new List<EnemyController>();
@@ -46,6 +48,7 @@ public class PowerUpManager : MonoBehaviour
             jumpPotions.Clear();
             slowPotions.Clear();
             speedPotions.Clear();
+            batWingsPotions.Clear();
             activeEnemies.Clear();
             if (activeCoroutine != null)
             {
@@ -88,6 +91,12 @@ public class PowerUpManager : MonoBehaviour
             speedPotions.Add(potion);
     }
     
+    public void RegisterBatWingsPotion(BatWingsPotion potion)
+    {
+        if (!batWingsPotions.Contains(potion))
+            batWingsPotions.Add(potion);
+    }
+    
     public void UnregisterJumpPotion(JumpPotion potion)
     {
         jumpPotions.Remove(potion);
@@ -101,6 +110,11 @@ public class PowerUpManager : MonoBehaviour
     public void UnregisterSpeedPotion(SpeedPotion potion)
     {
         speedPotions.Remove(potion);
+    }
+    
+    public void UnregisterBatWingsPotion(BatWingsPotion potion)
+    {
+        batWingsPotions.Remove(potion);
     }
     
     public void RegisterEnemy(EnemyController enemy)
@@ -186,6 +200,26 @@ public class PowerUpManager : MonoBehaviour
         activeCoroutine = StartCoroutine(PowerupCooldown(duration));
     }
     
+    // Activate bat wings powerup
+    public void ActivateBatWingsPowerup(float duration)
+    {
+        // If any powerup is already active, cancel it first
+        if (ActivePowerUp != PowerUpType.None)
+        {
+            DeactivateCurrentPowerup();
+        }
+        
+        // Set the active powerup
+        ActivePowerUp = PowerUpType.BatWings;
+        powerupTimeRemaining = duration;
+        
+        // Start the cooldown coroutine
+        if (activeCoroutine != null)
+            StopCoroutine(activeCoroutine);
+            
+        activeCoroutine = StartCoroutine(PowerupCooldown(duration));
+    }
+    
     // Deactivate current powerup
     private void DeactivateCurrentPowerup()
     {
@@ -216,6 +250,19 @@ public class PowerUpManager : MonoBehaviour
                 
             case PowerUpType.Speed:
                 // No specific cleanup needed for speed, handled by PlayerController
+                break;
+                
+            case PowerUpType.BatWings:
+                // Call DeactivateBatWingsEffect on the PlayerController
+                if (playerController != null)
+                {
+                    Debug.Log("Calling PlayerController.DeactivateBatWingsEffect()");
+                    playerController.DeactivateBatWingsEffect();
+                }
+                else
+                {
+                    Debug.LogWarning("Cannot deactivate bat wings effect: playerController is null!");
+                }
                 break;
         }
         
@@ -269,6 +316,7 @@ public class PowerUpManager : MonoBehaviour
         jumpPotions.Clear();
         slowPotions.Clear();
         speedPotions.Clear();
+        batWingsPotions.Clear();
         activeEnemies.Clear();
         
         // Reset any remaining state

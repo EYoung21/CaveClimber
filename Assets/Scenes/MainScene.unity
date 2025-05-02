@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
-  jumpForce: 8.25
+  jumpForce: 8.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -567,6 +567,7 @@ MonoBehaviour:
   jumpBoostTimerColor: {r: 1, g: 0, b: 0, a: 1}
   slowEffectTimerColor: {r: 0, g: 0, b: 1, a: 1}
   speedBoostTimerColor: {r: 0, g: 1, b: 0, a: 1}
+  batWingsTimerColor: {r: 0.5, g: 0, b: 0.5, a: 1}
 --- !u!1 &413808532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,6 +1264,7 @@ MonoBehaviour:
   jumpPotionPrefab: {fileID: 4911355975134009272, guid: 364444aba896e234e899fd0b9149ebe8, type: 3}
   slowPotionPrefab: {fileID: 729658262999511345, guid: 4f72f6994db346c4d89b0b48d16a08e7, type: 3}
   speedPotionPrefab: {fileID: 6798242797512665665, guid: 861c5294410375f4ba5599ed340bd863, type: 3}
+  batWingsPotionPrefab: {fileID: 7779082477495826120, guid: f5413e71b0159f948941e322503c6cfa, type: 3}
   platformContainer: {fileID: 0}
   enemySpawnChance: 0.15
   powerupSpawnChance: 0.1

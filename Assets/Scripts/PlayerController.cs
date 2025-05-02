@@ -61,20 +61,26 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
     
     [Header("Power-up Settings")]
-    public float defaultJumpForce = 2f; // Store the default jump force
+    public float defaultJumpForce = 6f; // Store the default jump force
     public float defaultMovementSpeed = 10f; // Store the default movement speed
     public TextMeshProUGUI powerupTimerText; // Reference to the timer UI (renamed from jumpBoostTimerText)
     public Color jumpBoostTimerColor = Color.red; // Color for jump boost timer
     public Color slowEffectTimerColor = Color.blue; // Color for slow effect timer
     public Color speedBoostTimerColor = Color.green; // Color for speed boost timer
+    public Color batWingsTimerColor = new Color(0.5f, 0f, 0.5f, 1f); // Purple color for bat wings timer
     
     // Power-up state
     private bool jumpBoostActive = false;
     private bool speedBoostActive = false;
+    private bool batWingsActive = false;
     private float powerupTimeRemaining = 0f;
     private float currentJumpBoostMultiplier = 1f;
     private float currentSpeedBoostMultiplier = 1f;
     private PowerUpType currentPowerUpType = PowerUpType.None;
+    private Sprite[] batWingsSprites; // Store bat wings animation sprites
+    private float batWingsAnimTimer = 0f;
+    private int batWingsCurrentFrame = 0;
+    private Coroutine batWingsCoroutine;
     
     // Store the original sprite color
     private Color originalSpriteColor;
@@ -217,6 +223,10 @@ public class PlayerController : MonoBehaviour
             {
                 speedBoostActive = true;
             }
+            else if (currentPowerUpType == PowerUpType.BatWings && !batWingsActive)
+            {
+                batWingsActive = true;
+            }
             else if (currentPowerUpType != PowerUpType.Jump && jumpBoostActive)
             {
                 // Force deactivate if out of sync
@@ -225,6 +235,10 @@ public class PlayerController : MonoBehaviour
             else if (currentPowerUpType != PowerUpType.Speed && speedBoostActive)
             {
                 DeactivateSpeedBoost();
+            }
+            else if (currentPowerUpType != PowerUpType.BatWings && batWingsActive)
+            {
+                DeactivateBatWingsEffect();
             }
             
             // Update timer UI
@@ -282,6 +296,18 @@ public class PlayerController : MonoBehaviour
                             spriteRenderer.color = new Color(speedBoostTimerColor.r * 0.8f + 0.2f, 
                                                             speedBoostTimerColor.g * 0.8f + 0.2f, 
                                                             speedBoostTimerColor.b * 0.8f + 0.2f, 
+                                                            1.0f);
+                        }
+                    }
+                    else if (currentPowerUpType == PowerUpType.BatWings)
+                    {
+                        powerupTimerText.color = batWingsTimerColor;
+                        // Tint player purple for bat wings powerup
+                        if (spriteRenderer != null)
+                        {
+                            spriteRenderer.color = new Color(batWingsTimerColor.r * 0.8f + 0.2f, 
+                                                            batWingsTimerColor.g * 0.8f + 0.2f, 
+                                                            batWingsTimerColor.b * 0.8f + 0.2f, 
                                                             1.0f);
                         }
                     }
@@ -941,6 +967,119 @@ public class PlayerController : MonoBehaviour
         if (powerupTimerText != null)
         {
             powerupTimerText.gameObject.SetActive(false);
+        }
+    }
+
+    // Apply bat wings effect
+    public void ApplyBatWingsEffect(float duration, Sprite[] wingSprites)
+    {
+        // Store the animation sprites
+        batWingsSprites = wingSprites;
+        
+        // Set timer
+        powerupTimeRemaining = duration;
+        batWingsActive = true;
+        currentPowerUpType = PowerUpType.BatWings;
+        
+        // Tint player purple for bat wings powerup
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = new Color(batWingsTimerColor.r * 0.8f + 0.2f, 
+                                            batWingsTimerColor.g * 0.8f + 0.2f, 
+                                            batWingsTimerColor.b * 0.8f + 0.2f, 
+                                            1.0f);
+        }
+        
+        // Show the timer UI with bat wings color
+        if (powerupTimerText != null)
+        {
+            powerupTimerText.gameObject.SetActive(true);
+            powerupTimerText.fontStyle = FontStyles.Normal; // Ensure normal font style
+            powerupTimerText.color = batWingsTimerColor;
+            powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
+        }
+        
+        // Start the bat wings animation and upward movement
+        if (batWingsCoroutine != null)
+        {
+            StopCoroutine(batWingsCoroutine);
+        }
+        batWingsCoroutine = StartCoroutine(BatWingsEffect(duration));
+        
+        if (showDebugLogs) Debug.Log($"Bat wings effect activated! Duration: {duration}s");
+    }
+    
+    // Deactivate the bat wings effect
+    public void DeactivateBatWingsEffect()
+    {
+        // Stop the coroutine if it's running
+        if (batWingsCoroutine != null)
+        {
+            StopCoroutine(batWingsCoroutine);
+            batWingsCoroutine = null;
+        }
+        
+        // Reset sprite color to original
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = originalSpriteColor;
+        }
+        
+        // Reset state
+        batWingsActive = false;
+        powerupTimeRemaining = 0f;
+        currentPowerUpType = PowerUpType.None;
+        
+        // Hide the timer UI
+        if (powerupTimerText != null)
+        {
+            powerupTimerText.gameObject.SetActive(false);
+        }
+        
+        if (showDebugLogs) Debug.Log("Bat wings effect deactivated");
+    }
+    
+    // Coroutine to handle the bat wings effect
+    private IEnumerator BatWingsEffect(float duration)
+    {
+        float elapsedTime = 0f;
+        float animationFPS = 8f; // Animation frames per second
+        float frameTime = 1f / animationFPS;
+        float upwardSpeed = 15f; // Fast upward movement speed
+        
+        // Store original animation
+        Sprite[] originalJumpAnimation = jumpAnimation;
+        
+        // While the effect is active
+        while (elapsedTime < duration && batWingsActive)
+        {
+            // Apply strong upward force
+            Vector2 velocity = rb.linearVelocity;
+            velocity.y = upwardSpeed;
+            rb.linearVelocity = velocity;
+            
+            // Handle animation
+            batWingsAnimTimer -= Time.deltaTime;
+            if (batWingsAnimTimer <= 0)
+            {
+                batWingsAnimTimer = frameTime;
+                batWingsCurrentFrame = (batWingsCurrentFrame + 1) % batWingsSprites.Length;
+                spriteRenderer.sprite = batWingsSprites[batWingsCurrentFrame];
+            }
+            
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        
+        // Reset animation
+        if (jumpAnimation == batWingsSprites)
+        {
+            jumpAnimation = originalJumpAnimation;
+        }
+        
+        if (batWingsActive)
+        {
+            DeactivateBatWingsEffect();
         }
     }
 } 
