@@ -63,8 +63,15 @@ public class BatEnemyController : MonoBehaviour
         }
 
         transform.position = new Vector3(startX, startY, transform.position.z);
+        
+        // Set the scale
+        transform.localScale = new Vector3(0.5f, 0.5f, 1.0f);
+        
+        // Recalculate half-width based on new scale if needed for precision (optional)
+        batHalfWidth = spriteRenderer != null ? spriteRenderer.bounds.extents.x : 0.25f; 
+        
         initialized = true;
-        Debug.Log($"Bat initialized. Direction: {moveDirection} at {transform.position}");
+        Debug.Log($"Bat initialized. Direction: {moveDirection} at {transform.position} with scale {transform.localScale.x}");
 
         // Start animation
         if (flyingAnimation != null && flyingAnimation.Length > 0)
