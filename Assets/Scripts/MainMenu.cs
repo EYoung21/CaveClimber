@@ -5,6 +5,18 @@ public class MainMenu : MonoBehaviour
 {
     [Tooltip("The name of your game scene to load when Play is clicked")]
     public string gameSceneName = "MainScene";
+    
+    [Tooltip("Reference to the tutorial panel GameObject")]
+    public GameObject tutorialPanel;
+
+    private void Start()
+    {
+        // Make sure tutorial panel is hidden on start
+        if (tutorialPanel != null)
+        {
+            tutorialPanel.SetActive(false);
+        }
+    }
 
     // Called when the Play button is clicked
     public void PlayGame()
@@ -25,5 +37,15 @@ public class MainMenu : MonoBehaviour
         // Actually quit the application in a build
         Application.Quit();
 #endif
+    }
+    
+    // Called when the Tutorial/Info button is clicked
+    public void ToggleTutorial()
+    {
+        if (tutorialPanel != null)
+        {
+            // Toggle the tutorial panel visibility
+            tutorialPanel.SetActive(!tutorialPanel.activeSelf);
+        }
     }
 } 
