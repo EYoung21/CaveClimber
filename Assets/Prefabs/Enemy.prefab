@@ -178,6 +178,9 @@ MonoBehaviour:
   moveSpeed: 2
   offScreenDestroyOffset: 15
   debugMode: 1
+  damageBlinkDuration: 0.2
+  damageColor: {r: 1, g: 0.5, b: 0.5, a: 0.8}
+  slowColor: {r: 0.5, g: 0.5, b: 1, a: 0.8}
   runAnimation:
   - {fileID: 2713502286842181130, guid: a2a791fe3457946bbb25595c6b955d85, type: 3}
   - {fileID: 8470216687460944335, guid: a2a791fe3457946bbb25595c6b955d85, type: 3}
@@ -192,3 +195,9 @@ MonoBehaviour:
   - {fileID: 3896411347393182378, guid: a2a791fe3457946bbb25595c6b955d85, type: 3}
   - {fileID: -9189109756720816236, guid: a2a791fe3457946bbb25595c6b955d85, type: 3}
   animationFPS: 10
+  spawnSounds:
+  - {fileID: 8300000, guid: ed8bf8269d3136d4d9d215c9ac767870, type: 3}
+  - {fileID: 8300000, guid: 1a6724ffbf717e548bff1b81f99c009b, type: 3}
+  - {fileID: 8300000, guid: 4d5b0af8e5a16c9409cb9a7db2a5da61, type: 3}
+  - {fileID: 8300000, guid: bec68f81a184c06498be476e7b210439, type: 3}
+  - {fileID: 8300000, guid: 6fd74379e4f119a47a6a94297d4c6c51, type: 3}

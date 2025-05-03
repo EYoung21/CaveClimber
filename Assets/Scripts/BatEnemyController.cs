@@ -10,6 +10,12 @@ public class BatEnemyController : MonoBehaviour
     public Sprite[] flyingAnimation;
     public float animationFPS = 8f;
 
+    [Header("Sound Effects")]
+    [Tooltip("Assign 3 sounds to randomly play when the bat spawns.")]
+    public AudioClip[] spawnSounds;
+    // [Tooltip("Assign sounds to randomly play when the bat dies.")]
+    // public AudioClip[] deathSounds; // Removed
+
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Vector2 moveDirection;
@@ -29,8 +35,8 @@ public class BatEnemyController : MonoBehaviour
         rb.isKinematic = true;
         rb.gravityScale = 0;
 
-        // Ensure collider is a trigger
-        GetComponent<Collider2D>().isTrigger = true;
+        // Ensure collider is NOT a trigger for physics interaction
+        GetComponent<Collider2D>().isTrigger = false;
 
         // Get screen bounds
         if (Camera.main != null)
@@ -46,6 +52,13 @@ public class BatEnemyController : MonoBehaviour
     // Called by LevelGenerator to set starting position and direction
     public void Initialize(bool startFromLeft)
     {
+        if (Camera.main == null)
+        {
+            Debug.LogError("BatEnemyController: Cannot initialize, Main Camera not found!");
+            Destroy(gameObject);
+            return;
+        }
+
         float startY = Camera.main.transform.position.y + Random.Range(-Camera.main.orthographicSize * 0.8f, Camera.main.orthographicSize * 0.8f);
         float startX;
 
@@ -72,6 +85,17 @@ public class BatEnemyController : MonoBehaviour
         
         initialized = true;
         Debug.Log($"Bat initialized. Direction: {moveDirection} at {transform.position} with scale {transform.localScale.x}");
+
+        // --- Play Spawn Sound --- 
+        if (spawnSounds != null && spawnSounds.Length > 0)
+        {
+            int randIndex = Random.Range(0, spawnSounds.Length);
+            if (spawnSounds[randIndex] != null)
+            {
+                AudioSource.PlayClipAtPoint(spawnSounds[randIndex], transform.position);
+            }
+        }
+        // ----------------------
 
         // Start animation
         if (flyingAnimation != null && flyingAnimation.Length > 0)
@@ -113,19 +137,53 @@ public class BatEnemyController : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    // Renamed from OnTriggerEnter2D to handle physics collisions
+    void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if collided with the player
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Bat hit Player! Game Over.");
-            // Trigger Game Over via GameManager
-            if (GameManager.Instance != null)
+            Debug.Log("Bat collided physically with Player.");
+            // Physics engine handles the knockback based on Rigidbody masses and velocity
+            // No need to call GameOver() anymore.
+
+            // Optional: Apply a small extra force to the player for more noticeable impact
+            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
             {
-                GameManager.Instance.GameOver();
+                Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
+                 knockbackDirection.y = Mathf.Max(knockbackDirection.y, 0.1f); // Add slight upward push
+                playerRb.AddForce(knockbackDirection * 2f, ForceMode2D.Impulse); // Small extra force
             }
-            // Optional: Destroy the bat immediately as well
-            // Destroy(gameObject);
         }
+    }
+    
+    // Method called by PlayerController attack
+    public void TakeDamage()
+    {
+         Debug.Log($"{gameObject.name} took damage and was destroyed.");
+        
+        // --- Play Death Sound --- (Removed)
+        /* 
+        if (deathSounds != null && deathSounds.Length > 0)
+        {
+            int randIndex = Random.Range(0, deathSounds.Length);
+            if (deathSounds[randIndex] != null)
+            {
+                // Play sound at the bat's last position
+                AudioSource.PlayClipAtPoint(deathSounds[randIndex], transform.position, 0.7f); // Slightly quieter maybe
+            }
+        }
+        */
+        // ----------------------
+        
+        // Optional: Add score for killing bat
+        if (GameManager.Instance != null)
+        { 
+             GameManager.Instance.AddScore(5); // e.g., 5 points for a bat
+        }
+
+        // Destroy the bat object immediately
+        Destroy(gameObject);
     }
 } 

@@ -142,6 +142,10 @@ MonoBehaviour:
   rotationSpeed: 45
   batWingsDuration: 6
   collectEffectPrefab: {fileID: 0}
+  collectSounds:
+  - {fileID: 8300000, guid: 2554d8ec4713f784f830cbe92ba81baf, type: 3}
+  - {fileID: 8300000, guid: d6d89c9a70195fe47a6bb1db603565f2, type: 3}
+  - {fileID: 8300000, guid: 8ea6647707b3c6d44bedcbbc9c7a7d0b, type: 3}
   batWingsAnimation:
   - {fileID: 7342898855717948256, guid: 837c86569aa941c449486f1a9b5500d3, type: 3}
   - {fileID: 7334144569446472119, guid: 7f65d574b76997447ad139f2155de4df, type: 3}

@@ -15,7 +15,11 @@ public class EnemyController : MonoBehaviour
     
     [Header("Animation (Optional)")]
     public Sprite[] runAnimation;
-    public float animationFPS = 10f;
+    public float animationFPS = 8f;
+
+    [Header("Sound Effects")]
+    [Tooltip("Assign 5 sounds to randomly play when the enemy activates.")]
+    public AudioClip[] spawnSounds;
 
     private Transform playerTarget;
     private Rigidbody2D rb;
@@ -35,6 +39,7 @@ public class EnemyController : MonoBehaviour
     private float animationTimer;
     private float debugTimer = 0f;
     private Vector3 lastPosition;
+    private bool hasPlayedSpawnSound = false; // Ensure sound plays only once per activation
 
     void Start()
     {
@@ -220,20 +225,37 @@ public class EnemyController : MonoBehaviour
         }
     }
     
-    void SetEnemyActive(bool active)
+    // Public method to activate/deactivate enemy
+    public void SetEnemyActive(bool active)
     {
+        if (isActivated == active) return; // No change
+
         isActivated = active;
+        // Toggle Rigidbody simulation and SpriteRenderer visibility
+        if (rb != null) rb.simulated = active;
+        if (spriteRenderer != null) spriteRenderer.enabled = active;
         
-        // Keep the renderer enabled to see when it enters view, but disable physics
-        if (rb != null)
+        if (debugMode) Debug.Log($"{gameObject.name} active state set to: {active}");
+
+        // --- Play Spawn Sound on Activation --- 
+        if (active && !hasPlayedSpawnSound)
         {
-            rb.simulated = active;
+            if (spawnSounds != null && spawnSounds.Length > 0)
+            {
+                int randIndex = Random.Range(0, spawnSounds.Length);
+                if (spawnSounds[randIndex] != null)
+                {
+                    // Play sound at the enemy's position, quieter
+                    AudioSource.PlayClipAtPoint(spawnSounds[randIndex], transform.position, 0.6f);
+                    hasPlayedSpawnSound = true; // Mark that sound has been played
+                }
+            }
         }
-        
-        if (enemyCollider != null)
+        else if (!active)
         {
-            enemyCollider.enabled = active;
+            hasPlayedSpawnSound = false; // Reset flag when deactivated
         }
+        // ----------------------------------
     }
     
     void MoveTowardsPlayer() 

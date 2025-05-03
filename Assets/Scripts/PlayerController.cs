@@ -35,6 +35,14 @@ public class PlayerController : MonoBehaviour
     [Header("Debug")]
     public bool showDebugLogs = false; // Defaulting debug logs off now
 
+    [Header("Sound Effects")]
+    [Tooltip("Assign 3 sounds to randomly play when attacking.")]
+    public AudioClip[] attackSounds;
+    [Tooltip("Assign 6 sounds to randomly play when jumping/bouncing.")]
+    public AudioClip[] jumpSounds;
+    [Tooltip("Assign 4 sounds to randomly play when collecting Jump/Slow/Speed potions.")]
+    public AudioClip[] potionCollectSounds;
+
     // Screen wrapping
     private float screenHalfWidth;
     private float playerHalfWidth;
@@ -581,6 +589,10 @@ public class PlayerController : MonoBehaviour
                     Vector2 velocity = rb.linearVelocity;
                     velocity.y = jumpForce;
                     rb.linearVelocity = velocity;
+                    
+                    // --- Play Jump Sound --- 
+                    PlayRandomJumpSound();
+                    // ----------------------
                 }
                 // --- End modification --- 
                 
@@ -590,58 +602,93 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        // Handle enemy collision (keep existing logic if it was here)
-        if (((1 << collision.gameObject.layer) & enemyLayer) != 0)
+        // Handle enemy collision
+        else if (((1 << collision.gameObject.layer) & enemyLayer) != 0)
         {
-             EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
-             if (enemy != null)
+             // Try getting Caveman controller
+             EnemyController caveman = collision.gameObject.GetComponent<EnemyController>();
+             if (caveman != null)
              {
-                 bool bouncedOnHead = false;
-                 foreach (ContactPoint2D contact in collision.contacts)
-                 {
-                     // Check if player hit the top of the enemy (normal pointing down from player's perspective)
-                     if (contact.normal.y < -0.5f) 
-                     {
-                         bouncedOnHead = true;
-                         break;
-                     }
-                 }
+                 HandleCavemanCollision(collision, caveman);
+                 return; // Handled collision
+             }
 
-                 if (bouncedOnHead)
-                 {
-                    // Apply bounce force
-                    Vector2 velocity = rb.linearVelocity;
-                    velocity.y = jumpForce; // Use existing jumpForce for bounce
-                    rb.linearVelocity = velocity;
-                    if (showDebugLogs) Debug.Log($"Player bounced on head of {enemy.name}");
-                    
-                    // Damage the enemy
-                    enemy.TakeDamage(); 
-                    
-                    // Trigger camera follow on first bounce if not already started
-                    if (!hasStartedGameplay)
-                    {
-                        hasStartedGameplay = true;
-                        if (cameraFollow != null)
-                        {
-                            cameraFollow.StartFollowing();
-                        }
-                        if (showDebugLogs) Debug.Log("Player bounced on enemy head for the first time, starting camera follow.");
-                    }
-                 }
-                 else
-                 {
-                    // Player hit the side - apply knockback to player (existing logic)
-                    Vector2 knockbackDirection = (transform.position - enemy.transform.position).normalized;
-                    knockbackDirection.y = Mathf.Max(knockbackDirection.y, 0.1f); // Ensure a little upward knockback
-                    rb.AddForce(knockbackDirection * 5f, ForceMode2D.Impulse); // Adjust force as needed
-                    if (showDebugLogs) Debug.Log($"Player hit side of {enemy.name}, applying knockback.");
-                    
-                    // Optional: Trigger game over or player damage here if desired
-                    // gameManager?.GameOver(); 
-                 }
+             // Try getting Bat controller
+             BatEnemyController bat = collision.gameObject.GetComponent<BatEnemyController>();
+             if (bat != null)
+             {
+                 HandleBatCollision(collision, bat);
+                 return; // Handled collision
              }
         }
+    }
+    
+    // Separate method for handling Caveman collision
+    private void HandleCavemanCollision(Collision2D collision, EnemyController enemy)
+    {
+        bool bouncedOnHead = false;
+        
+        // --- Add velocity check: Only consider head bounce if player is moving downwards --- 
+        if (rb.linearVelocity.y < -0.1f) 
+        {
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                // Check if player hit the top of the enemy (normal pointing down from player's perspective)
+                if (contact.normal.y < -0.5f) 
+                {
+                    bouncedOnHead = true;
+                    break;
+                }
+            }
+        }
+        // --- End velocity check ---
+
+        if (bouncedOnHead)
+        {
+           // Apply bounce force
+           Vector2 velocity = rb.linearVelocity;
+           velocity.y = jumpForce; // Use existing jumpForce for bounce
+           rb.linearVelocity = velocity;
+           if (showDebugLogs) Debug.Log($"Player bounced on head of {enemy.name}");
+           
+           // Play Jump Sound
+           PlayRandomJumpSound();
+           
+           // Damage the enemy
+           enemy.TakeDamage(); 
+           
+           // Trigger camera follow on first bounce if not already started
+           if (!hasStartedGameplay)
+           {
+               hasStartedGameplay = true;
+               if (cameraFollow != null)
+               {
+                   cameraFollow.StartFollowing();
+               }
+               if (showDebugLogs) Debug.Log("Player bounced on enemy head for the first time, starting camera follow.");
+           }
+        }
+        else
+        {
+           // Player hit the side - apply knockback to player
+           Vector2 knockbackDirection = (transform.position - enemy.transform.position).normalized;
+           knockbackDirection.y = Mathf.Max(knockbackDirection.y, 0.1f); // Ensure a little upward knockback
+           rb.AddForce(knockbackDirection * 5f, ForceMode2D.Impulse); // Adjust force as needed
+           if (showDebugLogs) Debug.Log($"Player hit side of {enemy.name}, applying knockback.");
+           
+           // Optional: Trigger game over or player damage here if desired
+           // gameManager?.GameOver(); 
+        }
+    }
+
+    // Separate method for handling Bat collision
+    private void HandleBatCollision(Collision2D collision, BatEnemyController bat)
+    {
+        // Bat collision is purely physical now, handled by OnCollisionEnter2D in BatEnemyController
+        // We just log it here for clarity
+        if (showDebugLogs) Debug.Log($"Player collided physically with bat {bat.name}.");
+        // PlayerController doesn't need to apply bounce or specific knockback here,
+        // but BatEnemyController applies a small force back to the player.
     }
     
     // Override collision resolution to prevent sticking to sides of platforms
@@ -779,6 +826,17 @@ public class PlayerController : MonoBehaviour
         lastAttackTime = Time.time;
         if(showDebugLogs) Debug.Log("Player attacking!");
 
+        // --- Play Attack Sound --- 
+        if (attackSounds != null && attackSounds.Length > 0)
+        {
+            int randIndex = Random.Range(0, attackSounds.Length);
+            if (attackSounds[randIndex] != null)
+            {
+                AudioSource.PlayClipAtPoint(attackSounds[randIndex], transform.position);
+            }
+        }
+        // ----------------------
+
         // Determine attack direction
         Vector2 attackDir = (lastDirection == "right") ? Vector2.right : Vector2.left;
         spriteRenderer.flipX = (lastDirection == "left"); // Ensure sprite faces attack direction
@@ -816,15 +874,27 @@ public class PlayerController : MonoBehaviour
     {
         if(showDebugLogs) Debug.DrawRay(transform.position, direction * attackRange, Color.red, 0.5f);
         
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, attackRange, enemyLayer);
+        // Raycast should hit anything on the enemyLayer
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, attackRange, enemyLayer); 
         
         if (hit.collider != null)
         {
             if(showDebugLogs) Debug.Log($"Attack hit: {hit.collider.name}");
-            EnemyController enemy = hit.collider.GetComponent<EnemyController>();
-            if (enemy != null)
+
+            // Try to get EnemyController (Caveman)
+            EnemyController caveman = hit.collider.GetComponent<EnemyController>();
+            if (caveman != null)
             {
-                enemy.TakeDamage();
+                caveman.TakeDamage();
+                return; // Enemy hit, stop checking
+            }
+            
+            // Try to get BatEnemyController
+            BatEnemyController bat = hit.collider.GetComponent<BatEnemyController>();
+            if (bat != null)
+            {
+                bat.TakeDamage();
+                return; // Bat hit, stop checking
             }
         }
         else
@@ -879,6 +949,9 @@ public class PlayerController : MonoBehaviour
             powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
         }
         
+        // Play Sound
+        PlayRandomPotionSound();
+        
         if (showDebugLogs) Debug.Log($"Jump boost activated! Multiplier: {multiplier}, Duration: {duration}s");
     }
     
@@ -906,6 +979,9 @@ public class PlayerController : MonoBehaviour
             powerupTimerText.color = slowEffectTimerColor;
             powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
         }
+        
+        // Play Sound
+        PlayRandomPotionSound();
         
         if (showDebugLogs) Debug.Log($"Slow effect activated! Duration: {duration}s");
     }
@@ -968,6 +1044,9 @@ public class PlayerController : MonoBehaviour
             powerupTimerText.color = speedBoostTimerColor;
             powerupTimerText.text = Mathf.Ceil(powerupTimeRemaining).ToString();
         }
+        
+        // Play Sound
+        PlayRandomPotionSound();
         
         if (showDebugLogs) Debug.Log($"Speed boost activated! Multiplier: {multiplier}, Duration: {duration}s");
     }
@@ -1181,6 +1260,32 @@ public class PlayerController : MonoBehaviour
         if (batWingsActive)
         {
             DeactivateBatWingsEffect();
+        }
+    }
+
+    // Helper method to play a random jump sound
+    private void PlayRandomJumpSound()
+    {
+        if (jumpSounds != null && jumpSounds.Length > 0)
+        {
+            int randIndex = Random.Range(0, jumpSounds.Length);
+            if (jumpSounds[randIndex] != null)
+            {
+                AudioSource.PlayClipAtPoint(jumpSounds[randIndex], transform.position, 1.0f); // Play at full volume (was 0.8f)
+            }
+        }
+    }
+
+    // Helper method to play a random generic potion collect sound
+    private void PlayRandomPotionSound()
+    {
+        if (potionCollectSounds != null && potionCollectSounds.Length > 0)
+        {
+            int randIndex = Random.Range(0, potionCollectSounds.Length);
+            if (potionCollectSounds[randIndex] != null)
+            {
+                AudioSource.PlayClipAtPoint(potionCollectSounds[randIndex], transform.position, 1.0f); // Full volume
+            }
         }
     }
 } 

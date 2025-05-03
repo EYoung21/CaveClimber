@@ -12,6 +12,10 @@ public class BatWingsPotion : MonoBehaviour
     [Header("Visual Effects")]
     public GameObject collectEffectPrefab; // Optional particle effect prefab
     
+    [Header("Sound Effects")]
+    [Tooltip("Assign 3 sounds to randomly play when this potion is collected.")]
+    public AudioClip[] collectSounds;
+    
     [Header("Animation")]
     public Sprite[] batWingsAnimation; // Assign the 4 bat wing sprites
     
@@ -84,6 +88,17 @@ public class BatWingsPotion : MonoBehaviour
             {
                 Instantiate(collectEffectPrefab, transform.position, Quaternion.identity);
             }
+            
+            // --- Play Collect Sound --- 
+            if (collectSounds != null && collectSounds.Length > 0)
+            {
+                int randIndex = Random.Range(0, collectSounds.Length);
+                if (collectSounds[randIndex] != null)
+                {
+                    AudioSource.PlayClipAtPoint(collectSounds[randIndex], transform.position);
+                }
+            }
+            // ----------------------
             
             // Add score through game manager (optional)
             if (GameManager.Instance != null)

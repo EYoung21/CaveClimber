@@ -11,7 +11,7 @@ public class MenuMusicPlayer : MonoBehaviour
 
     [Tooltip("Volume for the music tracks.")]
     [Range(0f, 1f)]
-    public float musicVolume = 0.7f;
+    public float musicVolume = 0.15f;
 
     private AudioSource audioSource;
     private List<int> availableTrackIndices;

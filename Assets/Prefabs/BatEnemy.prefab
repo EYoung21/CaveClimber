@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 491419019205931622}
   - component: {fileID: 600040182954229947}
   - component: {fileID: 854707655744715722}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BatEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,3 +171,8 @@ MonoBehaviour:
   - {fileID: 8267815735125515778, guid: 4de9ffa9f485670449c4169b0965b7c0, type: 3}
   - {fileID: -1895725875626169916, guid: 13073b320201e8449988b10a3632aadd, type: 3}
   animationFPS: 8
+  spawnSounds:
+  - {fileID: 8300000, guid: 2554d8ec4713f784f830cbe92ba81baf, type: 3}
+  - {fileID: 8300000, guid: d6d89c9a70195fe47a6bb1db603565f2, type: 3}
+  - {fileID: 8300000, guid: 8ea6647707b3c6d44bedcbbc9c7a7d0b, type: 3}
+  deathSounds: []
