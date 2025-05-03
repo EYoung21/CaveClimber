@@ -1265,9 +1265,14 @@ MonoBehaviour:
   slowPotionPrefab: {fileID: 729658262999511345, guid: 4f72f6994db346c4d89b0b48d16a08e7, type: 3}
   speedPotionPrefab: {fileID: 6798242797512665665, guid: 861c5294410375f4ba5599ed340bd863, type: 3}
   batWingsPotionPrefab: {fileID: 7779082477495826120, guid: f5413e71b0159f948941e322503c6cfa, type: 3}
+  batEnemyPrefab: {fileID: 8571411085554498073, guid: 2c21425ea1ecbba42a42975048c71942, type: 3}
   platformContainer: {fileID: 0}
-  enemySpawnChance: 0.15
-  powerupSpawnChance: 0.1
+  baseEnemySpawnChance: 0.1
+  maxEnemySpawnChance: 0.4
+  baseBatSpawnChance: 0.05
+  maxBatSpawnChance: 0.4
+  basePowerupSpawnChance: 0.05
+  maxPowerupSpawnChance: 0.05
   jumpPotionSpawnChance: 0.1
   slowPotionSpawnChance: 0.1
   speedPotionSpawnChance: 0.1
@@ -1281,10 +1286,10 @@ MonoBehaviour:
   platformDespawnThreshold: 15
   minYAtMaxDifficulty: 2.5
   maxYAtMaxDifficulty: 4
-  enemyChanceAtMaxDifficulty: 0.4
   difficultyScalingHeight: 500
   breakingPlatformChanceMax: 0.4
   movingPlatformChanceMax: 0.5
+  batSpawnHeightInterval: 50
   enableDebugLogs: 0
 --- !u!4 &1308085859
 Transform:
@@ -1603,7 +1608,6 @@ MonoBehaviour:
   scoreText: {fileID: 1146344981}
   gameOverPanel: {fileID: 1816775190}
   deathYThreshold: 10
-  scorePerPlatform: 10
   playerSpawnOffset: {x: 0, y: 5, z: 0}
 --- !u!4 &1806377240
 Transform:

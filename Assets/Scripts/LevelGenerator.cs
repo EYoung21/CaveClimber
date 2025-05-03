@@ -9,15 +9,20 @@ public class LevelGenerator : MonoBehaviour
     public GameObject slowPotionPrefab; // Assign your slow potion prefab here
     public GameObject speedPotionPrefab; // Assign your speed potion prefab here
     public GameObject batWingsPotionPrefab; // Assign your bat wings potion prefab here
+    public GameObject batEnemyPrefab; // Assign your Bat Enemy prefab here
     public Transform platformContainer; // ADDED: Assign in Inspector to hold platforms
     
     [Header("Spawn Settings")]
     [Range(0f, 1f)]
-    // public float enemySpawnChance = 0.15f; // OLD: Base 15% chance to spawn an enemy
-    public float maxEnemySpawnChance = 0.85f; // EVEN MORE enemies (was 0.70)
+    public float baseEnemySpawnChance = 0.1f; // Base chance for cavemen at difficulty 0
+    public float maxEnemySpawnChance = 0.95f; // MAX cavemen (was 0.85)
+    [Range(0f, 1f)]
+    public float baseBatSpawnChance = 0.05f;   // Base chance for bats at difficulty 0
+    public float maxBatSpawnChance = 0.6f; // MORE bats (was 0.4)
     // [Range(0f, 1f)] public float powerupSpawnChance = 0.05f; // Removed, now scales with difficulty
     [Range(0f, 1f)]
-    public float maxPowerupSpawnChance = 0.35f; // EVEN MORE powerups (was 0.25)
+    public float basePowerupSpawnChance = 0.05f; // Base chance for powerups at difficulty 0
+    public float maxPowerupSpawnChance = 0.50f; // MORE powerups (was 0.35)
     
     // These are kept for backward compatibility but no longer used directly
     [HideInInspector]
@@ -43,15 +48,18 @@ public class LevelGenerator : MonoBehaviour
     public float minYAtMaxDifficulty = 1.5f; // Reduced min gap at max difficulty (was 2.0)
     public float maxYAtMaxDifficulty = 2.5f; // Further reduced max gap (was 3.0) -> Denser platforms at high difficulty
     // public float enemyChanceAtMaxDifficulty = 0.4f; // Removed, replaced by maxEnemySpawnChance
-    public float difficultyScalingHeight = 700f; // Increased scaling height (was 500f)
+    public float difficultyScalingHeight = 150f; // Drastically reduced for faster scaling (was 700f)
     public float breakingPlatformChanceMax = 0.4f; // Maximum chance for breaking platforms
     public float movingPlatformChanceMax = 0.5f; // Maximum chance for moving platforms
+    public float batSpawnHeightInterval = 30f; // Reduced interval for more frequent bat spawn attempts (was 50f)
     
     private PlatformManager platformManager;
     private Camera mainCamera;
     private int nextPlatformId = 0; // For unique platform IDs
     private List<GameObject> activePlatforms = new List<GameObject>(); // To track platforms
     private float highestPlatformY = 0f; // Track highest platform's Y position
+    private float highestPlayerY = 0f; // Track player's max height for bat spawning
+    private float nextBatSpawnHeight = 0f;
     
     public bool enableDebugLogs = false; // General debug toggle
     
@@ -131,12 +139,12 @@ public class LevelGenerator : MonoBehaviour
         {
             bool spawnedEnemy = false;
             
-            // Calculate enemy spawn chance based on difficulty (0% to maxEnemySpawnChance)
-            float adjustedEnemyChance = Mathf.Lerp(0f, maxEnemySpawnChance, currentDifficulty);
+            // Calculate enemy spawn chance based on difficulty (base% to max%)
+            float adjustedEnemyChance = Mathf.Lerp(baseEnemySpawnChance, maxEnemySpawnChance, currentDifficulty);
             spawnedEnemy = TrySpawnObjectWithChance(adjustedEnemyChance, enemyPrefab, newPlatform, SpawnEnemyOnPlatform);
             
-            // Calculate powerup chance based on difficulty
-            float adjustedPowerupSpawnChance = Mathf.Lerp(0f, maxPowerupSpawnChance, currentDifficulty);
+            // Calculate powerup chance based on difficulty (base% to max%)
+            float adjustedPowerupSpawnChance = Mathf.Lerp(basePowerupSpawnChance, maxPowerupSpawnChance, currentDifficulty);
             
             // If we didn't spawn an enemy, maybe spawn a powerup
             if (!spawnedEnemy && Random.value < adjustedPowerupSpawnChance)
@@ -201,6 +209,12 @@ public class LevelGenerator : MonoBehaviour
     {
         if (mainCamera == null) return;
         
+        // Update highest player Y
+        if (GameManager.Instance != null && GameManager.Instance.player != null)
+        {
+             highestPlayerY = Mathf.Max(highestPlayerY, GameManager.Instance.player.position.y);
+        }
+        
         // Calculate the height threshold for generating new platforms
         float cameraTop = mainCamera.transform.position.y + mainCamera.orthographicSize;
         float generationThreshold = cameraTop + platformGenerationThreshold;
@@ -210,6 +224,9 @@ public class LevelGenerator : MonoBehaviour
         {
             GenerateMorePlatforms(highestPlatformY, generationThreshold);
         }
+        
+        // Attempt to spawn bat based on player height
+        TrySpawnBat();
         
         // Clean up platforms below view
         CleanupPlatforms();
@@ -491,5 +508,48 @@ public class LevelGenerator : MonoBehaviour
         }
         
         return potion;
+    }
+
+    // Method to spawn bats
+    private void TrySpawnBat()
+    {
+        if (batEnemyPrefab == null) return; // Don't spawn if prefab isn't assigned
+
+        // Check if player has passed the next spawn height threshold
+        if (highestPlayerY > nextBatSpawnHeight)
+        {
+            // Calculate difficulty based on this height
+            float currentDifficulty = CalculateDifficulty(highestPlayerY);
+            
+            // Calculate the chance to spawn a bat at this interval (base% to max%)
+            float adjustedBatSpawnChance = Mathf.Lerp(baseBatSpawnChance, maxBatSpawnChance, currentDifficulty);
+
+            if (Random.value < adjustedBatSpawnChance)
+            {
+                // Spawn the bat
+                SpawnBat();
+            }
+            
+            // Set the next spawn height, adding some randomness
+            nextBatSpawnHeight += batSpawnHeightInterval * Random.Range(0.8f, 1.2f);
+        }
+    }
+
+    private void SpawnBat()
+    {
+        GameObject newBat = Instantiate(batEnemyPrefab);
+        BatEnemyController batController = newBat.GetComponent<BatEnemyController>();
+        
+        if (batController != null)
+        {
+            bool startLeft = Random.value < 0.5f; // 50% chance to start from left
+            batController.Initialize(startLeft);
+             if(enableDebugLogs) Debug.Log($"Spawning Bat. Start Left: {startLeft}");
+        }
+        else
+        {
+            Debug.LogError("Bat Enemy Prefab is missing the BatEnemyController script!", newBat);
+            Destroy(newBat); // Destroy invalid bat
+        }
     }
 } 
