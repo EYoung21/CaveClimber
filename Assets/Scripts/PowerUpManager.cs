@@ -167,11 +167,27 @@ public class PowerUpManager : MonoBehaviour
         ActivePowerUp = PowerUpType.Slow;
         powerupTimeRemaining = duration;
         
-        // Apply slow effect to all active enemies
-        foreach (var enemy in activeEnemies)
+        // Apply slow effect to all active caveman enemies
+        foreach (var enemy in activeEnemies) // activeEnemies currently only holds EnemyController (cavemen)
         {
-            enemy.SetSlowEffect(true);
+            if (enemy != null) // Safety check
+            {
+                 enemy.SetSlowEffect(true);
+                 // Debug.Log($"Slowing down Caveman: {enemy.name}");
+            }
         }
+        
+        // --- ADDED: Apply slow effect to all active bat enemies ---
+        BatEnemyController[] activeBats = FindObjectsByType<BatEnemyController>(FindObjectsSortMode.None);
+        foreach (var bat in activeBats)
+        {   
+            if (bat != null) // Safety check
+            {
+                bat.SetSlowEffect(true);
+                // Debug.Log($"Slowing down Bat: {bat.name}");
+            }
+        }
+        // --- END ADDITION ---
         
         // Start the cooldown coroutine
         if (activeCoroutine != null)
@@ -224,60 +240,77 @@ public class PowerUpManager : MonoBehaviour
     private void DeactivateCurrentPowerup()
     {
         Debug.Log($"Deactivating power-up: {ActivePowerUp}");
+        PowerUpType oldType = ActivePowerUp; // Store type before resetting
         
         switch (ActivePowerUp)
         {
             case PowerUpType.Jump:
-                // Call DeactivateJumpBoost on the PlayerController
+                // Call DeactivateJumpBoost on the PlayerController ONLY IF IT EXISTS
                 if (playerController != null)
                 {
-                    Debug.Log("Calling PlayerController.DeactivateJumpBoost()");
+                    // Debug.Log("Attempting PlayerController.DeactivateJumpBoost()");
                     playerController.DeactivateJumpBoost();
                 }
                 else
                 {
-                    Debug.LogWarning("Cannot deactivate jump boost: playerController is null!");
+                    Debug.LogWarning("Skipping DeactivateJumpBoost: playerController is null!");
                 }
                 break;
                 
             case PowerUpType.Slow:
-                // Remove slow effect from all enemies
-                foreach (var enemy in activeEnemies)
+                // Remove slow effect from all enemies (uses FindObjectsByType - safer)
+                EnemyController[] enemiesToUnslow = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+                foreach (var enemy in enemiesToUnslow)
                 {
-                    enemy.SetSlowEffect(false);
+                    if (enemy != null) enemy.SetSlowEffect(false);
+                }
+                BatEnemyController[] batsToUnslow = FindObjectsByType<BatEnemyController>(FindObjectsSortMode.None);
+                foreach (var bat in batsToUnslow)
+                {
+                    if (bat != null) bat.SetSlowEffect(false);
                 }
                 break;
                 
             case PowerUpType.Speed:
-                // No specific cleanup needed for speed, handled by PlayerController
+                // Call DeactivateSpeedBoost on the PlayerController ONLY IF IT EXISTS
+                if (playerController != null)
+                {
+                    // Debug.Log("Attempting PlayerController.DeactivateSpeedBoost()");
+                    playerController.DeactivateSpeedBoost();
+                }
+                else
+                {
+                    Debug.LogWarning("Skipping DeactivateSpeedBoost: playerController is null!");
+                }
                 break;
                 
             case PowerUpType.BatWings:
-                // Call DeactivateBatWingsEffect on the PlayerController
+                // Call DeactivateBatWingsEffect on the PlayerController ONLY IF IT EXISTS
                 if (playerController != null)
                 {
-                    Debug.Log("Calling PlayerController.DeactivateBatWingsEffect()");
+                   // Debug.Log("Attempting PlayerController.DeactivateBatWingsEffect()");
                     playerController.DeactivateBatWingsEffect();
                 }
                 else
                 {
-                    Debug.LogWarning("Cannot deactivate bat wings effect: playerController is null!");
+                    Debug.LogWarning("Skipping DeactivateBatWingsEffect: playerController is null!");
                 }
                 break;
         }
         
-        // Hide the timer UI if player controller is available
+        // Hide the timer UI ONLY IF player controller is available
         if (playerController != null)
         {
             playerController.HidePowerupTimer();
         }
         
-        // Reset state
-        PowerUpType oldType = ActivePowerUp;
+        // Reset internal state (clears ActivePowerUp)
         ActivePowerUp = PowerUpType.None;
         powerupTimeRemaining = 0f;
+        // Note: activeEnemies list is only used for applying slow on spawn, clearing it isn't critical here.
+        // activeCoroutine is already null if called from the coroutine itself.
         
-        Debug.Log($"Power-up {oldType} deactivated successfully");
+        Debug.Log($"Power-up {oldType} deactivation process complete.");
     }
     
     // Powerup cooldown coroutine
@@ -306,34 +339,50 @@ public class PowerUpManager : MonoBehaviour
     // New public method to reset the PowerUpManager state
     public void Reset()
     {
-        // Deactivate any active powerup
-        if (ActivePowerUp != PowerUpType.None)
-        {
-            DeactivateCurrentPowerup();
-        }
-        
-        // Clear all lists
-        jumpPotions.Clear();
-        slowPotions.Clear();
-        speedPotions.Clear();
-        batWingsPotions.Clear();
-        activeEnemies.Clear();
-        
-        // Reset any remaining state
-        powerupTimeRemaining = 0f;
+        Debug.Log("PowerUpManager Reset called."); // Add log
+
+        // Stop any active powerup timer coroutine
         if (activeCoroutine != null)
         {
             StopCoroutine(activeCoroutine);
             activeCoroutine = null;
+            Debug.Log("PowerUpManager Reset: Stopped active coroutine.");
         }
-        
-        // Find the player controller again (it might be a new instance after restart)
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
+
+        // Only reset effects that persist outside the player state (like enemy slow)
+        // Find potentially remaining enemies/bats from the OLD scene (or new scene if Reset is called later) 
+        // and un-slow them. Using FindObjectsByType might be safer during transitions.
+        if (ActivePowerUp == PowerUpType.Slow)
         {
-            playerController = player.GetComponent<PlayerController>();
+            EnemyController[] enemiesToUnslow = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+            foreach (var enemy in enemiesToUnslow)
+            {
+                if (enemy != null) enemy.SetSlowEffect(false);
+            }
+            BatEnemyController[] batsToUnslow = FindObjectsByType<BatEnemyController>(FindObjectsSortMode.None);
+            foreach (var bat in batsToUnslow)
+            {
+                if (bat != null) bat.SetSlowEffect(false);
+            }
+            Debug.Log("PowerUpManager Reset: Attempted to clear slow effect from found enemies/bats.");
         }
-        
-        Debug.Log("PowerUpManager has been reset");
+
+        // Clear internal state *without* calling player-specific deactivation methods
+        ActivePowerUp = PowerUpType.None;
+        powerupTimeRemaining = 0f;
+        activeEnemies.Clear(); // Clear list of registered cavemen
+
+        // Nullify the player controller reference - it will be found again in the new scene's Start
+        playerController = null;
+
+        // Potion lists might need clearing too if they aren't managed correctly on scene changes
+        jumpPotions.Clear();
+        slowPotions.Clear();
+        speedPotions.Clear();
+        batWingsPotions.Clear();
+
+
+        Debug.Log("PowerUpManager internal state has been reset.");
+        // DO NOT CALL DeactivateCurrentPowerup() here as playerController is likely invalid during scene load.
     }
 } 

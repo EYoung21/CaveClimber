@@ -5,7 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     [Tooltip("The name of your game scene to load when Play is clicked")]
     public string gameSceneName = "MainScene";
-    
+
     [Tooltip("Reference to the tutorial panel GameObject")]
     public GameObject tutorialPanel;
 

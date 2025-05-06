@@ -53,15 +53,19 @@ public class LevelGenerator : MonoBehaviour
     public float movingPlatformChanceMax = 0.5f; // Maximum chance for moving platforms
     public float batSpawnHeightInterval = 30f; // Reduced interval for more frequent bat spawn attempts (was 50f)
     
+    [Header("Gameplay Constraints")]
+    public float playerMaxJumpHeight = 2.5f; // Max vertical distance player can jump reliably
+    
     private PlatformManager platformManager;
     private Camera mainCamera;
-    private int nextPlatformId = 0; // For unique platform IDs
-    private List<GameObject> activePlatforms = new List<GameObject>(); // To track platforms
-    private float highestPlatformY = 0f; // Track highest platform's Y position
-    private float highestPlayerY = 0f; // Track player's max height for bat spawning
+    private List<GameObject> activePlatforms = new List<GameObject>();
+    private float highestPlatformY = 0f;
+    private float highestPlayerY = 0f;
     private float nextBatSpawnHeight = 0f;
     
     public bool enableDebugLogs = false; // General debug toggle
+    
+    private bool lastPlatformWasBreakable = false; // Track if the last spawned platform was breakable
     
     // Spawn an object at position with given chance
     private bool TrySpawnObjectWithChance(float chance, GameObject prefab, GameObject platform, System.Func<GameObject, GameObject> spawnFunc)
@@ -76,57 +80,92 @@ public class LevelGenerator : MonoBehaviour
     
     private GameObject SpawnPlatform(Vector3 position, float currentDifficulty)
     {
-        GameObject prefabToUse = platformPrefab; // Default prefab
-        bool isBreakingPlatform = false; // Flag for breaking platforms
-        bool shouldConfigure = false; // Flag to check if PlatformManager should configure
+        GameObject prefabToUse = null; // Start with null
+        bool isBreakingPlatform = false;
+        bool shouldConfigure = false;
 
-        // Use PlatformManager if available
+        // --- MODIFIED PLATFORM SELECTION LOGIC --- 
         if (platformManager != null)
         {
-            // Apply difficulty to platform selection
-            GameObject randomPrefab = platformManager.GetRandomPlatform(currentDifficulty);
-            if (randomPrefab != null)
+            bool forceNonBreakable = lastPlatformWasBreakable; // Should we force non-breakable based on the *previous* spawn?
+
+            if (forceNonBreakable)
             {
-                prefabToUse = randomPrefab;
-                // Only log selection if general debug is enabled
-                if (enableDebugLogs) 
+                if (enableDebugLogs) Debug.Log($"[LevelGenerator ({position.y:F1})] Previous was breakable, forcing non-breakable.");
+                prefabToUse = platformManager.GetNonBreakablePlatform(currentDifficulty); 
+                if (prefabToUse == null)
                 {
-                    Debug.Log($"[LevelGenerator] PlatformManager selected: {prefabToUse.name} at difficulty {currentDifficulty}", prefabToUse);
+                     Debug.LogWarning($"[LevelGenerator ({position.y:F1})] PlatformManager couldn't provide a specific non-breakable platform! Using default.");
+                     prefabToUse = platformManager.defaultPlatformPrefab; 
+                     if (prefabToUse == null) 
+                     {
+                         Debug.LogError($"[LevelGenerator ({position.y:F1})] Default platform prefab is null in PlatformManager! Using LevelGenerator's default.");
+                         prefabToUse = this.platformPrefab; 
+                     }
                 }
-                
-                // Check if the selected prefab is a breaking platform
-                if (prefabToUse.GetComponent<BreakingPlatform>() != null)
-                {
-                    isBreakingPlatform = true;
-                }
-                
-                // Check if the selected prefab is different from the default basic one
-                if (prefabToUse != platformPrefab) // Assuming platformPrefab is the basic one
-                {
-                    shouldConfigure = true;
-                }
+                isBreakingPlatform = false; // We forced non-breakable
             }
-            else
+            else // Previous was not breakable, choose randomly
             {
-                if (enableDebugLogs) Debug.LogWarning("[LevelGenerator] PlatformManager returned null prefab, using default.");
+                 if (enableDebugLogs) Debug.Log($"[LevelGenerator ({position.y:F1})] Previous was NOT breakable, choosing randomly.");
+                 prefabToUse = platformManager.GetRandomPlatform(currentDifficulty);
+                 if (prefabToUse == null)
+                 {
+                     Debug.LogWarning($"[LevelGenerator ({position.y:F1})] PlatformManager returned null prefab for random choice, using default.");
+                     prefabToUse = platformManager.defaultPlatformPrefab; 
+                     if (prefabToUse == null) 
+                     {
+                         Debug.LogError($"[LevelGenerator ({position.y:F1})] Default platform prefab is null in PlatformManager! Using LevelGenerator's default.");
+                         prefabToUse = this.platformPrefab; 
+                     }
+                 }
+                 
+                 // Check if the randomly chosen platform is breakable
+                 isBreakingPlatform = (prefabToUse != null && prefabToUse.GetComponent<BreakingPlatform>() != null);
+                 if (isBreakingPlatform && enableDebugLogs) Debug.Log($"[LevelGenerator ({position.y:F1})] Randomly selected a breakable platform.");
+            }
+            
+            // Check if the selected prefab requires configuration 
+            // (Assuming this.platformPrefab is the basic one that doesn't need config)
+            if (prefabToUse != null && prefabToUse != this.platformPrefab) 
+            {
+                shouldConfigure = true;
             }
         }
+        else // Fallback if PlatformManager doesn't exist
+        {
+             if (enableDebugLogs) Debug.Log($"[LevelGenerator ({position.y:F1})] PlatformManager not found, using LevelGenerator default.");
+             prefabToUse = this.platformPrefab;
+             isBreakingPlatform = false; // LevelGenerator default assumed non-breakable
+        }
+        // --- END MODIFIED SELECTION LOGIC --- 
+        
+        // Final check if we somehow ended up without a prefab
+        if (prefabToUse == null)
+        {
+            Debug.LogError($"[LevelGenerator ({position.y:F1})] CRITICAL: Failed to determine platform prefab! Cannot spawn.");
+            return null;
+        }
+
+        // --- UPDATE lastPlatformWasBreakable state for the NEXT iteration --- 
+        // This happens *before* potentially returning null, using the isBreakingPlatform flag determined above.
+        this.lastPlatformWasBreakable = isBreakingPlatform; 
+        // ------------------------------------------------------------------
         
         GameObject newPlatform = Instantiate(prefabToUse, position, Quaternion.identity);
         newPlatform.transform.parent = platformContainer ?? transform; // Parent to container or this object
         
-        // Assign unique ID
-        ClimbableSurface surface = newPlatform.GetComponent<ClimbableSurface>();
-        if (surface != null) 
-        {
-             surface.platformId = nextPlatformId++;
-             // Only log if general debug is enabled
-             if(enableDebugLogs) Debug.Log($"Assigned ID {surface.platformId} to {newPlatform.name}");
-        }
-        else
-        {
-            Debug.LogWarning($"Platform {newPlatform.name} is missing ClimbableSurface script! Cannot assign ID.", newPlatform);
-        }
+        // Assign unique ID (Removed from here, assuming it was not intended? Add back if needed)
+        // ClimbableSurface surface = newPlatform.GetComponent<ClimbableSurface>();
+        // if (surface != null) 
+        // {
+        //      surface.platformId = nextPlatformId++;
+        //      if(enableDebugLogs) Debug.Log($"Assigned ID {surface.platformId} to {newPlatform.name}");
+        // }
+        // else
+        // {
+        //     Debug.LogWarning($"Platform {newPlatform.name} is missing ClimbableSurface script! Cannot assign ID.", newPlatform);
+        // }
 
         // Call PlatformManager to configure if needed
         if (platformManager != null && shouldConfigure)
@@ -135,7 +174,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         // After platform is generated, spawn objects if not a breaking platform
-        if (!isBreakingPlatform)
+        if (!isBreakingPlatform) // Use the final determined flag for *this* platform
         {
             bool spawnedEnemy = false;
             
@@ -203,6 +242,9 @@ public class LevelGenerator : MonoBehaviour
         
         // Generate initial platforms in view
         GenerateInitialPlatforms(screenBottom, cameraHeight);
+        
+        nextBatSpawnHeight = batSpawnHeightInterval;
+        lastPlatformWasBreakable = false; // Initialize tracker
     }
     
     void Update()
@@ -234,23 +276,68 @@ public class LevelGenerator : MonoBehaviour
     
     void GenerateInitialPlatforms(float screenBottom, float cameraHeight)
     {
-        // Calculate spacing between platforms in view
-        float verticalSpacing = cameraHeight / (initialPlatformsInView + 1);
-        
-        // Ensure we have a platform near player spawn position
-        Vector3 playerSpawnPosition = new Vector3(0, screenBottom + cameraHeight * 0.8f, 0);
-        SpawnPlatform(playerSpawnPosition, 0f); // Start with 0 difficulty
-        
-        // Spawn platforms starting from the bottom of the screen (with small offset)
-        for (int i = 0; i < initialPlatformsInView; i++)
+        float currentY = screenBottom + platformHeightOffset;
+        float screenTop = screenBottom + cameraHeight;
+        int platformsSpawned = 0;
+        // float currentDifficulty = 0f; // Removed - Initial platforms always use default, no difficulty needed here
+
+        Vector3 lastPos = Vector3.zero; // Track last position to avoid overlap
+
+        while (platformsSpawned < initialPlatformsInView)
         {
-            float yPosition = screenBottom + platformHeightOffset + (i * verticalSpacing);
-            float xPosition = Random.Range(-levelWidth, levelWidth);
-            Vector3 platformPosition = new Vector3(xPosition, yPosition, 0);
-            SpawnPlatform(platformPosition, 0f); // Initial platforms have 0 difficulty
+            GameObject prefabToUse = null;
+
+            // Always request the DEFAULT platform for initial generation
+            if (platformManager != null)
+            {
+                // Access the public field directly
+                prefabToUse = platformManager.defaultPlatformPrefab; 
+                if (prefabToUse == null)
+                {
+                     // Log error if default is null, use LevelGenerator's default as fallback
+                     Debug.LogError("[LevelGenerator Initial] Default platform prefab is null in PlatformManager! Using LevelGenerator's default as fallback.");
+                     prefabToUse = this.platformPrefab;
+                }
+                 // Check if the default prefab is actually breakable (shouldn't be, but log warning if it is)
+                 else if (prefabToUse.GetComponent<BreakingPlatform>() != null)
+                 {
+                    Debug.LogWarning("[LevelGenerator Initial] The assigned default platform prefab in PlatformManager appears to be breakable! Initial platforms might break.");
+                 }
+            }
+            else
+            {
+                // Fallback if PlatformManager doesn't exist
+                prefabToUse = this.platformPrefab;
+            }
+
+            if (prefabToUse == null)
+            {
+                 Debug.LogError("[LevelGenerator Initial] CRITICAL: Could not determine any platform prefab to spawn initially!");
+                 break; // Stop trying if we can't even find a fallback
+            }
+
+            float y = Random.Range(minY, maxY);
+            currentY += y;
+            float x = Random.Range(-levelWidth, levelWidth);
+            Vector3 pos = new Vector3(x, currentY, 0);
+
+            // Simple overlap check (optional but good practice)
+            if (platformsSpawned > 0 && Vector3.Distance(pos, lastPos) < 1.0f)
+            {
+                currentY += 0.5f; // Nudge up if too close
+                pos.y = currentY;
+            }
+
+            // Use the determined prefabToUse
+            GameObject newPlatform = Instantiate(prefabToUse, pos, Quaternion.identity);
+            newPlatform.transform.parent = platformContainer ?? transform;
+            lastPos = pos; // Update last position
+
+            activePlatforms.Add(newPlatform);
+            highestPlatformY = Mathf.Max(highestPlatformY, currentY);
+            platformsSpawned++;
         }
-        
-        Debug.Log($"Generated {initialPlatformsInView} initial platforms from {screenBottom} to {screenBottom + cameraHeight}");
+        if(enableDebugLogs) Debug.Log($"Generated {platformsSpawned} initial platforms (using default prefab) from {screenBottom + platformHeightOffset} to {highestPlatformY}");
     }
     
     void GenerateMorePlatforms(float startY, float targetY)
@@ -273,11 +360,23 @@ public class LevelGenerator : MonoBehaviour
             // Update spacing values based on new difficulty
             minYSpacing = Mathf.Lerp(minY, minYAtMaxDifficulty, currentDifficulty);
             maxYSpacing = Mathf.Lerp(maxY, maxYAtMaxDifficulty, currentDifficulty);
+
+            // --- Constrain Max Y Spacing if Last Platform Was Breakable ---
+            float currentMaxY = maxYSpacing;
+            if (lastPlatformWasBreakable)
+            {
+                // Ensure the next platform is reachable after a break - Use 80% of max jump height for a safer gap
+                float safeMaxJump = playerMaxJumpHeight * 0.8f; // Reduced from 0.9f
+                currentMaxY = Mathf.Min(maxYSpacing, safeMaxJump); 
+                if (enableDebugLogs) Debug.Log($"[LevelGenerator] Constraining max Y spacing to {currentMaxY} (80% of jump height {playerMaxJumpHeight}) after breakable platform.");
+            }
+            // --- End Constraint ---
             
-            spawnPosition.y += Random.Range(minYSpacing, maxYSpacing);
+            spawnPosition.y += Random.Range(minYSpacing, currentMaxY); // Use potentially constrained currentMaxY
             spawnPosition.x = Random.Range(-levelWidth, levelWidth);
             
-            SpawnPlatform(spawnPosition, currentDifficulty);
+            // SpawnPlatform will handle setting lastPlatformWasBreakable for the *next* iteration
+            SpawnPlatform(spawnPosition, currentDifficulty); 
             
             if (enableDebugLogs) 
             {

@@ -355,13 +355,13 @@ public class EnemyController : MonoBehaviour
         // Start blink and destroy coroutine
         StartCoroutine(BlinkAndDestroy());
         
-        // Add 10 points to the score when enemy is defeated
+        // Add 100 points to the score when enemy is defeated
         if (GameManager.Instance != null)
         {
-            // Add 10 points to the score
-            GameManager.Instance.AddScore(10);
+            // Add 100 points to the score
+            GameManager.Instance.AddScore(100);
             
-            if (debugMode) Debug.Log("Player earned 10 points for defeating an enemy!");
+            if (debugMode) Debug.Log("Player earned 100 points for defeating an enemy!");
         }
     }
     

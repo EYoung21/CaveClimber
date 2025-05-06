@@ -25,7 +25,13 @@ public class GameplayMusicPlayer : MonoBehaviour
     private AudioSource audioSource;
     private List<int> availableTrackIndices;
     private int currentTrackIndex = -1;
-    private Coroutine fadeCoroutine;
+    private bool isFading = false;
+
+    // --- Added: Coroutine References ---
+    private Coroutine fadeInCoroutine = null;
+    private Coroutine fadeOutCoroutine = null;
+    private Coroutine fadeAndPlayNextCoroutine = null;
+    // --- End Added ---
 
     void Awake()
     {
@@ -68,6 +74,29 @@ public class GameplayMusicPlayer : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"Scene Loaded: {scene.name}");
+
+        // --- Added: Stop existing fades on scene load ---
+        if (fadeInCoroutine != null)
+        {
+            StopCoroutine(fadeInCoroutine);
+            fadeInCoroutine = null;
+            Debug.Log("Stopped existing FadeIn coroutine on scene load.");
+        }
+        if (fadeOutCoroutine != null)
+        {
+            StopCoroutine(fadeOutCoroutine);
+            fadeOutCoroutine = null;
+            Debug.Log("Stopped existing FadeOut coroutine on scene load.");
+        }
+        if (fadeAndPlayNextCoroutine != null)
+        {
+            StopCoroutine(fadeAndPlayNextCoroutine);
+            fadeAndPlayNextCoroutine = null;
+            Debug.Log("Stopped existing FadeAndPlayNextTrack coroutine on scene load.");
+        }
+        isFading = false; // Ensure fading flag is reset
+        // --- End Added ---
+
         // Check if the loaded scene is the designated gameplay scene
         if (scene.name == gameplaySceneName)
         {
@@ -107,8 +136,37 @@ public class GameplayMusicPlayer : MonoBehaviour
         }
     }
 
+    void Update() // Need Update to check if track finished when not looping
+    {
+        if (audioSource == null || audioSource.clip == null || isFading || fadeAndPlayNextCoroutine != null)
+        {
+            // Don't check for track end if source/clip is invalid, currently fading, 
+            // or already in the process of starting the next track.
+            return; 
+        }
+
+        // Check if the track has finished playing (or is very close to finishing)
+        // Use !isPlaying as the primary check, but add a time check as a fallback for edge cases.
+        bool nearEndOfClip = audioSource.time >= audioSource.clip.length - 0.1f;
+        if (!audioSource.isPlaying || nearEndOfClip) 
+        {
+            // Ensure we don't trigger this *just* after starting playback
+            // Check if time is significant enough OR if near end explicitly
+            if (audioSource.time > 0.1f || nearEndOfClip) 
+            {
+                Debug.Log($"Track {audioSource.clip.name} finished or ending. isPlaying={audioSource.isPlaying}, time={audioSource.time}, length={audioSource.clip.length}. Starting next track sequence.");
+                fadeAndPlayNextCoroutine = StartCoroutine(FadeAndPlayNextTrack());
+            }
+        }
+    }
+
     void PlayRandomTrack(bool fadeIn = false)
     {
+        if (isFading) // Don't start a new track if currently fading
+        {
+            Debug.LogWarning("PlayRandomTrack called while fading, ignoring.");
+            return;
+        }
         if (availableTrackIndices == null || gameplayMusicTracks == null || gameplayMusicTracks.Length == 0)
         {
             InitializeAvailableTracks(); 
@@ -153,7 +211,9 @@ public class GameplayMusicPlayer : MonoBehaviour
 
             if (fadeIn)
             {
-                StartCoroutine(FadeIn());
+                // Stop existing fade just in case, before starting new one
+                if (fadeInCoroutine != null) StopCoroutine(fadeInCoroutine);
+                fadeInCoroutine = StartCoroutine(FadeIn());
             }
         } else {
             Debug.LogError($"GameplayMusicPlayer: Invalid track index selected: {currentTrackIndex}", this);
@@ -164,16 +224,31 @@ public class GameplayMusicPlayer : MonoBehaviour
 
     IEnumerator FadeAndPlayNextTrack()
     {
+        if (isFading) yield break; // Exit if already fading
+        isFading = true; // Set fading flag
+        
         Debug.Log("Starting fade out...");
-        yield return StartCoroutine(FadeOut());
+        // Stop existing fade out just in case
+        if (fadeOutCoroutine != null) StopCoroutine(fadeOutCoroutine);
+        fadeOutCoroutine = StartCoroutine(FadeOut());
+        yield return fadeOutCoroutine; // Wait for fade out to complete
+        fadeOutCoroutine = null; // Clear reference
         Debug.Log("Fade out complete. Playing next track...");
-        PlayRandomTrack(true); // Play next track with fade in
-        fadeCoroutine = null; // Reset coroutine flag
+        
+        // Reset fading flag *before* starting the next track which might fade in
+        isFading = false; // <<<< RESET FLAG HERE
+
+        PlayRandomTrack(true); // Play next track with fade in (this will start FadeIn coroutine)
+        
+        // isFading will be set to true again by FadeIn coroutine
+        fadeAndPlayNextCoroutine = null; // Allow this coroutine to run again later
     }
 
     IEnumerator FadeOut()
     {
-        float startVolume = audioSource.volume; // Use current volume
+        // isFading = true; // Flag is set by caller (FadeAndPlayNextTrack)
+        
+        float startVolume = audioSource.volume; 
         float timer = 0f;
 
         while (timer < fadeDuration)
@@ -184,10 +259,16 @@ public class GameplayMusicPlayer : MonoBehaviour
         }
         audioSource.volume = 0f;
         audioSource.Stop(); // Stop playback after fading out
+        
+        // isFading = false; // Let the caller handle overall state
+        // fadeOutCoroutine reference is cleared by caller after yield return
     }
 
     IEnumerator FadeIn()
     {
+        // if (isFading) yield break; // Redundant check, handled by PlayRandomTrack
+        isFading = true; // Ensure flag is set during fade in
+        
         float timer = 0f;
         // Ensure playback is started before fading in volume
         if (!audioSource.isPlaying)
@@ -205,5 +286,8 @@ public class GameplayMusicPlayer : MonoBehaviour
         }
         audioSource.volume = musicVolume;
          Debug.Log("Fade in complete.");
+        
+        isFading = false; // Reset fading flag *after* fade in is complete
+        fadeInCoroutine = null; // Clear reference
     }
 } 

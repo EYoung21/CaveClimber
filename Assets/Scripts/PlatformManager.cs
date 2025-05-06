@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq; // Needed for LINQ queries
 
 public class PlatformManager : MonoBehaviour
 {
@@ -13,10 +14,16 @@ public class PlatformManager : MonoBehaviour
         public bool isBreaking = false; // Is this a breaking platform?
         public bool isMoving = false; // Is this a moving platform?
         public bool isSingleUse = false; // Is this a single-use jump platform?
+        public float minDifficulty = 0f;
+        public float maxDifficulty = 1f;
+        public float maxSpawnWeight = 1f;
     }
     
     [Header("Platform Types")]
     public PlatformType[] platformTypes;
+    
+    [Tooltip("Default platform prefab used if no suitable platform is found.")]
+    public GameObject defaultPlatformPrefab; // Make sure this is public or accessible
     
     [Header("Moving Platform Settings")]
     public float minMovingPlatformSpeed = 1.5f;
@@ -41,6 +48,10 @@ public class PlatformManager : MonoBehaviour
     private List<PlatformType> breakingPlatforms = new List<PlatformType>();
     private List<PlatformType> movingPlatforms = new List<PlatformType>();
     private List<PlatformType> singleUsePlatforms = new List<PlatformType>();
+    
+    // Cache lists for performance (Ensure these are fields of the class)
+    private List<PlatformType> availablePlatforms = new List<PlatformType>(); 
+    private float totalWeight = 0f;
     
     private void Start()
     {
@@ -401,5 +412,65 @@ public class PlatformManager : MonoBehaviour
         }
         
          if (enableDebugLogs) Debug.Log($"[PlatformManager] MovePlatformRigidbody coroutine ended for {platform.name}", platform);
+    }
+
+    // Method to get a non-breakable platform based on difficulty
+    public GameObject GetNonBreakablePlatform(float currentDifficulty)
+    {
+        // Use the class fields directly
+        this.availablePlatforms.Clear();
+        this.totalWeight = 0f;
+
+        // Filter platforms based on difficulty range AND check if breakable
+        foreach (var platformData in this.platformTypes) // Use class field
+        {
+            // Skip if prefab is null OR if it IS breakable
+            if (platformData.prefab == null || platformData.isBreaking) // Check the flag
+            {
+                continue; // Skip this entry
+            }
+
+            // Check if within difficulty range
+            if (currentDifficulty >= platformData.minDifficulty)
+            {
+                this.availablePlatforms.Add(platformData);
+                // Calculate current weight based on difficulty lerp
+                float currentWeight = Mathf.Lerp(0f, platformData.maxSpawnWeight, Mathf.InverseLerp(platformData.minDifficulty, platformData.maxDifficulty, currentDifficulty));
+                this.totalWeight += currentWeight; 
+            }
+        }
+
+        // Select platform based on weighted random chance (from the filtered non-breakable list)
+        if (this.availablePlatforms.Count > 0 && this.totalWeight > 0)
+        {
+            float randomValue = Random.Range(0f, this.totalWeight);
+            float cumulativeWeight = 0f;
+
+            foreach (var platformData in this.availablePlatforms) // Iterate through the filtered list
+            {
+                float currentWeight = Mathf.Lerp(0f, platformData.maxSpawnWeight, Mathf.InverseLerp(platformData.minDifficulty, platformData.maxDifficulty, currentDifficulty));
+                cumulativeWeight += currentWeight;
+                if (randomValue <= cumulativeWeight)
+                { 
+                    return platformData.prefab;
+                }
+            }
+        }
+        
+        // Fallback to default prefab IF IT IS NOT BREAKABLE, otherwise return null
+        // Need to find the PlatformType corresponding to the default prefab to check its 'isBreaking' flag
+        PlatformType defaultType = System.Array.Find(this.platformTypes, pt => pt.prefab == this.defaultPlatformPrefab); 
+        bool isDefaultBreakable = (defaultType != null) ? defaultType.isBreaking : (this.defaultPlatformPrefab != null && this.defaultPlatformPrefab.GetComponent<BreakingPlatform>() != null); // Check flag or component as ultimate fallback
+
+        if (this.defaultPlatformPrefab != null && !isDefaultBreakable)
+        {
+             Debug.LogWarning($"[PlatformManager] No suitable NON-BREAKABLE platform found for difficulty {currentDifficulty}. Returning default.");
+             return this.defaultPlatformPrefab; 
+        }
+        else
+        {
+             Debug.LogError($"[PlatformManager] No suitable NON-BREAKABLE platform found for difficulty {currentDifficulty} AND default prefab is breakable or null! Returning null.");
+             return null; // Critical fallback failure
+        }
     }
 } 

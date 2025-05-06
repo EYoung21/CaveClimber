@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     private float debugTimer = 0f;
     
     private CameraFollow cameraFollow; // Reference to the camera follow script
-    private bool hasStartedGameplay = false; // Track if player has landed or bounced on enemy at least once
+    public bool hasStartedGameplay = false; // Track if player has landed or bounced on enemy at least once (MADE PUBLIC)
     
     // Attack state
     private bool isAttacking = false;
@@ -384,9 +384,9 @@ public class PlayerController : MonoBehaviour
         }
         
         // Attack Input Check
-        if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time >= lastAttackTime + attackCooldown && !isAttacking)
         {
-            if(showDebugLogs) Debug.Log("Attack input detected in Update!");
+            if(showDebugLogs) Debug.Log("Attack input (Spacebar) detected in Update!");
             StartCoroutine(Attack());
         }
         
@@ -627,22 +627,34 @@ public class PlayerController : MonoBehaviour
     private void HandleCavemanCollision(Collision2D collision, EnemyController enemy)
     {
         bool bouncedOnHead = false;
-        
-        // --- Add velocity check: Only consider head bounce if player is moving downwards --- 
-        if (rb.linearVelocity.y < -0.1f) 
+        bool playerMovingUpwardSignificantly = rb.linearVelocity.y > 0.1f; // Lowered threshold from 0.5f
+
+        // Check collision points first
+        for (int i = 0; i < collision.contactCount; i++)
         {
-            foreach (ContactPoint2D contact in collision.contacts)
+            ContactPoint2D contact = collision.GetContact(i);
+            // --- DEBUG: Log contact normal --- 
+            if (showDebugLogs) Debug.Log($"[HandleCavemanCollision] Contact {i}: Point={contact.point}, Normal={contact.normal}");
+            // --- END DEBUG ---
+
+            // Check if player hit the top of the enemy (normal pointing sufficiently downward from player's perspective)
+            if (contact.normal.y < -0.4f) // Relaxed threshold from -0.5f
             {
-                // Check if player hit the top of the enemy (normal pointing down from player's perspective)
-                if (contact.normal.y < -0.5f) 
+                // If contact is on top AND player isn't already jumping upwards strongly, count it as a bounce
+                if (!playerMovingUpwardSignificantly)
                 {
                     bouncedOnHead = true;
-                    break;
+                    if (showDebugLogs) Debug.Log($"[HandleCavemanCollision] Contact normal {contact.normal} PASSED check (< -0.4). Player velocity Y: {rb.linearVelocity.y}. BouncedOnHead = true");
+                    break; // Found a valid bounce contact
+                }
+                else
+                {
+                    if (showDebugLogs) Debug.Log($"[HandleCavemanCollision] Contact normal {contact.normal} PASSED check (< -0.4), but player moving upward ({rb.linearVelocity.y} > 0.1). Ignoring as bounce."); // Updated log message
                 }
             }
         }
-        // --- End velocity check ---
 
+        // --- Process collision outcome ---
         if (bouncedOnHead)
         {
            // Apply bounce force
@@ -652,33 +664,40 @@ public class PlayerController : MonoBehaviour
            if (showDebugLogs) Debug.Log($"Player bounced on head of {enemy.name}");
            
            // Play Jump Sound
-           PlayRandomJumpSound();
+           if (showDebugLogs) Debug.Log("[HandleCavemanCollision] Attempting to play jump sound..."); // <<< DEBUG LOG
+           PlayRandomJumpSound(); // Added sound call
+           if (showDebugLogs) Debug.Log("[HandleCavemanCollision] PlayRandomJumpSound() called."); // <<< DEBUG LOG
            
            // Damage the enemy
-           enemy.TakeDamage(); 
-           
-           // Trigger camera follow on first bounce if not already started
-           if (!hasStartedGameplay)
-           {
-               hasStartedGameplay = true;
-               if (cameraFollow != null)
-               {
-                   cameraFollow.StartFollowing();
-               }
-               if (showDebugLogs) Debug.Log("Player bounced on enemy head for the first time, starting camera follow.");
-           }
+           enemy.TakeDamage();
         }
-        else
+        else // If not a head bounce
         {
-           // Player hit the side - apply knockback to player
+           // Player hit the side or bounced while moving up - apply knockback to player
            Vector2 knockbackDirection = (transform.position - enemy.transform.position).normalized;
            knockbackDirection.y = Mathf.Max(knockbackDirection.y, 0.1f); // Ensure a little upward knockback
            rb.AddForce(knockbackDirection * 5f, ForceMode2D.Impulse); // Adjust force as needed
-           if (showDebugLogs) Debug.Log($"Player hit side of {enemy.name}, applying knockback.");
-           
+           if (showDebugLogs) Debug.Log($"Player hit side of {enemy.name} or bounced while moving up, applying knockback.");
+
            // Optional: Trigger game over or player damage here if desired
            // gameManager?.GameOver(); 
         }
+
+        // --- Start Camera Follow on ANY Caveman Collision (if not started) --- 
+        if (!hasStartedGameplay)
+        {   
+            if (showDebugLogs) Debug.Log($"[HandleCavemanCollision] First enemy collision (Bounced={bouncedOnHead}). Starting camera follow.");
+            hasStartedGameplay = true; 
+            if (cameraFollow != null)
+            {   
+                cameraFollow.StartFollowing(); 
+            }
+            else if(showDebugLogs) 
+            { 
+                Debug.LogWarning("[HandleCavemanCollision] cameraFollow is null, cannot start following!");
+            }
+        }
+        // --- End Camera Follow Logic ---
     }
 
     // Separate method for handling Bat collision
@@ -1052,7 +1071,7 @@ public class PlayerController : MonoBehaviour
     }
     
     // Deactivate the speed boost effect
-    private void DeactivateSpeedBoost()
+    public void DeactivateSpeedBoost()
     {
         // Reset movement speed to default
         movementSpeed = defaultMovementSpeed;

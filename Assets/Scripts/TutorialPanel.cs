@@ -28,8 +28,8 @@ public class TutorialPanel : MonoBehaviour
         // --- FORCE THE CORRECT TEXT IN AWAKE --- 
         string forcedContent = "HOW TO PLAY\n\n" +
                                "CONTROLS:\n" +
-                               "- A/D: Move left and right\n" +
-                               "- Left Click: Attack enemies";
+                               "- A/D or Left/Right Arrows: Move\n" +
+                               "- Spacebar: Attack enemies";
         
         Debug.Log($"[TutorialPanel] Awake() called. Initial tutorialContent variable: '{tutorialContent}'");
         Debug.Log($"[TutorialPanel] Forcing content in Awake to: '{forcedContent}'");

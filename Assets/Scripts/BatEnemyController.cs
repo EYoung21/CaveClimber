@@ -5,6 +5,14 @@ public class BatEnemyController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
+    private float originalMoveSpeed; // To store the original speed
+
+    [Header("Collision Handling")]
+    // public LayerMask groundLayer; // Removed - Handled by BatCollisionIgnorer script
+
+    [Header("Visuals")]
+    public Color slowEffectColor = Color.blue; // Tint when slowed
+    private Color originalSpriteColor; // To store the original color
 
     [Header("Animation (Optional)")]
     public Sprite[] flyingAnimation;
@@ -27,16 +35,26 @@ public class BatEnemyController : MonoBehaviour
     private float animationTimer;
     private int currentFrame;
 
+    private Collider2D batCollider;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        // Ensure bat is kinematic and not affected by gravity
-        rb.isKinematic = true;
+        batCollider = GetComponent<Collider2D>();
+        
+        // Apply frictionless physics
+        ApplyFrictionlessPhysics();
+        
+        // Ensure bat is Dynamic and not affected by gravity
+        rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 0;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         // Ensure collider is NOT a trigger for physics interaction
-        GetComponent<Collider2D>().isTrigger = false;
+        if (batCollider != null) batCollider.isTrigger = false;
+        else Debug.LogError("BatEnemyController: Missing Collider2D!");
 
         // Get screen bounds
         if (Camera.main != null)
@@ -47,6 +65,11 @@ public class BatEnemyController : MonoBehaviour
             screenHalfWidth = 10f; // Fallback
         }
         batHalfWidth = spriteRenderer != null ? spriteRenderer.bounds.extents.x : 0.5f;
+        originalMoveSpeed = moveSpeed; // Store original speed
+        if (spriteRenderer != null) 
+        {
+             originalSpriteColor = spriteRenderer.color; // Store original color
+        }
     }
 
     // Called by LevelGenerator to set starting position and direction
@@ -85,6 +108,14 @@ public class BatEnemyController : MonoBehaviour
         
         initialized = true;
         Debug.Log($"Bat initialized. Direction: {moveDirection} at {transform.position} with scale {transform.localScale.x}");
+
+        // --- Check if Slow Powerup is Active --- 
+        if (PowerUpManager.Instance != null && PowerUpManager.Instance.ActivePowerUp == PowerUpType.Slow)
+        {
+            SetSlowEffect(true); // Apply slow effect immediately if active
+            Debug.Log($"Bat spawned while slow effect active, applying immediately.");
+        }
+        // --- End Check ---
 
         // --- Play Spawn Sound --- 
         if (spawnSounds != null && spawnSounds.Length > 0)
@@ -137,6 +168,31 @@ public class BatEnemyController : MonoBehaviour
         }
     }
 
+    private void ApplyFrictionlessPhysics()
+    {
+        if (batCollider != null)
+        {
+            PhysicsMaterial2D frictionlessMaterial = new PhysicsMaterial2D("BatFrictionless");
+            frictionlessMaterial.friction = 0f;
+            frictionlessMaterial.bounciness = 0.1f;
+            
+            batCollider.sharedMaterial = frictionlessMaterial;
+            
+            Debug.Log($"Applied frictionless material to {gameObject.name}");
+            
+            if (rb != null)
+            {
+                rb.sharedMaterial = frictionlessMaterial;
+                rb.linearDamping = 0f;
+                rb.angularDamping = 0f;
+            }
+        }
+        else
+        {
+             Debug.LogError($"Cannot apply frictionless physics to {gameObject.name}: Collider not found!");
+        }
+    }
+
     // Renamed from OnTriggerEnter2D to handle physics collisions
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -156,6 +212,17 @@ public class BatEnemyController : MonoBehaviour
                 playerRb.AddForce(knockbackDirection * 2f, ForceMode2D.Impulse); // Small extra force
             }
         }
+        // --- REMOVED: Ground collision check is now handled by BatCollisionIgnorer ---
+        // else if (((1 << collision.gameObject.layer) & groundLayer) != 0) 
+        // {
+        //     // If collided with ground, ignore collision with this specific platform
+        //     if (batCollider != null && collision.collider != null)
+        //     {
+        //         Physics2D.IgnoreCollision(batCollider, collision.collider, true);
+        //         // Debug.Log($"Bat {gameObject.name} ignoring collision with platform {collision.gameObject.name}");
+        //     }
+        // }
+        // --- END REMOVAL ---
     }
     
     // Method called by PlayerController attack
@@ -180,10 +247,38 @@ public class BatEnemyController : MonoBehaviour
         // Optional: Add score for killing bat
         if (GameManager.Instance != null)
         { 
-             GameManager.Instance.AddScore(5); // e.g., 5 points for a bat
+             GameManager.Instance.AddScore(200); // Changed from 5 to 200 (20 * 10)
         }
 
         // Destroy the bat object immediately
         Destroy(gameObject);
     }
+    
+    // --- ADDED: Method to handle slow effect --- 
+    public void SetSlowEffect(bool isSlowed)
+    {
+        if (isSlowed)
+        {
+            moveSpeed = originalMoveSpeed / 2f; // Example: Halve the speed
+            if (spriteRenderer != null)
+            {
+                // Apply blue tint
+                spriteRenderer.color = new Color(slowEffectColor.r * 0.8f + 0.2f, 
+                                                 slowEffectColor.g * 0.8f + 0.2f, 
+                                                 slowEffectColor.b * 0.8f + 0.2f, 
+                                                 1.0f);
+            }
+            // Debug.Log($"Bat {gameObject.name} slowed down to {moveSpeed}");
+        }
+        else
+        {
+            moveSpeed = originalMoveSpeed; // Restore original speed
+            if (spriteRenderer != null)
+            {
+                 spriteRenderer.color = originalSpriteColor; // Restore original color
+            }
+            // Debug.Log($"Bat {gameObject.name} speed restored to {moveSpeed}");
+        }
+    }
+    // --- END ADDITION ---
 } 
