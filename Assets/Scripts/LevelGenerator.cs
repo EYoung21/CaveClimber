@@ -365,10 +365,10 @@ public class LevelGenerator : MonoBehaviour
             float currentMaxY = maxYSpacing;
             if (lastPlatformWasBreakable)
             {
-                // Ensure the next platform is reachable after a break - Use 80% of max jump height for a safer gap
-                float safeMaxJump = playerMaxJumpHeight * 0.8f; // Reduced from 0.9f
+                // Ensure the next platform is reachable after a break - Use 50% of max jump height for a safer gap
+                float safeMaxJump = playerMaxJumpHeight * 0.5f; // Reduced from 0.6f to 0.5f
                 currentMaxY = Mathf.Min(maxYSpacing, safeMaxJump); 
-                if (enableDebugLogs) Debug.Log($"[LevelGenerator] Constraining max Y spacing to {currentMaxY} (80% of jump height {playerMaxJumpHeight}) after breakable platform.");
+                if (enableDebugLogs) Debug.Log($"[LevelGenerator] Constraining max Y spacing to {currentMaxY} (50% of jump height {playerMaxJumpHeight}) after breakable platform.");
             }
             // --- End Constraint ---
             
